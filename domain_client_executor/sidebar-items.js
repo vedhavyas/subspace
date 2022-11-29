@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["CoreExecutor","The implementation of the Domain `Executor`."],["SystemExecutor","The implementation of the Domain `Executor`."]]};
