@@ -1060,10 +1060,6 @@
 <a href="#1060" id="1060">1060</a>
 <a href="#1061" id="1061">1061</a>
 <a href="#1062" id="1062">1062</a>
-<a href="#1063" id="1063">1063</a>
-<a href="#1064" id="1064">1064</a>
-<a href="#1065" id="1065">1065</a>
-<a href="#1066" id="1066">1066</a>
 </pre><pre class="rust"><code><span class="comment">// Copyright (C) 2021 Subspace Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -1127,9 +1123,7 @@
     <span class="kw">use </span>sp_domain_tracker::CoreDomainTracker;
     <span class="kw">use </span>sp_domains::bundle_election::ReadBundleElectionParamsError;
     <span class="kw">use </span>sp_domains::fraud_proof::{BundleEquivocationProof, FraudProof, InvalidTransactionProof};
-    <span class="kw">use </span>sp_domains::{
-        DomainId, ExecutionReceipt, ExecutorPublicKey, InvalidTransactionCode, SignedOpaqueBundle,
-    };
+    <span class="kw">use </span>sp_domains::{DomainId, ExecutionReceipt, InvalidTransactionCode, SignedOpaqueBundle};
     <span class="kw">use </span>sp_executor_registry::ExecutorRegistry;
     <span class="kw">use </span>sp_runtime::traits::{AtLeast32BitUnsigned, MaybeSerializeDeserialize, One};
     <span class="kw">use </span>sp_runtime::{FixedPointOperand, Percent};
@@ -1449,11 +1443,6 @@
                 </span>}
             }
 
-            <span class="self">Self</span>::deposit_event(Event::CoreBundleStored {
-                bundle_hash: signed_opaque_bundle.hash(),
-                bundle_author: signed_opaque_bundle.proof_of_election.executor_public_key,
-            });
-
             <span class="prelude-val">Ok</span>(())
         }
 
@@ -1609,6 +1598,9 @@
 
         <span class="doccomment">/// Invalid core domain state root.
         </span>BadStateRoot,
+
+        <span class="doccomment">/// Not a core domain bundle.
+        </span>NotCoreDomainBundle,
     }
 
     <span class="attr">#[pallet::event]
@@ -1642,12 +1634,8 @@
             domain_id: DomainId,
         },
 
-        CoreBundleStored {
-            bundle_hash: H256,
-            bundle_author: ExecutorPublicKey,
-        },
-
         NewCoreDomainReceipt {
+            domain_id: DomainId,
             primary_number: T::BlockNumber,
             primary_hash: T::Hash,
         },
@@ -1678,13 +1666,14 @@
         <span class="kw">fn </span>pre_dispatch(call: <span class="kw-2">&amp;</span><span class="self">Self</span>::Call) -&gt; <span class="prelude-ty">Result</span>&lt;(), TransactionValidityError&gt; {
             <span class="kw">match </span>call {
                 Call::submit_core_bundle {
-                    signed_opaque_bundle
-                } =&gt; {
-                    <span class="self">Self</span>::pre_dispatch_submit_core_bundle(signed_opaque_bundle).map_err(|e| {
-                        <span class="macro">log::error!</span>(target: <span class="string">&quot;runtime::subspace::executor&quot;</span>, <span class="string">&quot;Invalid core bundle: {e:?}&quot;</span>);
-                        TransactionValidityError::Invalid(InvalidTransactionCode::Bundle.into())
-                    })
-                }
+                    signed_opaque_bundle,
+                } =&gt; <span class="self">Self</span>::pre_dispatch_submit_core_bundle(signed_opaque_bundle).map_err(|e| {
+                    <span class="macro">log::error!</span>(
+                        target: <span class="string">&quot;runtime::domain-registry&quot;</span>,
+                        <span class="string">&quot;Bad core bundle: {signed_opaque_bundle:?}, error: {e:?}&quot;</span>,
+                    );
+                    TransactionValidityError::Invalid(InvalidTransactionCode::Bundle.into())
+                }),
                 Call::submit_fraud_proof { .. } =&gt; <span class="prelude-val">Ok</span>(()),
                 Call::submit_bundle_equivocation_proof { .. } =&gt; <span class="prelude-val">Ok</span>(()),
                 Call::submit_invalid_transaction_proof { .. } =&gt; <span class="prelude-val">Ok</span>(()),
@@ -1697,9 +1686,8 @@
                 Call::submit_fraud_proof { fraud_proof } =&gt; {
                     <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = <span class="self">Self</span>::validate_fraud_proof(fraud_proof) {
                         <span class="macro">log::error!</span>(
-                            target: <span class="string">&quot;runtime::subspace::executor&quot;</span>,
-                            <span class="string">&quot;Invalid fraud proof: {:?}, error: {:?}&quot;</span>,
-                            fraud_proof, e
+                            target: <span class="string">&quot;runtime::domain-registry&quot;</span>,
+                            <span class="string">&quot;Bad fraud proof: {fraud_proof:?}, error: {e:?}&quot;</span>,
                         );
                         <span class="kw">return </span>InvalidTransactionCode::FraudProof.into();
                     }
@@ -1714,9 +1702,8 @@
                         <span class="self">Self</span>::validate_bundle_equivocation_proof(bundle_equivocation_proof)
                     {
                         <span class="macro">log::error!</span>(
-                            target: <span class="string">&quot;runtime::subspace::executor&quot;</span>,
-                            <span class="string">&quot;Invalid bundle equivocation proof: {:?}, error: {:?}&quot;</span>,
-                            bundle_equivocation_proof, e
+                            target: <span class="string">&quot;runtime::domain-registry&quot;</span>,
+                            <span class="string">&quot;Bad bundle equivocation proof: {bundle_equivocation_proof:?}, error: {e:?}&quot;</span>,
                         );
                         <span class="kw">return </span>InvalidTransactionCode::BundleEquivicationProof.into();
                     }
@@ -1733,9 +1720,8 @@
                         <span class="self">Self</span>::validate_invalid_transaction_proof(invalid_transaction_proof)
                     {
                         <span class="macro">log::error!</span>(
-                            target: <span class="string">&quot;runtime::subspace::executor&quot;</span>,
-                            <span class="string">&quot;Wrong InvalidTransactionProof: {:?}, error: {:?}&quot;</span>,
-                            invalid_transaction_proof, e
+                            target: <span class="string">&quot;runtime::domain-registry&quot;</span>,
+                            <span class="string">&quot;Bad invalid transaction proof: {invalid_transaction_proof:?}, error: {e:?}&quot;</span>,
                         );
                         <span class="kw">return </span>InvalidTransactionCode::TrasactionProof.into();
                     }
@@ -1842,6 +1828,10 @@
             core_state_root,
             ..
         } = <span class="kw-2">&amp;</span>signed_opaque_bundle.proof_of_election;
+
+        <span class="kw">if </span>!domain_id.is_core() {
+            <span class="kw">return </span><span class="prelude-val">Err</span>(Error::&lt;T&gt;::NotCoreDomainBundle);
+        }
 
         <span class="kw">let </span>core_block_number =
             T::BlockNumber::from(core_block_number.ok_or(Error::&lt;T&gt;::CoreBlockInfoNotFound)<span class="question-mark">?</span>);
@@ -2093,6 +2083,7 @@
         */
 
         </span><span class="self">Self</span>::deposit_event(Event::NewCoreDomainReceipt {
+            domain_id,
             primary_number,
             primary_hash,
         });
@@ -2121,6 +2112,7 @@
                 );
             }
             <span class="self">Self</span>::deposit_event(Event::NewCoreDomainReceipt {
+                domain_id,
                 primary_number,
                 primary_hash,
             });
