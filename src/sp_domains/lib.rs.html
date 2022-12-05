@@ -416,8 +416,6 @@
 <a href="#416" id="416">416</a>
 <a href="#417" id="417">417</a>
 <a href="#418" id="418">418</a>
-<a href="#419" id="419">419</a>
-<a href="#420" id="420">420</a>
 </pre><pre class="rust"><code><span class="comment">// Copyright (C) 2021 Subspace Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -439,6 +437,7 @@
 
 </span><span class="kw">pub mod </span>bundle_election;
 <span class="kw">pub mod </span>fraud_proof;
+<span class="kw">pub mod </span>transaction;
 
 <span class="kw">use </span><span class="kw">crate</span>::fraud_proof::{BundleEquivocationProof, FraudProof, InvalidTransactionProof};
 <span class="kw">use </span>parity_scale_codec::{Decode, Encode};
@@ -447,7 +446,6 @@
 <span class="kw">use </span>sp_core::crypto::KeyTypeId;
 <span class="kw">use </span>sp_core::H256;
 <span class="kw">use </span>sp_runtime::traits::{BlakeTwo256, Block <span class="kw">as </span>BlockT, Hash <span class="kw">as </span>HashT, NumberFor};
-<span class="kw">use </span>sp_runtime::transaction_validity::{InvalidTransaction, TransactionValidity};
 <span class="kw">use </span>sp_runtime::OpaqueExtrinsic;
 <span class="kw">use </span>sp_std::borrow::Cow;
 <span class="kw">use </span>sp_std::vec::Vec;
@@ -579,28 +577,6 @@
     </span><span class="kw">pub </span>min_operator_stake: Balance,
 }
 
-<span class="doccomment">/// Custom invalid validity code for the extrinsics in pallet-executor.
-</span><span class="attr">#[repr(u8)]
-</span><span class="kw">pub enum </span>InvalidTransactionCode {
-    BundleEquivicationProof = <span class="number">101</span>,
-    TrasactionProof = <span class="number">102</span>,
-    ExecutionReceipt = <span class="number">103</span>,
-    Bundle = <span class="number">104</span>,
-    FraudProof = <span class="number">105</span>,
-}
-
-<span class="kw">impl </span>From&lt;InvalidTransactionCode&gt; <span class="kw">for </span>InvalidTransaction {
-    <span class="kw">fn </span>from(invalid_code: InvalidTransactionCode) -&gt; <span class="self">Self </span>{
-        InvalidTransaction::Custom(invalid_code <span class="kw">as </span>u8)
-    }
-}
-
-<span class="kw">impl </span>From&lt;InvalidTransactionCode&gt; <span class="kw">for </span>TransactionValidity {
-    <span class="kw">fn </span>from(invalid_code: InvalidTransactionCode) -&gt; <span class="self">Self </span>{
-        InvalidTransaction::Custom(invalid_code <span class="kw">as </span>u8).into()
-    }
-}
-
 <span class="doccomment">/// Header of transaction bundle.
 </span><span class="attr">#[derive(Debug, Decode, Encode, TypeInfo, PartialEq, Eq, Clone)]
 </span><span class="kw">pub struct </span>BundleHeader&lt;Hash&gt; {
@@ -639,12 +615,6 @@
     </span><span class="kw">pub </span>block_number: BlockNumber,
     <span class="doccomment">/// Block hash corresponding to the `block_number` above.
     </span><span class="kw">pub </span>block_hash: DomainHash,
-    <span class="doccomment">/// Number of the core domain block at which the proof of election was created.
-    </span><span class="kw">pub </span>core_block_number: <span class="prelude-ty">Option</span>&lt;BlockNumber&gt;,
-    <span class="doccomment">/// Block hash corresponding to the `core_block_number` above.
-    </span><span class="kw">pub </span>core_block_hash: <span class="prelude-ty">Option</span>&lt;DomainHash&gt;,
-    <span class="doccomment">/// Core domain state root corresponding to the `core_block_hash` above.
-    </span><span class="kw">pub </span>core_state_root: <span class="prelude-ty">Option</span>&lt;DomainHash&gt;,
 }
 
 <span class="kw">impl</span>&lt;DomainHash: Default&gt; ProofOfElection&lt;DomainHash&gt; {
@@ -660,9 +630,35 @@
             storage_proof: StorageProof::empty(),
             block_number: Default::default(),
             block_hash: Default::default(),
-            core_block_number: <span class="prelude-val">None</span>,
-            core_block_hash: <span class="prelude-val">None</span>,
-            core_state_root: <span class="prelude-val">None</span>,
+        }
+    }
+}
+
+<span class="doccomment">/// Domain bundle election solution.
+</span><span class="attr">#[derive(Debug, Decode, Encode, TypeInfo, PartialEq, Eq, Clone)]
+</span><span class="kw">pub enum </span>BundleSolution&lt;DomainHash&gt; {
+    <span class="doccomment">/// System domain bundle election.
+    </span>System(ProofOfElection&lt;DomainHash&gt;),
+    <span class="doccomment">/// Core domain bundle election.
+    </span>Core {
+        <span class="doccomment">/// Proof of election.
+        </span>proof_of_election: ProofOfElection&lt;DomainHash&gt;,
+        <span class="doccomment">/// Number of the core domain block at which the proof of election was created.
+        </span>core_block_number: BlockNumber,
+        <span class="doccomment">/// Block hash corresponding to the `core_block_number` above.
+        </span>core_block_hash: DomainHash,
+        <span class="doccomment">/// Core domain state root corresponding to the `core_block_hash` above.
+        </span>core_state_root: DomainHash,
+    },
+}
+
+<span class="kw">impl</span>&lt;DomainHash&gt; BundleSolution&lt;DomainHash&gt; {
+    <span class="kw">pub fn </span>proof_of_election(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>ProofOfElection&lt;DomainHash&gt; {
+        <span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::System(proof_of_election)
+            | <span class="self">Self</span>::Core {
+                proof_of_election, ..
+            } =&gt; proof_of_election,
         }
     }
 }
@@ -716,8 +712,8 @@
 </span><span class="kw">pub struct </span>SignedBundle&lt;Extrinsic, Number, Hash, DomainHash&gt; {
     <span class="doccomment">/// The bundle header.
     </span><span class="kw">pub </span>bundle: Bundle&lt;Extrinsic, Number, Hash, DomainHash&gt;,
-    <span class="doccomment">/// Proof of bundle election.
-    </span><span class="kw">pub </span>proof_of_election: ProofOfElection&lt;DomainHash&gt;,
+    <span class="doccomment">/// Solution of the bundle election.
+    </span><span class="kw">pub </span>bundle_solution: BundleSolution&lt;DomainHash&gt;,
     <span class="doccomment">/// Signature of the bundle.
     </span><span class="kw">pub </span>signature: ExecutorSignature,
 }
@@ -736,7 +732,7 @@
 
     <span class="doccomment">/// Returns the domain_id of this bundle.
     </span><span class="kw">pub fn </span>domain_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; DomainId {
-        <span class="self">self</span>.proof_of_election.domain_id
+        <span class="self">self</span>.bundle_solution.proof_of_election().domain_id
     }
 }
 
@@ -747,7 +743,7 @@
     </span><span class="kw">pub fn </span>into_signed_opaque_bundle(<span class="self">self</span>) -&gt; SignedOpaqueBundle&lt;Number, Hash, DomainHash&gt; {
         SignedOpaqueBundle {
             bundle: <span class="self">self</span>.bundle.into_opaque_bundle(),
-            proof_of_election: <span class="self">self</span>.proof_of_election,
+            bundle_solution: <span class="self">self</span>.bundle_solution,
             signature: <span class="self">self</span>.signature,
         }
     }
