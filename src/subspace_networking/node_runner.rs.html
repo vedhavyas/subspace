@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/subspace-networking/src/node_runner.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>node_runner.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../subspace_networking/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/subspace-networking/src/node_runner.rs`."><title>node_runner.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="subspace_networking" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../subspace_networking/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -975,66 +975,306 @@
 <a href="#975" id="975">975</a>
 <a href="#976" id="976">976</a>
 <a href="#977" id="977">977</a>
-</pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::behavior::custom_record_store::CustomRecordStore;
-<span class="kw">use </span><span class="kw">crate</span>::behavior::persistent_parameters::NetworkingParametersRegistry;
-<span class="kw">use </span><span class="kw">crate</span>::behavior::{Behavior, Event};
+<a href="#978" id="978">978</a>
+<a href="#979" id="979">979</a>
+<a href="#980" id="980">980</a>
+<a href="#981" id="981">981</a>
+<a href="#982" id="982">982</a>
+<a href="#983" id="983">983</a>
+<a href="#984" id="984">984</a>
+<a href="#985" id="985">985</a>
+<a href="#986" id="986">986</a>
+<a href="#987" id="987">987</a>
+<a href="#988" id="988">988</a>
+<a href="#989" id="989">989</a>
+<a href="#990" id="990">990</a>
+<a href="#991" id="991">991</a>
+<a href="#992" id="992">992</a>
+<a href="#993" id="993">993</a>
+<a href="#994" id="994">994</a>
+<a href="#995" id="995">995</a>
+<a href="#996" id="996">996</a>
+<a href="#997" id="997">997</a>
+<a href="#998" id="998">998</a>
+<a href="#999" id="999">999</a>
+<a href="#1000" id="1000">1000</a>
+<a href="#1001" id="1001">1001</a>
+<a href="#1002" id="1002">1002</a>
+<a href="#1003" id="1003">1003</a>
+<a href="#1004" id="1004">1004</a>
+<a href="#1005" id="1005">1005</a>
+<a href="#1006" id="1006">1006</a>
+<a href="#1007" id="1007">1007</a>
+<a href="#1008" id="1008">1008</a>
+<a href="#1009" id="1009">1009</a>
+<a href="#1010" id="1010">1010</a>
+<a href="#1011" id="1011">1011</a>
+<a href="#1012" id="1012">1012</a>
+<a href="#1013" id="1013">1013</a>
+<a href="#1014" id="1014">1014</a>
+<a href="#1015" id="1015">1015</a>
+<a href="#1016" id="1016">1016</a>
+<a href="#1017" id="1017">1017</a>
+<a href="#1018" id="1018">1018</a>
+<a href="#1019" id="1019">1019</a>
+<a href="#1020" id="1020">1020</a>
+<a href="#1021" id="1021">1021</a>
+<a href="#1022" id="1022">1022</a>
+<a href="#1023" id="1023">1023</a>
+<a href="#1024" id="1024">1024</a>
+<a href="#1025" id="1025">1025</a>
+<a href="#1026" id="1026">1026</a>
+<a href="#1027" id="1027">1027</a>
+<a href="#1028" id="1028">1028</a>
+<a href="#1029" id="1029">1029</a>
+<a href="#1030" id="1030">1030</a>
+<a href="#1031" id="1031">1031</a>
+<a href="#1032" id="1032">1032</a>
+<a href="#1033" id="1033">1033</a>
+<a href="#1034" id="1034">1034</a>
+<a href="#1035" id="1035">1035</a>
+<a href="#1036" id="1036">1036</a>
+<a href="#1037" id="1037">1037</a>
+<a href="#1038" id="1038">1038</a>
+<a href="#1039" id="1039">1039</a>
+<a href="#1040" id="1040">1040</a>
+<a href="#1041" id="1041">1041</a>
+<a href="#1042" id="1042">1042</a>
+<a href="#1043" id="1043">1043</a>
+<a href="#1044" id="1044">1044</a>
+<a href="#1045" id="1045">1045</a>
+<a href="#1046" id="1046">1046</a>
+<a href="#1047" id="1047">1047</a>
+<a href="#1048" id="1048">1048</a>
+<a href="#1049" id="1049">1049</a>
+<a href="#1050" id="1050">1050</a>
+<a href="#1051" id="1051">1051</a>
+<a href="#1052" id="1052">1052</a>
+<a href="#1053" id="1053">1053</a>
+<a href="#1054" id="1054">1054</a>
+<a href="#1055" id="1055">1055</a>
+<a href="#1056" id="1056">1056</a>
+<a href="#1057" id="1057">1057</a>
+<a href="#1058" id="1058">1058</a>
+<a href="#1059" id="1059">1059</a>
+<a href="#1060" id="1060">1060</a>
+<a href="#1061" id="1061">1061</a>
+<a href="#1062" id="1062">1062</a>
+<a href="#1063" id="1063">1063</a>
+<a href="#1064" id="1064">1064</a>
+<a href="#1065" id="1065">1065</a>
+<a href="#1066" id="1066">1066</a>
+<a href="#1067" id="1067">1067</a>
+<a href="#1068" id="1068">1068</a>
+<a href="#1069" id="1069">1069</a>
+<a href="#1070" id="1070">1070</a>
+<a href="#1071" id="1071">1071</a>
+<a href="#1072" id="1072">1072</a>
+<a href="#1073" id="1073">1073</a>
+<a href="#1074" id="1074">1074</a>
+<a href="#1075" id="1075">1075</a>
+<a href="#1076" id="1076">1076</a>
+<a href="#1077" id="1077">1077</a>
+<a href="#1078" id="1078">1078</a>
+<a href="#1079" id="1079">1079</a>
+<a href="#1080" id="1080">1080</a>
+<a href="#1081" id="1081">1081</a>
+<a href="#1082" id="1082">1082</a>
+<a href="#1083" id="1083">1083</a>
+<a href="#1084" id="1084">1084</a>
+<a href="#1085" id="1085">1085</a>
+<a href="#1086" id="1086">1086</a>
+<a href="#1087" id="1087">1087</a>
+<a href="#1088" id="1088">1088</a>
+<a href="#1089" id="1089">1089</a>
+<a href="#1090" id="1090">1090</a>
+<a href="#1091" id="1091">1091</a>
+<a href="#1092" id="1092">1092</a>
+<a href="#1093" id="1093">1093</a>
+<a href="#1094" id="1094">1094</a>
+<a href="#1095" id="1095">1095</a>
+<a href="#1096" id="1096">1096</a>
+<a href="#1097" id="1097">1097</a>
+<a href="#1098" id="1098">1098</a>
+<a href="#1099" id="1099">1099</a>
+<a href="#1100" id="1100">1100</a>
+<a href="#1101" id="1101">1101</a>
+<a href="#1102" id="1102">1102</a>
+<a href="#1103" id="1103">1103</a>
+<a href="#1104" id="1104">1104</a>
+<a href="#1105" id="1105">1105</a>
+<a href="#1106" id="1106">1106</a>
+<a href="#1107" id="1107">1107</a>
+<a href="#1108" id="1108">1108</a>
+<a href="#1109" id="1109">1109</a>
+<a href="#1110" id="1110">1110</a>
+<a href="#1111" id="1111">1111</a>
+<a href="#1112" id="1112">1112</a>
+<a href="#1113" id="1113">1113</a>
+<a href="#1114" id="1114">1114</a>
+<a href="#1115" id="1115">1115</a>
+<a href="#1116" id="1116">1116</a>
+<a href="#1117" id="1117">1117</a>
+<a href="#1118" id="1118">1118</a>
+<a href="#1119" id="1119">1119</a>
+<a href="#1120" id="1120">1120</a>
+<a href="#1121" id="1121">1121</a>
+<a href="#1122" id="1122">1122</a>
+<a href="#1123" id="1123">1123</a>
+<a href="#1124" id="1124">1124</a>
+<a href="#1125" id="1125">1125</a>
+<a href="#1126" id="1126">1126</a>
+<a href="#1127" id="1127">1127</a>
+<a href="#1128" id="1128">1128</a>
+<a href="#1129" id="1129">1129</a>
+<a href="#1130" id="1130">1130</a>
+<a href="#1131" id="1131">1131</a>
+<a href="#1132" id="1132">1132</a>
+<a href="#1133" id="1133">1133</a>
+<a href="#1134" id="1134">1134</a>
+<a href="#1135" id="1135">1135</a>
+<a href="#1136" id="1136">1136</a>
+<a href="#1137" id="1137">1137</a>
+<a href="#1138" id="1138">1138</a>
+<a href="#1139" id="1139">1139</a>
+<a href="#1140" id="1140">1140</a>
+<a href="#1141" id="1141">1141</a>
+<a href="#1142" id="1142">1142</a>
+<a href="#1143" id="1143">1143</a>
+<a href="#1144" id="1144">1144</a>
+<a href="#1145" id="1145">1145</a>
+<a href="#1146" id="1146">1146</a>
+<a href="#1147" id="1147">1147</a>
+<a href="#1148" id="1148">1148</a>
+<a href="#1149" id="1149">1149</a>
+<a href="#1150" id="1150">1150</a>
+<a href="#1151" id="1151">1151</a>
+<a href="#1152" id="1152">1152</a>
+<a href="#1153" id="1153">1153</a>
+<a href="#1154" id="1154">1154</a>
+<a href="#1155" id="1155">1155</a>
+<a href="#1156" id="1156">1156</a>
+<a href="#1157" id="1157">1157</a>
+<a href="#1158" id="1158">1158</a>
+<a href="#1159" id="1159">1159</a>
+<a href="#1160" id="1160">1160</a>
+<a href="#1161" id="1161">1161</a>
+<a href="#1162" id="1162">1162</a>
+<a href="#1163" id="1163">1163</a>
+<a href="#1164" id="1164">1164</a>
+<a href="#1165" id="1165">1165</a>
+<a href="#1166" id="1166">1166</a>
+<a href="#1167" id="1167">1167</a>
+<a href="#1168" id="1168">1168</a>
+<a href="#1169" id="1169">1169</a>
+<a href="#1170" id="1170">1170</a>
+<a href="#1171" id="1171">1171</a>
+<a href="#1172" id="1172">1172</a>
+<a href="#1173" id="1173">1173</a>
+<a href="#1174" id="1174">1174</a>
+<a href="#1175" id="1175">1175</a>
+<a href="#1176" id="1176">1176</a>
+<a href="#1177" id="1177">1177</a>
+<a href="#1178" id="1178">1178</a>
+<a href="#1179" id="1179">1179</a>
+<a href="#1180" id="1180">1180</a>
+<a href="#1181" id="1181">1181</a>
+<a href="#1182" id="1182">1182</a>
+<a href="#1183" id="1183">1183</a>
+<a href="#1184" id="1184">1184</a>
+<a href="#1185" id="1185">1185</a>
+<a href="#1186" id="1186">1186</a>
+<a href="#1187" id="1187">1187</a>
+<a href="#1188" id="1188">1188</a>
+<a href="#1189" id="1189">1189</a>
+<a href="#1190" id="1190">1190</a>
+<a href="#1191" id="1191">1191</a>
+<a href="#1192" id="1192">1192</a>
+</pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::behavior::persistent_parameters::NetworkingParametersRegistry;
+<span class="kw">use </span><span class="kw">crate</span>::behavior::{provider_storage, Behavior, Event};
+<span class="kw">use </span><span class="kw">crate</span>::create::temporary_bans::TemporaryBans;
+<span class="kw">use </span><span class="kw">crate</span>::create::{
+    ProviderOnlyRecordStore, KADEMLIA_CONCURRENT_TASKS_BOOST_PER_PEER,
+    REGULAR_CONCURRENT_TASKS_BOOST_PER_PEER,
+};
 <span class="kw">use </span><span class="kw">crate</span>::request_responses::{Event <span class="kw">as </span>RequestResponseEvent, IfDisconnected};
 <span class="kw">use </span><span class="kw">crate</span>::shared::{Command, CreatedSubscription, Shared};
-<span class="kw">use </span><span class="kw">crate</span>::utils;
+<span class="kw">use </span><span class="kw">crate</span>::utils::{is_global_address_or_dns, ResizableSemaphorePermit};
 <span class="kw">use </span>bytes::Bytes;
 <span class="kw">use </span>futures::channel::mpsc;
 <span class="kw">use </span>futures::future::Fuse;
 <span class="kw">use </span>futures::{FutureExt, StreamExt};
 <span class="kw">use </span>libp2p::core::ConnectedPoint;
-<span class="kw">use </span>libp2p::gossipsub::{GossipsubEvent, TopicHash};
+<span class="kw">use </span>libp2p::gossipsub::{Event <span class="kw">as </span>GossipsubEvent, TopicHash};
 <span class="kw">use </span>libp2p::identify::Event <span class="kw">as </span>IdentifyEvent;
+<span class="kw">use </span>libp2p::kad::store::RecordStore;
 <span class="kw">use </span>libp2p::kad::{
     AddProviderError, AddProviderOk, GetClosestPeersError, GetClosestPeersOk, GetProvidersError,
     GetProvidersOk, GetRecordError, GetRecordOk, InboundRequest, Kademlia, KademliaEvent,
-    ProgressStep, PutRecordOk, QueryId, QueryResult, Quorum, Record,
+    PeerRecord, ProgressStep, PutRecordOk, QueryId, QueryResult, Quorum, Record,
 };
 <span class="kw">use </span>libp2p::metrics::{Metrics, Recorder};
 <span class="kw">use </span>libp2p::swarm::dial_opts::DialOpts;
 <span class="kw">use </span>libp2p::swarm::{DialError, SwarmEvent};
-<span class="kw">use </span>libp2p::{futures, Multiaddr, PeerId, Swarm};
+<span class="kw">use </span>libp2p::{futures, Multiaddr, PeerId, Swarm, TransportError};
 <span class="kw">use </span>nohash_hasher::IntMap;
+<span class="kw">use </span>parking_lot::Mutex;
 <span class="kw">use </span>std::collections::hash_map::Entry;
 <span class="kw">use </span>std::collections::{HashMap, HashSet};
 <span class="kw">use </span>std::fmt::Debug;
+<span class="kw">use </span>std::num::NonZeroUsize;
 <span class="kw">use </span>std::pin::Pin;
-<span class="kw">use </span>std::sync::Weak;
+<span class="kw">use </span>std::sync::atomic::Ordering;
+<span class="kw">use </span>std::sync::{Arc, Weak};
 <span class="kw">use </span>std::time::Duration;
+<span class="kw">use </span>tokio::sync::watch;
 <span class="kw">use </span>tokio::time::Sleep;
-<span class="kw">use </span>tracing::{debug, error, trace, warn};
+<span class="kw">use </span>tracing::{debug, error, info, trace, warn};
+
+<span class="doccomment">/// How many peers should node be connected to before boosting turns on.
+///
+/// 1 means boosting starts with second peer.
+</span><span class="kw">const </span>CONCURRENT_TASKS_BOOST_PEERS_THRESHOLD: NonZeroUsize =
+    NonZeroUsize::new(<span class="number">5</span>).expect(<span class="string">&quot;Not zero; qed&quot;</span>);
 
 <span class="kw">enum </span>QueryResultSender {
     Value {
-        sender: mpsc::UnboundedSender&lt;Vec&lt;u8&gt;&gt;,
+        sender: mpsc::UnboundedSender&lt;PeerRecord&gt;,
+        <span class="comment">// Just holding onto permit while data structure is not dropped
+        </span>_permit: ResizableSemaphorePermit,
     },
     ClosestPeers {
         sender: mpsc::UnboundedSender&lt;PeerId&gt;,
+        <span class="comment">// Just holding onto permit while data structure is not dropped
+        </span>_permit: ResizableSemaphorePermit,
     },
     Providers {
         sender: mpsc::UnboundedSender&lt;PeerId&gt;,
+        <span class="comment">// Just holding onto permit while data structure is not dropped
+        </span>_permit: ResizableSemaphorePermit,
     },
     Announce {
         sender: mpsc::UnboundedSender&lt;()&gt;,
+        <span class="comment">// Just holding onto permit while data structure is not dropped
+        </span>_permit: ResizableSemaphorePermit,
     },
     PutValue {
         sender: mpsc::UnboundedSender&lt;()&gt;,
+        <span class="comment">// Just holding onto permit while data structure is not dropped
+        </span>_permit: ResizableSemaphorePermit,
     },
 }
 
 <span class="doccomment">/// Runner for the Node.
 </span><span class="attr">#[must_use = <span class="string">&quot;Node does not function properly unless its runner is driven forward&quot;</span>]
-</span><span class="kw">pub struct </span>NodeRunner&lt;RecordStore = CustomRecordStore&gt;
+</span><span class="kw">pub struct </span>NodeRunner&lt;ProviderStorage&gt;
 <span class="kw">where
-    </span>RecordStore: Send + Sync + <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; libp2p::kad::store::RecordStore&lt;<span class="lifetime">&#39;a</span>&gt; + <span class="lifetime">&#39;static</span>,
+    </span>ProviderStorage: provider_storage::ProviderStorage + Send + Sync + <span class="lifetime">&#39;static</span>,
 {
     <span class="doccomment">/// Should non-global addresses be added to the DHT?
     </span>allow_non_global_addresses_in_dht: bool,
     command_receiver: mpsc::Receiver&lt;Command&gt;,
-    swarm: Swarm&lt;Behavior&lt;RecordStore&gt;&gt;,
+    swarm: Swarm&lt;Behavior&lt;ProviderOnlyRecordStore&lt;ProviderStorage&gt;&gt;&gt;,
     shared_weak: Weak&lt;Shared&gt;,
     <span class="doccomment">/// How frequently should random queries be done using Kademlia DHT to populate routing table.
     </span>next_random_query_interval: Duration,
@@ -1052,37 +1292,42 @@
     </span>networking_parameters_registry: Box&lt;<span class="kw">dyn </span>NetworkingParametersRegistry&gt;,
     <span class="doccomment">/// Defines set of peers with a permanent connection (and reconnection if necessary).
     </span>reserved_peers: HashMap&lt;PeerId, Multiaddr&gt;,
-    <span class="doccomment">/// Incoming swarm connection limit.
-    </span>max_established_incoming_connections: u32,
-    <span class="doccomment">/// Outgoing swarm connection limit.
-    </span>max_established_outgoing_connections: u32,
+    <span class="doccomment">/// Defines target total (in and out) connection number that should be maintained.
+    </span>target_connections: u32,
+    <span class="doccomment">/// Temporarily banned peers.
+    </span>temporary_bans: Arc&lt;Mutex&lt;TemporaryBans&gt;&gt;,
     <span class="doccomment">/// Prometheus metrics.
     </span>metrics: <span class="prelude-ty">Option</span>&lt;Metrics&gt;,
+    <span class="doccomment">/// Mapping from specific peer to number of established connections
+    </span>established_connections: HashMap&lt;(PeerId, ConnectedPoint), usize&gt;,
+    <span class="doccomment">/// DSN connection observer. Turns on/off DSN operations like piece retrieval.
+    </span>online_status_observer_tx: watch::Sender&lt;bool&gt;,
 }
 
 <span class="comment">// Helper struct for NodeRunner configuration (clippy requirement).
-</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>NodeRunnerConfig&lt;RecordStore = CustomRecordStore&gt;
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>NodeRunnerConfig&lt;ProviderStorage&gt;
 <span class="kw">where
-    </span>RecordStore: Send + Sync + <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; libp2p::kad::store::RecordStore&lt;<span class="lifetime">&#39;a</span>&gt; + <span class="lifetime">&#39;static</span>,
+    </span>ProviderStorage: provider_storage::ProviderStorage + Send + Sync + <span class="lifetime">&#39;static</span>,
 {
-    <span class="kw">pub </span>allow_non_global_addresses_in_dht: bool,
-    <span class="kw">pub </span>command_receiver: mpsc::Receiver&lt;Command&gt;,
-    <span class="kw">pub </span>swarm: Swarm&lt;Behavior&lt;RecordStore&gt;&gt;,
-    <span class="kw">pub </span>shared_weak: Weak&lt;Shared&gt;,
-    <span class="kw">pub </span>next_random_query_interval: Duration,
-    <span class="kw">pub </span>networking_parameters_registry: Box&lt;<span class="kw">dyn </span>NetworkingParametersRegistry&gt;,
-    <span class="kw">pub </span>reserved_peers: HashMap&lt;PeerId, Multiaddr&gt;,
-    <span class="kw">pub </span>max_established_incoming_connections: u32,
-    <span class="kw">pub </span>max_established_outgoing_connections: u32,
-    <span class="kw">pub </span>metrics: <span class="prelude-ty">Option</span>&lt;Metrics&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) allow_non_global_addresses_in_dht: bool,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) command_receiver: mpsc::Receiver&lt;Command&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) swarm: Swarm&lt;Behavior&lt;ProviderOnlyRecordStore&lt;ProviderStorage&gt;&gt;&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) shared_weak: Weak&lt;Shared&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) next_random_query_interval: Duration,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) networking_parameters_registry: Box&lt;<span class="kw">dyn </span>NetworkingParametersRegistry&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) reserved_peers: HashMap&lt;PeerId, Multiaddr&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) target_connections: u32,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) temporary_bans: Arc&lt;Mutex&lt;TemporaryBans&gt;&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) metrics: <span class="prelude-ty">Option</span>&lt;Metrics&gt;,
+    <span class="kw">pub</span>(<span class="kw">crate</span>) online_status_observer_tx: watch::Sender&lt;bool&gt;,
 }
 
-<span class="kw">impl</span>&lt;RecordStore&gt; NodeRunner&lt;RecordStore&gt;
+<span class="kw">impl</span>&lt;ProviderStorage&gt; NodeRunner&lt;ProviderStorage&gt;
 <span class="kw">where
-    </span>RecordStore: Send + Sync + <span class="kw">for</span>&lt;<span class="lifetime">&#39;a</span>&gt; libp2p::kad::store::RecordStore&lt;<span class="lifetime">&#39;a</span>&gt; + <span class="lifetime">&#39;static</span>,
+    </span>ProviderStorage: provider_storage::ProviderStorage + Send + Sync + <span class="lifetime">&#39;static</span>,
 {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(
-        NodeRunnerConfig::&lt;RecordStore&gt; {
+        NodeRunnerConfig {
             allow_non_global_addresses_in_dht,
             command_receiver,
             swarm,
@@ -1090,10 +1335,11 @@
             next_random_query_interval,
             networking_parameters_registry,
             reserved_peers,
-            max_established_incoming_connections,
-            max_established_outgoing_connections,
+            target_connections,
+            temporary_bans,
             metrics,
-        }: NodeRunnerConfig&lt;RecordStore&gt;,
+            online_status_observer_tx,
+        }: NodeRunnerConfig&lt;ProviderStorage&gt;,
     ) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             allow_non_global_addresses_in_dht,
@@ -1110,9 +1356,11 @@
             </span>peer_dialing_timeout: Box::pin(tokio::time::sleep(Duration::from_secs(<span class="number">0</span>)).fuse()),
             networking_parameters_registry,
             reserved_peers,
-            max_established_incoming_connections,
-            max_established_outgoing_connections,
+            target_connections,
+            temporary_bans,
             metrics,
+            established_connections: HashMap::new(),
+            online_status_observer_tx,
         }
     }
 
@@ -1151,8 +1399,20 @@
                     <span class="self">self</span>.handle_peer_dialing().<span class="kw">await</span>;
 
                     <span class="self">self</span>.peer_dialing_timeout =
-                        Box::pin(tokio::time::sleep(Duration::from_secs(<span class="number">3</span>)).fuse());
+                        Box::pin(tokio::time::sleep(Duration::from_secs(<span class="number">5</span>)).fuse());
                 },
+            }
+        }
+    }
+
+    <span class="comment">// Handle DSN online status signaling
+    </span><span class="kw">fn </span>signal_online_status(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+        <span class="kw">let </span>current_online_status = <span class="self">self</span>.swarm.connected_peers().next().is_some();
+        <span class="kw">let </span>previous_online_status = <span class="kw-2">*</span><span class="self">self</span>.online_status_observer_tx.borrow();
+
+        <span class="kw">if </span>previous_online_status != current_online_status {
+            <span class="kw">if let </span><span class="prelude-val">Err</span>(err) = <span class="self">self</span>.online_status_observer_tx.send(current_online_status) {
+                <span class="macro">error!</span>(<span class="string">&quot;DSN connection observer channel failed: {err}&quot;</span>)
             }
         }
     }
@@ -1179,24 +1439,51 @@
             }
         }
 
-        <span class="comment">// Maintain minimum connected out-peers number.
-        </span><span class="kw">let </span>outgoing_connections_number = {
+        <span class="comment">// Maintain target connection number.
+        </span><span class="kw">let </span>(total_current_connections, established_connections) = {
             <span class="kw">let </span>network_info = <span class="self">self</span>.swarm.network_info();
             <span class="kw">let </span>connections = network_info.connection_counters();
 
-            connections.num_pending_outgoing() + connections.num_established_outgoing()
+            <span class="macro">debug!</span>(<span class="question-mark">?</span>connections, <span class="string">&quot;Current connections and limits.&quot;</span>);
+
+            (
+                connections.num_pending_outgoing()
+                    + connections.num_established_outgoing()
+                    + connections.num_pending_incoming()
+                    + connections.num_established_incoming(),
+                connections.num_established_outgoing() + connections.num_established_incoming(),
+            )
         };
-        <span class="kw">if </span>outgoing_connections_number &lt; <span class="self">self</span>.max_established_outgoing_connections {
+
+        <span class="kw">if </span>total_current_connections &lt; <span class="self">self</span>.target_connections {
             <span class="macro">debug!</span>(
                 %local_peer_id,
+                total_current_connections,
+                target_connections=<span class="self">self</span>.target_connections,
                 connected_peers=connected_peers.len(),
                 <span class="string">&quot;Initiate connection to known peers&quot;</span>,
             );
 
+            <span class="kw">let </span>allow_non_global_addresses_in_dht = <span class="self">self</span>.allow_non_global_addresses_in_dht;
+
             <span class="kw">let </span>addresses = <span class="self">self
                 </span>.networking_parameters_registry
                 .next_known_addresses_batch()
-                .<span class="kw">await</span>;
+                .<span class="kw">await
+                </span>.into_iter()
+                .filter(|(peer_id, address)| {
+                    <span class="kw">if </span>!allow_non_global_addresses_in_dht &amp;&amp; !is_global_address_or_dns(address) {
+                        <span class="macro">trace!</span>(
+                            %local_peer_id,
+                            %peer_id,
+                            %address,
+                            <span class="string">&quot;Ignoring non-global address read from parameters registry.&quot;</span>,
+                        );
+                        <span class="bool-val">false
+                    </span>} <span class="kw">else </span>{
+                        <span class="bool-val">true
+                    </span>}
+                });
 
             <span class="macro">trace!</span>(%local_peer_id, <span class="string">&quot;Processing addresses batch: {:?}&quot;</span>, addresses);
 
@@ -1207,6 +1494,9 @@
 
                 <span class="self">self</span>.dial_peer(peer_id, addr)
             }
+        } <span class="kw">else if </span>established_connections &lt; <span class="self">self</span>.target_connections {
+            <span class="self">self</span>.networking_parameters_registry
+                .start_over_address_batching()
         }
     }
 
@@ -1266,88 +1556,170 @@
             }
             SwarmEvent::ConnectionEstablished {
                 peer_id,
-                num_established,
                 endpoint,
+                num_established,
                 ..
             } =&gt; {
-                <span class="kw">let </span>is_reserved_peer = <span class="self">self</span>.reserved_peers.contains_key(<span class="kw-2">&amp;</span>peer_id);
-                <span class="macro">debug!</span>(%peer_id, %is_reserved_peer, <span class="string">&quot;Connection established [{num_established} from peer]&quot;</span>);
+                <span class="self">self</span>.signal_online_status();
 
-                <span class="kw">let </span>(in_connections_number, out_connections_number) = {
-                    <span class="kw">let </span>network_info = <span class="self">self</span>.swarm.network_info();
-                    <span class="kw">let </span>connections = network_info.connection_counters();
-
-                    (
-                        connections.num_established_incoming(),
-                        connections.num_established_outgoing(),
-                    )
+                <span class="comment">// Save known addresses that were successfully dialed.
+                </span><span class="kw">if let </span>ConnectedPoint::Dialer { address, .. } = <span class="kw-2">&amp;</span>endpoint {
+                    <span class="comment">// filter non-global addresses when non-globals addresses are disabled
+                    </span><span class="kw">if </span><span class="self">self</span>.allow_non_global_addresses_in_dht || is_global_address_or_dns(address) {
+                        <span class="self">self</span>.networking_parameters_registry
+                            .add_known_peer(peer_id, <span class="macro">vec!</span>[address.clone()])
+                            .<span class="kw">await</span>;
+                    }
                 };
 
-                <span class="kw">match </span>endpoint {
-                    <span class="comment">// In connections
-                    </span>ConnectedPoint::Listener { .. } =&gt; {
-                        <span class="comment">// check connections limit for non-reserved peers
-                        </span><span class="kw">if </span>!is_reserved_peer
-                            &amp;&amp; in_connections_number &gt; <span class="self">self</span>.max_established_incoming_connections
-                        {
-                            <span class="macro">debug!</span>(
-                                %peer_id,
-                                <span class="string">&quot;Incoming connections limit exceeded. Disconnecting in-peer ...&quot;
-                            </span>);
-                            <span class="comment">// Error here means: &quot;peer was already disconnected&quot;
-                            </span><span class="kw">let _ </span>= <span class="self">self</span>.swarm.disconnect_peer_id(peer_id);
-                        }
-                    }
-                    <span class="comment">// Out connections
-                    </span>ConnectedPoint::Dialer { address, .. } =&gt; {
-                        <span class="self">self</span>.networking_parameters_registry
-                            .add_known_peer(peer_id, <span class="macro">vec!</span>[address])
-                            .<span class="kw">await</span>;
+                <span class="comment">// Remove temporary ban if there was any
+                </span><span class="self">self</span>.temporary_bans.lock().remove(<span class="kw-2">&amp;</span>peer_id);
 
-                        <span class="comment">// check connections limit for non-reserved peers
-                        </span><span class="kw">if </span>!is_reserved_peer
-                            &amp;&amp; out_connections_number &gt; <span class="self">self</span>.max_established_outgoing_connections
-                        {
-                            <span class="macro">debug!</span>(
-                                %peer_id,
-                                <span class="string">&quot;Outgoing connections limit exceeded. Disconnecting out-peer ...&quot;
-                            </span>);
-                            <span class="comment">// Error here means: &quot;peer was already disconnected&quot;
-                            </span><span class="kw">let _ </span>= <span class="self">self</span>.swarm.disconnect_peer_id(peer_id);
-                        }
+                <span class="kw">let </span>shared = <span class="kw">match </span><span class="self">self</span>.shared_weak.upgrade() {
+                    <span class="prelude-val">Some</span>(shared) =&gt; shared,
+                    <span class="prelude-val">None </span>=&gt; {
+                        <span class="kw">return</span>;
+                    }
+                };
+
+                <span class="kw">let </span>is_reserved_peer = <span class="self">self</span>.reserved_peers.contains_key(<span class="kw-2">&amp;</span>peer_id);
+                <span class="macro">debug!</span>(
+                    %peer_id,
+                    %is_reserved_peer,
+                    <span class="question-mark">?</span>endpoint,
+                    <span class="string">&quot;Connection established [{num_established} from peer]&quot;
+                </span>);
+
+                <span class="comment">// TODO: Workaround for https://github.com/libp2p/rust-libp2p/discussions/3418
+                </span><span class="self">self</span>.established_connections
+                    .entry((peer_id, endpoint))
+                    .and_modify(|entry| {
+                        <span class="kw-2">*</span>entry += <span class="number">1</span>;
+                    })
+                    .or_insert(<span class="number">1</span>);
+                <span class="kw">if </span>shared.connected_peers_count.fetch_add(<span class="number">1</span>, Ordering::SeqCst)
+                    &gt;= CONCURRENT_TASKS_BOOST_PEERS_THRESHOLD.get()
+                {
+                    <span class="comment">// The peer count exceeded the threshold, bump up the quota.
+                    </span><span class="kw">if let </span><span class="prelude-val">Err</span>(error) = shared
+                        .kademlia_tasks_semaphore
+                        .expand(KADEMLIA_CONCURRENT_TASKS_BOOST_PER_PEER)
+                    {
+                        <span class="macro">warn!</span>(%error, <span class="string">&quot;Failed to expand Kademlia concurrent tasks&quot;</span>);
+                    }
+                    <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = shared
+                        .regular_tasks_semaphore
+                        .expand(REGULAR_CONCURRENT_TASKS_BOOST_PER_PEER)
+                    {
+                        <span class="macro">warn!</span>(%error, <span class="string">&quot;Failed to expand regular concurrent tasks&quot;</span>);
                     }
                 }
             }
             SwarmEvent::ConnectionClosed {
                 peer_id,
+                endpoint,
                 num_established,
                 ..
             } =&gt; {
+                <span class="self">self</span>.signal_online_status();
+
+                <span class="kw">let </span>shared = <span class="kw">match </span><span class="self">self</span>.shared_weak.upgrade() {
+                    <span class="prelude-val">Some</span>(shared) =&gt; shared,
+                    <span class="prelude-val">None </span>=&gt; {
+                        <span class="kw">return</span>;
+                    }
+                };
                 <span class="macro">debug!</span>(<span class="string">&quot;Connection closed with peer {peer_id} [{num_established} from peer]&quot;</span>);
+
+                <span class="comment">// TODO: Workaround for https://github.com/libp2p/rust-libp2p/discussions/3418
+                </span>{
+                    <span class="kw">match </span><span class="self">self</span>.established_connections.entry((peer_id, endpoint)) {
+                        Entry::Vacant(<span class="kw">_</span>) =&gt; {
+                            <span class="comment">// Nothing to do here, we are not aware of the connection being closed
+                            </span><span class="macro">warn!</span>(
+                                <span class="question-mark">?</span>peer_id,
+                                <span class="string">&quot;Connection closed, but it is not known as open connection, \
+                                this is likely a bug in libp2p: \
+                                https://github.com/libp2p/rust-libp2p/discussions/3418&quot;
+                            </span>);
+                            <span class="kw">return</span>;
+                        }
+                        Entry::Occupied(<span class="kw-2">mut </span>entry) =&gt; {
+                            <span class="kw">let </span>value = entry.get_mut();
+                            <span class="kw">if </span><span class="kw-2">*</span>value == <span class="number">1 </span>{
+                                entry.remove_entry();
+                            } <span class="kw">else </span>{
+                                <span class="kw-2">*</span>value -= <span class="number">1</span>;
+                            }
+                        }
+                    };
+                }
+                <span class="kw">if </span>shared.connected_peers_count.fetch_sub(<span class="number">1</span>, Ordering::SeqCst)
+                    &gt; CONCURRENT_TASKS_BOOST_PEERS_THRESHOLD.get()
+                {
+                    <span class="comment">// The previous peer count was over the threshold, reclaim the quota.
+                    </span><span class="kw">if let </span><span class="prelude-val">Err</span>(error) = shared
+                        .kademlia_tasks_semaphore
+                        .shrink(KADEMLIA_CONCURRENT_TASKS_BOOST_PER_PEER)
+                    {
+                        <span class="macro">warn!</span>(%error, <span class="string">&quot;Failed to shrink Kademlia concurrent tasks&quot;</span>);
+                    }
+                    <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = shared
+                        .regular_tasks_semaphore
+                        .shrink(REGULAR_CONCURRENT_TASKS_BOOST_PER_PEER)
+                    {
+                        <span class="macro">warn!</span>(%error, <span class="string">&quot;Failed to shrink regular concurrent tasks&quot;</span>);
+                    }
+                }
             }
-            SwarmEvent::OutgoingConnectionError { peer_id, error } =&gt; <span class="kw">match </span>error {
-                DialError::Transport(<span class="kw-2">ref </span>addresses) =&gt; {
-                    <span class="kw">for </span>(addr, <span class="kw">_</span>) <span class="kw">in </span>addresses {
-                        <span class="macro">debug!</span>(<span class="question-mark">?</span>error, <span class="question-mark">?</span>peer_id, %addr, <span class="string">&quot;SwarmEvent::OutgoingConnectionError (DialError::Transport) for peer.&quot;</span>);
-                        <span class="kw">if let </span><span class="prelude-val">Some</span>(peer_id) = peer_id {
-                            <span class="self">self</span>.networking_parameters_registry
-                                .remove_known_peer_addresses(peer_id, <span class="macro">vec!</span>[addr.clone()])
-                                .<span class="kw">await</span>;
+            SwarmEvent::OutgoingConnectionError { peer_id, error } =&gt; {
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(peer_id) = <span class="kw-2">&amp;</span>peer_id {
+                    <span class="comment">// Create or extend temporary ban, but only if we are not offline
+                    </span><span class="kw">if let </span><span class="prelude-val">Some</span>(shared) = <span class="self">self</span>.shared_weak.upgrade() {
+                        <span class="comment">// One peer is possibly a node peer is connected to, hence expecting more
+                        // than one for online status
+                        </span><span class="kw">if </span>shared.connected_peers_count.load(Ordering::Relaxed) &gt; <span class="number">1 </span>{
+                            <span class="kw">let </span>should_temporary_ban = <span class="kw">match </span><span class="kw-2">&amp;</span>error {
+                                DialError::Transport(addresses) =&gt; {
+                                    <span class="comment">// Ignoring other errors, those are likely temporary ban errors
+                                    </span>!<span class="macro">matches!</span>(
+                                        addresses.first(),
+                                        <span class="prelude-val">Some</span>((_multiaddr, TransportError::Other(_error)))
+                                    )
+                                }
+                                <span class="kw">_ </span>=&gt; <span class="bool-val">true</span>,
+                            };
+                            <span class="kw">if </span>should_temporary_ban {
+                                <span class="self">self</span>.temporary_bans.lock().create_or_extend(peer_id);
+                            }
+                        }
+                    };
+                }
+
+                <span class="kw">match </span>error {
+                    DialError::Transport(<span class="kw-2">ref </span>addresses) =&gt; {
+                        <span class="kw">for </span>(addr, <span class="kw">_</span>) <span class="kw">in </span>addresses {
+                            <span class="macro">debug!</span>(<span class="question-mark">?</span>error, <span class="question-mark">?</span>peer_id, %addr, <span class="string">&quot;SwarmEvent::OutgoingConnectionError (DialError::Transport) for peer.&quot;</span>);
+                            <span class="kw">if let </span><span class="prelude-val">Some</span>(peer_id) = peer_id {
+                                <span class="self">self</span>.networking_parameters_registry
+                                    .remove_known_peer_addresses(peer_id, <span class="macro">vec!</span>[addr.clone()])
+                                    .<span class="kw">await</span>;
+                            }
                         }
                     }
-                }
-                DialError::WrongPeerId { obtained, .. } =&gt; {
-                    <span class="macro">debug!</span>(<span class="question-mark">?</span>error, <span class="question-mark">?</span>peer_id, obtained_peer_id=<span class="question-mark">?</span>obtained, <span class="string">&quot;SwarmEvent::WrongPeerId (DialError::WrongPeerId) for peer.&quot;</span>);
+                    DialError::WrongPeerId { obtained, .. } =&gt; {
+                        <span class="macro">debug!</span>(<span class="question-mark">?</span>error, <span class="question-mark">?</span>peer_id, obtained_peer_id=<span class="question-mark">?</span>obtained, <span class="string">&quot;SwarmEvent::WrongPeerId (DialError::WrongPeerId) for peer.&quot;</span>);
 
-                    <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>peer_id) = peer_id {
-                        <span class="kw">let </span>kademlia = <span class="kw-2">&amp;mut </span><span class="self">self</span>.swarm.behaviour_mut().kademlia;
-                        <span class="kw">let _ </span>= kademlia.remove_peer(peer_id);
+                        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">ref </span>peer_id) = peer_id {
+                            <span class="kw">let </span>kademlia = <span class="kw-2">&amp;mut </span><span class="self">self</span>.swarm.behaviour_mut().kademlia;
+                            <span class="kw">let _ </span>= kademlia.remove_peer(peer_id);
+                        }
+                    }
+                    <span class="kw">_ </span>=&gt; {
+                        <span class="macro">debug!</span>(<span class="question-mark">?</span>error, <span class="question-mark">?</span>peer_id, <span class="string">&quot;SwarmEvent::OutgoingConnectionError&quot;</span>);
                     }
                 }
-                <span class="kw">_ </span>=&gt; {
-                    <span class="macro">debug!</span>(<span class="question-mark">?</span>error, <span class="question-mark">?</span>peer_id, <span class="string">&quot;SwarmEvent::OutgoingConnectionError&quot;</span>);
-                }
-            },
+            }
             other =&gt; {
                 <span class="macro">trace!</span>(<span class="string">&quot;Other swarm event: {:?}&quot;</span>, other);
             }
@@ -1379,7 +1751,7 @@
             <span class="kw">if </span>kademlia_enabled {
                 <span class="kw">for </span>address <span class="kw">in </span>info.listen_addrs {
                     <span class="kw">if </span>!<span class="self">self</span>.allow_non_global_addresses_in_dht
-                        &amp;&amp; !utils::is_global_address_or_dns(<span class="kw-2">&amp;</span>address)
+                        &amp;&amp; !is_global_address_or_dns(<span class="kw-2">&amp;</span>address)
                     {
                         <span class="macro">trace!</span>(
                             %local_peer_id,
@@ -1407,7 +1779,7 @@
                 <span class="macro">trace!</span>(
                     %local_peer_id,
                     %peer_id,
-                    <span class="string">&quot;Peer doesn&#39;t support our Kademlia DHT protocol ({:?}). Adding to the DTH skipped.&quot;</span>,
+                    <span class="string">&quot;Peer doesn&#39;t support our Kademlia DHT protocol ({:?}). Adding to the DHT skipped.&quot;</span>,
                     kademlia
                         .protocol_names()
                         .iter()
@@ -1423,10 +1795,10 @@
 
         <span class="kw">match </span>event {
             KademliaEvent::InboundRequest {
-                request: InboundRequest::AddProvider { record },
+                request: InboundRequest::AddProvider { record, guard },
             } =&gt; {
                 <span class="macro">trace!</span>(<span class="string">&quot;Add provider request received: {:?}&quot;</span>, record);
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(record) = record {
+                <span class="kw">if let </span>(<span class="prelude-val">Some</span>(record), <span class="prelude-val">Some</span>(guard)) = (record, guard) {
                     <span class="kw">if let </span><span class="prelude-val">Err</span>(err) = <span class="self">self
                         </span>.swarm
                         .behaviour_mut()
@@ -1436,6 +1808,15 @@
                     {
                         <span class="macro">error!</span>(<span class="question-mark">?</span>err, <span class="string">&quot;Failed to add provider record: {:?}&quot;</span>, record);
                     }
+
+                    <span class="kw">let </span>shared = <span class="kw">match </span><span class="self">self</span>.shared_weak.upgrade() {
+                        <span class="prelude-val">Some</span>(shared) =&gt; shared,
+                        <span class="prelude-val">None </span>=&gt; {
+                            <span class="kw">return</span>;
+                        }
+                    };
+
+                    shared.handlers.announcement.call_simple(<span class="kw-2">&amp;</span>record, <span class="kw-2">&amp;</span>guard);
                 }
             }
             KademliaEvent::OutboundQueryProgressed {
@@ -1445,7 +1826,7 @@
                 ..
             } =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>cancelled = <span class="bool-val">false</span>;
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(QueryResultSender::ClosestPeers { sender }) =
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(QueryResultSender::ClosestPeers { sender, .. }) =
                     <span class="self">self</span>.query_id_receivers.get_mut(<span class="kw-2">&amp;</span>id)
                 {
                     <span class="kw">match </span>result {
@@ -1505,7 +1886,7 @@
                 ..
             } =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>cancelled = <span class="bool-val">false</span>;
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(QueryResultSender::Value { sender }) =
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(QueryResultSender::Value { sender, .. }) =
                     <span class="self">self</span>.query_id_receivers.get_mut(<span class="kw-2">&amp;</span>id)
                 {
                     <span class="kw">match </span>result {
@@ -1518,7 +1899,7 @@
                             cancelled = <span class="self">Self</span>::unbounded_send_and_cancel_on_error(
                                 <span class="kw-2">&amp;mut </span><span class="self">self</span>.swarm.behaviour_mut().kademlia,
                                 sender,
-                                rec.record.value,
+                                rec,
                                 <span class="string">&quot;GetRecordOk&quot;</span>,
                                 <span class="kw-2">&amp;</span>id,
                             ) || cancelled;
@@ -1559,7 +1940,7 @@
                 ..
             } =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>cancelled = <span class="bool-val">false</span>;
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(QueryResultSender::Providers { sender }) =
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(QueryResultSender::Providers { sender, .. }) =
                     <span class="self">self</span>.query_id_receivers.get_mut(<span class="kw-2">&amp;</span>id)
                 {
                     <span class="kw">match </span>result {
@@ -1608,12 +1989,12 @@
                 <span class="kw">let </span><span class="kw-2">mut </span>cancelled = <span class="bool-val">false</span>;
                 <span class="macro">trace!</span>(<span class="string">&quot;Start providing stats: {:?}&quot;</span>, stats);
 
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(QueryResultSender::Announce { sender }) =
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(QueryResultSender::Announce { sender, .. }) =
                     <span class="self">self</span>.query_id_receivers.get_mut(<span class="kw-2">&amp;</span>id)
                 {
                     <span class="kw">match </span>result {
                         <span class="prelude-val">Ok</span>(AddProviderOk { key }) =&gt; {
-                            <span class="macro">trace!</span>(<span class="string">&quot;Start providing query for {} succeeded&quot;</span>, hex::encode(<span class="kw-2">&amp;</span>key),);
+                            <span class="macro">trace!</span>(<span class="string">&quot;Start providing query for {} succeeded&quot;</span>, hex::encode(<span class="kw-2">&amp;</span>key));
 
                             cancelled = <span class="self">Self</span>::unbounded_send_and_cancel_on_error(
                                 <span class="kw-2">&amp;mut </span><span class="self">self</span>.swarm.behaviour_mut().kademlia,
@@ -1626,7 +2007,7 @@
                         <span class="prelude-val">Err</span>(error) =&gt; {
                             <span class="kw">let </span>AddProviderError::Timeout { key } = error;
 
-                            <span class="macro">debug!</span>(<span class="string">&quot;Start providing query for {} failed.&quot;</span>, hex::encode(<span class="kw-2">&amp;</span>key),);
+                            <span class="macro">debug!</span>(<span class="string">&quot;Start providing query for {} failed.&quot;</span>, hex::encode(<span class="kw-2">&amp;</span>key));
                         }
                     }
                 }
@@ -1643,12 +2024,12 @@
                 ..
             } =&gt; {
                 <span class="kw">let </span><span class="kw-2">mut </span>cancelled = <span class="bool-val">false</span>;
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(QueryResultSender::PutValue { sender }) =
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(QueryResultSender::PutValue { sender, .. }) =
                     <span class="self">self</span>.query_id_receivers.get_mut(<span class="kw-2">&amp;</span>id)
                 {
                     <span class="kw">match </span>result {
                         <span class="prelude-val">Ok</span>(PutRecordOk { key, .. }) =&gt; {
-                            <span class="macro">trace!</span>(<span class="string">&quot;Put record query for {} succeeded&quot;</span>, hex::encode(<span class="kw-2">&amp;</span>key),);
+                            <span class="macro">trace!</span>(<span class="string">&quot;Put record query for {} succeeded&quot;</span>, hex::encode(<span class="kw-2">&amp;</span>key));
 
                             cancelled = <span class="self">Self</span>::unbounded_send_and_cancel_on_error(
                                 <span class="kw-2">&amp;mut </span><span class="self">self</span>.swarm.behaviour_mut().kademlia,
@@ -1675,7 +2056,7 @@
 
     <span class="comment">// Returns `true` if query was cancelled
     </span><span class="kw">fn </span>unbounded_send_and_cancel_on_error&lt;T&gt;(
-        kademlia: <span class="kw-2">&amp;mut </span>Kademlia&lt;RecordStore&gt;,
+        kademlia: <span class="kw-2">&amp;mut </span>Kademlia&lt;ProviderOnlyRecordStore&lt;ProviderStorage&gt;&gt;,
         sender: <span class="kw-2">&amp;mut </span>mpsc::UnboundedSender&lt;T&gt;,
         value: T,
         channel: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str,
@@ -1714,7 +2095,11 @@
 
     <span class="kw">async fn </span>handle_command(<span class="kw-2">&amp;mut </span><span class="self">self</span>, command: Command) {
         <span class="kw">match </span>command {
-            Command::GetValue { key, result_sender } =&gt; {
+            Command::GetValue {
+                key,
+                result_sender,
+                permit,
+            } =&gt; {
                 <span class="kw">let </span>query_id = <span class="self">self
                     </span>.swarm
                     .behaviour_mut()
@@ -1725,6 +2110,7 @@
                     query_id,
                     QueryResultSender::Value {
                         sender: result_sender,
+                        _permit: permit,
                     },
                 );
             }
@@ -1732,6 +2118,7 @@
                 key,
                 value,
                 result_sender,
+                permit,
             } =&gt; {
                 <span class="kw">let </span>local_peer_id = <span class="kw-2">*</span><span class="self">self</span>.swarm.local_peer_id();
 
@@ -1753,6 +2140,7 @@
                             query_id,
                             QueryResultSender::PutValue {
                                 sender: result_sender,
+                                _permit: permit,
                             },
                         );
                     }
@@ -1765,6 +2153,10 @@
                 topic,
                 result_sender,
             } =&gt; {
+                <span class="kw">if </span>!<span class="self">self</span>.swarm.behaviour().gossipsub.is_enabled() {
+                    <span class="macro">panic!</span>(<span class="string">&quot;Gossibsub protocol is disabled.&quot;</span>);
+                }
+
                 <span class="kw">let </span>topic_hash = topic.hash();
                 <span class="kw">let </span>(sender, receiver) = mpsc::unbounded();
 
@@ -1787,20 +2179,23 @@
                     Entry::Vacant(entry) =&gt; {
                         <span class="comment">// Otherwise subscription needs to be created.
 
-                        </span><span class="kw">match </span><span class="self">self</span>.swarm.behaviour_mut().gossipsub.subscribe(<span class="kw-2">&amp;</span>topic) {
-                            <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>) =&gt; {
-                                <span class="kw">if </span>result_sender.send(<span class="prelude-val">Ok</span>(created_subscription)).is_ok() {
-                                    entry.insert(IntMap::from_iter([(subscription_id, sender)]));
+                        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(gossipsub) = <span class="self">self</span>.swarm.behaviour_mut().gossipsub.as_mut() {
+                            <span class="kw">match </span>gossipsub.subscribe(<span class="kw-2">&amp;</span>topic) {
+                                <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>) =&gt; {
+                                    <span class="kw">if </span>result_sender.send(<span class="prelude-val">Ok</span>(created_subscription)).is_ok() {
+                                        entry
+                                            .insert(IntMap::from_iter([(subscription_id, sender)]));
+                                    }
                                 }
-                            }
-                            <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>) =&gt; {
-                                <span class="macro">panic!</span>(
-                                    <span class="string">&quot;Logic error, topic subscription wasn&#39;t created, this must never \
+                                <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>) =&gt; {
+                                    <span class="macro">panic!</span>(
+                                        <span class="string">&quot;Logic error, topic subscription wasn&#39;t created, this must never \
                             happen&quot;
-                                </span>);
-                            }
-                            <span class="prelude-val">Err</span>(error) =&gt; {
-                                <span class="kw">let _ </span>= result_sender.send(<span class="prelude-val">Err</span>(error));
+                                    </span>);
+                                }
+                                <span class="prelude-val">Err</span>(error) =&gt; {
+                                    <span class="kw">let _ </span>= result_sender.send(<span class="prelude-val">Err</span>(error));
+                                }
                             }
                         }
                     }
@@ -1810,6 +2205,10 @@
                 topic,
                 subscription_id,
             } =&gt; {
+                <span class="kw">if </span>!<span class="self">self</span>.swarm.behaviour().gossipsub.is_enabled() {
+                    <span class="macro">panic!</span>(<span class="string">&quot;Gossibsub protocol is disabled.&quot;</span>);
+                }
+
                 <span class="kw">if let </span>Entry::Occupied(<span class="kw-2">mut </span>entry) =
                     <span class="self">self</span>.topic_subscription_senders.entry(topic.hash())
                 {
@@ -1819,9 +2218,10 @@
                     </span><span class="kw">if </span>entry.get().is_empty() {
                         entry.remove_entry();
 
-                        <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = <span class="self">self</span>.swarm.behaviour_mut().gossipsub.unsubscribe(<span class="kw-2">&amp;</span>topic)
-                        {
-                            <span class="macro">warn!</span>(<span class="string">&quot;Failed to unsubscribe from topic {topic}: {error}&quot;</span>);
+                        <span class="kw">if let </span><span class="prelude-val">Some</span>(gossipsub) = <span class="self">self</span>.swarm.behaviour_mut().gossipsub.as_mut() {
+                            <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = gossipsub.unsubscribe(<span class="kw-2">&amp;</span>topic) {
+                                <span class="macro">warn!</span>(<span class="string">&quot;Failed to unsubscribe from topic {topic}: {error}&quot;</span>);
+                            }
                         }
                     }
                 } <span class="kw">else </span>{
@@ -1836,22 +2236,28 @@
                 message,
                 result_sender,
             } =&gt; {
-                <span class="comment">// Doesn&#39;t matter if receiver still waits for response.
-                </span><span class="kw">let _ </span>= result_sender.send(
-                    <span class="self">self</span>.swarm
-                        .behaviour_mut()
-                        .gossipsub
-                        .publish(topic, message)
-                        .map(|_message_id| ()),
-                );
+                <span class="kw">if </span>!<span class="self">self</span>.swarm.behaviour().gossipsub.is_enabled() {
+                    <span class="macro">panic!</span>(<span class="string">&quot;Gossibsub protocol is disabled.&quot;</span>);
+                }
+
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(gossipsub) = <span class="self">self</span>.swarm.behaviour_mut().gossipsub.as_mut() {
+                    <span class="comment">// Doesn&#39;t matter if receiver still waits for response.
+                    </span><span class="kw">let _ </span>=
+                        result_sender.send(gossipsub.publish(topic, message).map(|_message_id| ()));
+                }
             }
-            Command::GetClosestPeers { key, result_sender } =&gt; {
+            Command::GetClosestPeers {
+                key,
+                result_sender,
+                permit,
+            } =&gt; {
                 <span class="kw">let </span>query_id = <span class="self">self</span>.swarm.behaviour_mut().kademlia.get_closest_peers(key);
 
                 <span class="self">self</span>.query_id_receivers.insert(
                     query_id,
                     QueryResultSender::ClosestPeers {
                         sender: result_sender,
+                        _permit: permit,
                     },
                 );
             }
@@ -1880,12 +2286,16 @@
 
                 <span class="kw">let _ </span>= result_sender.send(kademlia_connection_initiated);
             }
-            Command::StartAnnouncing { key, result_sender } =&gt; {
+            Command::StartAnnouncing {
+                key,
+                result_sender,
+                permit,
+            } =&gt; {
                 <span class="kw">let </span>res = <span class="self">self
                     </span>.swarm
                     .behaviour_mut()
                     .kademlia
-                    .start_providing(key.into());
+                    .start_providing(key.clone());
 
                 <span class="kw">match </span>res {
                     <span class="prelude-val">Ok</span>(query_id) =&gt; {
@@ -1893,6 +2303,7 @@
                             query_id,
                             QueryResultSender::Announce {
                                 sender: result_sender,
+                                _permit: permit,
                             },
                         );
                     }
@@ -1909,7 +2320,11 @@
 
                 <span class="kw">let _ </span>= result_sender.send(<span class="bool-val">true</span>);
             }
-            Command::GetProviders { key, result_sender } =&gt; {
+            Command::GetProviders {
+                key,
+                result_sender,
+                permit,
+            } =&gt; {
                 <span class="kw">let </span>query_id = <span class="self">self
                     </span>.swarm
                     .behaviour_mut()
@@ -1920,8 +2335,23 @@
                     query_id,
                     QueryResultSender::Providers {
                         sender: result_sender,
+                        _permit: permit,
                     },
                 );
+            }
+            Command::BanPeer { peer_id } =&gt; {
+                <span class="comment">// Remove temporary ban if there is any before creating a permanent one
+                </span><span class="self">self</span>.temporary_bans.lock().remove(<span class="kw-2">&amp;</span>peer_id);
+
+                <span class="macro">info!</span>(<span class="question-mark">?</span>peer_id, <span class="string">&quot;Banning peer on network level&quot;</span>);
+                <span class="self">self</span>.swarm.ban_peer_id(peer_id);
+                <span class="self">self</span>.swarm.behaviour_mut().kademlia.remove_peer(<span class="kw-2">&amp;</span>peer_id);
+                <span class="self">self</span>.networking_parameters_registry
+                    .remove_all_known_peer_addresses(peer_id)
+                    .<span class="kw">await</span>;
+            }
+            Command::Dial { address } =&gt; {
+                <span class="kw">let _ </span>= <span class="self">self</span>.swarm.dial(address);
             }
         }
     }
@@ -1952,5 +2382,4 @@
         }
     }
 }
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="subspace_networking" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</code></pre></div></section></main></body></html>

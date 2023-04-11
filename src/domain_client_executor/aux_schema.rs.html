@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `domains/client/domain-executor/src/aux_schema.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>aux_schema.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../domain_client_executor/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `domains/client/domain-executor/src/aux_schema.rs`."><title>aux_schema.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="domain_client_executor" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../domain_client_executor/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -721,21 +721,6 @@
 <a href="#721" id="721">721</a>
 <a href="#722" id="722">722</a>
 <a href="#723" id="723">723</a>
-<a href="#724" id="724">724</a>
-<a href="#725" id="725">725</a>
-<a href="#726" id="726">726</a>
-<a href="#727" id="727">727</a>
-<a href="#728" id="728">728</a>
-<a href="#729" id="729">729</a>
-<a href="#730" id="730">730</a>
-<a href="#731" id="731">731</a>
-<a href="#732" id="732">732</a>
-<a href="#733" id="733">733</a>
-<a href="#734" id="734">734</a>
-<a href="#735" id="735">735</a>
-<a href="#736" id="736">736</a>
-<a href="#737" id="737">737</a>
-<a href="#738" id="738">738</a>
 </pre><pre class="rust"><code><span class="doccomment">//! Schema for executor in the aux-db.
 
 </span><span class="kw">use </span>codec::{Decode, Encode};
@@ -744,7 +729,6 @@
 <span class="kw">use </span>sp_blockchain::{Error <span class="kw">as </span>ClientError, <span class="prelude-ty">Result </span><span class="kw">as </span>ClientResult};
 <span class="kw">use </span>sp_core::H256;
 <span class="kw">use </span>sp_domains::ExecutionReceipt;
-<span class="kw">use </span>sp_runtime::generic::BlockId;
 <span class="kw">use </span>sp_runtime::traits::{Block <span class="kw">as </span>BlockT, NumberFor, One, SaturatedConversion};
 <span class="kw">use </span>subspace_core_primitives::BlockNumber;
 
@@ -752,10 +736,10 @@
 <span class="kw">const </span>EXECUTION_RECEIPT_START: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;execution_receipt_start&quot;</span>;
 <span class="kw">const </span>EXECUTION_RECEIPT_BLOCK_NUMBER: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;execution_receipt_block_number&quot;</span>;
 
-<span class="doccomment">/// bad_receipt_block_number =&gt; all_bad_signed_bundle_hashes_at_this_block
-</span><span class="kw">const </span>BAD_SIGNED_BUNDLE_HASHES: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;bad_signed_bundle_hashes&quot;</span>;
+<span class="doccomment">/// bad_receipt_block_number =&gt; all_bad_receipt_hashes_at_this_block
+</span><span class="kw">const </span>BAD_RECEIPT_HASHES: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;bad_receipt_hashes&quot;</span>;
 
-<span class="doccomment">/// bad_signed_bundle_hash =&gt; (trace_mismatch_index, associated_local_block_hash)
+<span class="doccomment">/// bad_receipt_hash =&gt; (trace_mismatch_index, associated_local_block_hash)
 </span><span class="kw">const </span>BAD_RECEIPT_MISMATCH_INFO: <span class="kw-2">&amp;</span>[u8] = <span class="string">b&quot;bad_receipt_mismatch_info&quot;</span>;
 
 <span class="doccomment">/// Set of block numbers at which there is at least one bad receipt detected.
@@ -770,8 +754,8 @@
     (EXECUTION_RECEIPT, block_hash).encode()
 }
 
-<span class="kw">fn </span>bad_receipt_mismatch_info_key(signed_bundle_hash: <span class="kw">impl </span>Encode) -&gt; Vec&lt;u8&gt; {
-    (BAD_RECEIPT_MISMATCH_INFO, signed_bundle_hash).encode()
+<span class="kw">fn </span>bad_receipt_mismatch_info_key(bad_receipt_hash: <span class="kw">impl </span>Encode) -&gt; Vec&lt;u8&gt; {
+    (BAD_RECEIPT_MISMATCH_INFO, bad_receipt_hash).encode()
 }
 
 <span class="kw">fn </span>load_decode&lt;Backend: AuxStore, T: Decode&gt;(
@@ -782,7 +766,7 @@
         <span class="prelude-val">None </span>=&gt; <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>),
         <span class="prelude-val">Some</span>(t) =&gt; T::decode(<span class="kw-2">&amp;mut &amp;</span>t[..])
             .map_err(|e| {
-                ClientError::Backend(<span class="macro">format!</span>(<span class="string">&quot;Executor DB is corrupted. Decode error: {}&quot;</span>, e))
+                ClientError::Backend(<span class="macro">format!</span>(<span class="string">&quot;Executor DB is corrupted. Decode error: {e}&quot;</span>))
             })
             .map(<span class="prelude-val">Some</span>),
     }
@@ -875,14 +859,10 @@
 }
 
 <span class="doccomment">/// Writes a bad execution receipt to aux storage.
-///
-/// Use `bad_signed_bundle_hash` instead of the hash of execution receipt as key to
-/// avoid the potential collision that two dishonest executors produced an identical
-/// invalid receipt even it&#39;s less likely.
 </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>write_bad_receipt&lt;Backend, PBlock, Hash&gt;(
     backend: <span class="kw-2">&amp;</span>Backend,
     bad_receipt_number: NumberFor&lt;PBlock&gt;,
-    bad_signed_bundle_hash: H256,
+    bad_receipt_hash: H256,
     trace_mismatch_info: (u32, Hash),
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), ClientError&gt;
 <span class="kw">where
@@ -890,18 +870,15 @@
     PBlock: BlockT,
     Hash: Encode,
 {
-    <span class="kw">let </span>bad_signed_bundle_hashes_key = (BAD_SIGNED_BUNDLE_HASHES, bad_receipt_number).encode();
-    <span class="kw">let </span><span class="kw-2">mut </span>bad_signed_bundle_hashes: Vec&lt;H256&gt; =
-        load_decode(backend, bad_signed_bundle_hashes_key.as_slice())<span class="question-mark">?</span>.unwrap_or_default();
-    bad_signed_bundle_hashes.push(bad_signed_bundle_hash);
+    <span class="kw">let </span>bad_receipt_hashes_key = (BAD_RECEIPT_HASHES, bad_receipt_number).encode();
+    <span class="kw">let </span><span class="kw-2">mut </span>bad_receipt_hashes: Vec&lt;H256&gt; =
+        load_decode(backend, bad_receipt_hashes_key.as_slice())<span class="question-mark">?</span>.unwrap_or_default();
+    bad_receipt_hashes.push(bad_receipt_hash);
 
     <span class="kw">let </span><span class="kw-2">mut </span>to_insert = <span class="macro">vec!</span>[
+        (bad_receipt_hashes_key, bad_receipt_hashes.encode()),
         (
-            bad_signed_bundle_hashes_key,
-            bad_signed_bundle_hashes.encode(),
-        ),
-        (
-            bad_receipt_mismatch_info_key(bad_signed_bundle_hash),
+            bad_receipt_mismatch_info_key(bad_receipt_hash),
             trace_mismatch_info.encode(),
         ),
     ];
@@ -928,27 +905,27 @@
 <span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>delete_bad_receipt&lt;Backend: AuxStore&gt;(
     backend: <span class="kw-2">&amp;</span>Backend,
     block_number: BlockNumber,
-    signed_bundle_hash: H256,
+    bad_receipt_hash: H256,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), ClientError&gt; {
-    <span class="kw">let </span>bad_signed_bundle_hashes_key = (BAD_SIGNED_BUNDLE_HASHES, block_number).encode();
+    <span class="kw">let </span>bad_receipt_hashes_key = (BAD_RECEIPT_HASHES, block_number).encode();
     <span class="kw">let </span><span class="kw-2">mut </span>hashes_at_block_number: Vec&lt;H256&gt; =
-        load_decode(backend, bad_signed_bundle_hashes_key.as_slice())<span class="question-mark">?</span>.unwrap_or_default();
+        load_decode(backend, bad_receipt_hashes_key.as_slice())<span class="question-mark">?</span>.unwrap_or_default();
 
     <span class="kw">if let </span><span class="prelude-val">Some</span>(index) = hashes_at_block_number
         .iter()
-        .position(|<span class="kw-2">&amp;</span>x| x == signed_bundle_hash)
+        .position(|<span class="kw-2">&amp;</span>x| x == bad_receipt_hash)
     {
         hashes_at_block_number.swap_remove(index);
     } <span class="kw">else </span>{
         <span class="kw">return </span><span class="prelude-val">Err</span>(ClientError::Backend(<span class="macro">format!</span>(
-            <span class="string">&quot;Deleting an inexistent bad receipt {signed_bundle_hash:?}, available: {hashes_at_block_number:?}&quot;</span>,
+            <span class="string">&quot;Deleting an inexistent bad receipt {bad_receipt_hash:?}, available: {hashes_at_block_number:?}&quot;</span>,
         )));
     }
 
-    <span class="kw">let </span><span class="kw-2">mut </span>keys_to_delete = <span class="macro">vec!</span>[bad_receipt_mismatch_info_key(signed_bundle_hash)];
+    <span class="kw">let </span><span class="kw-2">mut </span>keys_to_delete = <span class="macro">vec!</span>[bad_receipt_mismatch_info_key(bad_receipt_hash)];
 
     <span class="kw">let </span>to_insert = <span class="kw">if </span>hashes_at_block_number.is_empty() {
-        keys_to_delete.push(bad_signed_bundle_hashes_key);
+        keys_to_delete.push(bad_receipt_hashes_key);
 
         <span class="kw">let </span><span class="kw-2">mut </span>bad_receipt_numbers: Vec&lt;BlockNumber&gt; =
             load_decode(backend, BAD_RECEIPT_NUMBERS.encode().as_slice())<span class="question-mark">?</span>.ok_or_else(|| {
@@ -964,10 +941,7 @@
             <span class="macro">vec!</span>[(BAD_RECEIPT_NUMBERS.encode(), bad_receipt_numbers.encode())]
         }
     } <span class="kw">else </span>{
-        <span class="macro">vec!</span>[(
-            bad_signed_bundle_hashes_key,
-            hashes_at_block_number.encode(),
-        )]
+        <span class="macro">vec!</span>[(bad_receipt_hashes_key, hashes_at_block_number.encode())]
     };
 
     backend.insert_aux(
@@ -983,15 +957,15 @@
     backend: <span class="kw-2">&amp;</span>Backend,
     block_number: Number,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), sp_blockchain::Error&gt; {
-    <span class="kw">let </span>bad_signed_bundle_hashes_key = (BAD_SIGNED_BUNDLE_HASHES, block_number).encode();
+    <span class="kw">let </span>bad_receipt_hashes_key = (BAD_RECEIPT_HASHES, block_number).encode();
 
     <span class="kw">let </span>bad_receipt_hashes: Vec&lt;H256&gt; =
-        load_decode(backend, bad_signed_bundle_hashes_key.as_slice())<span class="question-mark">?</span>.unwrap_or_default();
+        load_decode(backend, bad_receipt_hashes_key.as_slice())<span class="question-mark">?</span>.unwrap_or_default();
 
     <span class="kw">let </span>keys_to_delete = bad_receipt_hashes
         .into_iter()
         .map(bad_receipt_mismatch_info_key)
-        .chain(std::iter::once(bad_signed_bundle_hashes_key))
+        .chain(std::iter::once(bad_receipt_hashes_key))
         .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
 
     backend.insert_aux(
@@ -1059,25 +1033,25 @@
         load_decode(backend, BAD_RECEIPT_NUMBERS.encode().as_slice())<span class="question-mark">?</span>.unwrap_or_default();
 
     <span class="kw">for </span>bad_receipt_number <span class="kw">in </span>bad_receipt_numbers {
-        <span class="kw">let </span>bad_signed_bundle_hashes_key = (BAD_SIGNED_BUNDLE_HASHES, bad_receipt_number).encode();
-        <span class="kw">let </span>bad_signed_bundle_hashes: Vec&lt;H256&gt; =
-            load_decode(backend, bad_signed_bundle_hashes_key.as_slice())<span class="question-mark">?</span>.unwrap_or_default();
+        <span class="kw">let </span>bad_receipt_hashes_key = (BAD_RECEIPT_HASHES, bad_receipt_number).encode();
+        <span class="kw">let </span>bad_receipt_hashes: Vec&lt;H256&gt; =
+            load_decode(backend, bad_receipt_hashes_key.as_slice())<span class="question-mark">?</span>.unwrap_or_default();
 
         <span class="kw">let </span><span class="kw-2">mut </span>fork_receipt_hashes = <span class="macro">vec!</span>[];
-        <span class="kw">for </span>bad_signed_bundle_hash <span class="kw">in </span>bad_signed_bundle_hashes.iter() {
+        <span class="kw">for </span>bad_receipt_hash <span class="kw">in </span>bad_receipt_hashes.iter() {
             <span class="kw">let </span>(trace_mismatch_index, block_hash): (u32, Block::Hash) = load_decode(
                 backend,
-                bad_receipt_mismatch_info_key(bad_signed_bundle_hash).as_slice(),
+                bad_receipt_mismatch_info_key(bad_receipt_hash).as_slice(),
             )<span class="question-mark">?
             </span>.ok_or_else(|| {
                 ClientError::Backend(<span class="macro">format!</span>(
-                        <span class="string">&quot;Trace mismatch info not found for `bad_signed_bundle_hash`: {bad_signed_bundle_hash:?}&quot;
+                    <span class="string">&quot;Trace mismatch info not found for `bad_receipt_hash`: {bad_receipt_hash:?}&quot;
                 </span>))
             })<span class="question-mark">?</span>;
 
             <span class="comment">// TODO: Ensure the block from which the trace mismatch index was generated is still on the
             // canonical chain.
-            </span><span class="kw">if </span>backend.header(BlockId::Hash(block_hash))<span class="question-mark">?</span>.is_some() {
+            </span><span class="kw">if </span>backend.header(block_hash)<span class="question-mark">?</span>.is_some() {
                 <span class="kw">if </span>!fork_receipt_hashes.is_empty() {
                     <span class="comment">// TODO: Handle the receipts on the fork properly once the executor is primary-chain-fork-aware.
                     </span><span class="macro">tracing::debug!</span>(
@@ -1086,13 +1060,9 @@
                         <span class="string">&quot;Bad receipts are not on the canonical chain&quot;
                     </span>);
                 }
-                <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>((
-                    <span class="kw-2">*</span>bad_signed_bundle_hash,
-                    trace_mismatch_index,
-                    block_hash,
-                )));
+                <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>((<span class="kw-2">*</span>bad_receipt_hash, trace_mismatch_index, block_hash)));
             } <span class="kw">else </span>{
-                fork_receipt_hashes.push(bad_signed_bundle_hash);
+                fork_receipt_hashes.push(bad_receipt_hash);
             }
         }
 
@@ -1356,8 +1326,8 @@
             substrate_test_runtime_client::TestClientBuilder::new().build_with_backend();
 
         <span class="kw">let </span>bad_receipts_at = |number: BlockNumber| -&gt; <span class="prelude-ty">Option</span>&lt;HashSet&lt;Hash&gt;&gt; {
-            <span class="kw">let </span>bad_signed_bundle_hashes_key = (BAD_SIGNED_BUNDLE_HASHES, number).encode();
-            load_decode(<span class="kw-2">&amp;</span>client, bad_signed_bundle_hashes_key.as_slice())
+            <span class="kw">let </span>bad_receipt_hashes_key = (BAD_RECEIPT_HASHES, number).encode();
+            load_decode(<span class="kw-2">&amp;</span>client, bad_receipt_hashes_key.as_slice())
                 .unwrap()
                 .map(|v: Vec&lt;Hash&gt;| v.into_iter().collect())
         };
@@ -1474,5 +1444,4 @@
         <span class="macro">assert!</span>(bad_receipts_at(<span class="number">30</span>).is_none());
     }
 }
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="domain_client_executor" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</code></pre></div></section></main></body></html>

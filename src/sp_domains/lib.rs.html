@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/sp-domains/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../sp_domains/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/sp-domains/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sp_domains" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../sp_domains/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -416,6 +416,47 @@
 <a href="#416" id="416">416</a>
 <a href="#417" id="417">417</a>
 <a href="#418" id="418">418</a>
+<a href="#419" id="419">419</a>
+<a href="#420" id="420">420</a>
+<a href="#421" id="421">421</a>
+<a href="#422" id="422">422</a>
+<a href="#423" id="423">423</a>
+<a href="#424" id="424">424</a>
+<a href="#425" id="425">425</a>
+<a href="#426" id="426">426</a>
+<a href="#427" id="427">427</a>
+<a href="#428" id="428">428</a>
+<a href="#429" id="429">429</a>
+<a href="#430" id="430">430</a>
+<a href="#431" id="431">431</a>
+<a href="#432" id="432">432</a>
+<a href="#433" id="433">433</a>
+<a href="#434" id="434">434</a>
+<a href="#435" id="435">435</a>
+<a href="#436" id="436">436</a>
+<a href="#437" id="437">437</a>
+<a href="#438" id="438">438</a>
+<a href="#439" id="439">439</a>
+<a href="#440" id="440">440</a>
+<a href="#441" id="441">441</a>
+<a href="#442" id="442">442</a>
+<a href="#443" id="443">443</a>
+<a href="#444" id="444">444</a>
+<a href="#445" id="445">445</a>
+<a href="#446" id="446">446</a>
+<a href="#447" id="447">447</a>
+<a href="#448" id="448">448</a>
+<a href="#449" id="449">449</a>
+<a href="#450" id="450">450</a>
+<a href="#451" id="451">451</a>
+<a href="#452" id="452">452</a>
+<a href="#453" id="453">453</a>
+<a href="#454" id="454">454</a>
+<a href="#455" id="455">455</a>
+<a href="#456" id="456">456</a>
+<a href="#457" id="457">457</a>
+<a href="#458" id="458">458</a>
+<a href="#459" id="459">459</a>
 </pre><pre class="rust"><code><span class="comment">// Copyright (C) 2021 Subspace Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -437,9 +478,11 @@
 
 </span><span class="kw">pub mod </span>bundle_election;
 <span class="kw">pub mod </span>fraud_proof;
+<span class="kw">pub mod </span>merkle_tree;
 <span class="kw">pub mod </span>transaction;
 
-<span class="kw">use </span><span class="kw">crate</span>::fraud_proof::{BundleEquivocationProof, FraudProof, InvalidTransactionProof};
+<span class="kw">use </span><span class="kw">crate</span>::fraud_proof::FraudProof;
+<span class="kw">use </span>merkle_tree::Witness;
 <span class="kw">use </span>parity_scale_codec::{Decode, Encode};
 <span class="kw">use </span>scale_info::TypeInfo;
 <span class="kw">use </span>schnorrkel::vrf::{VRF_OUTPUT_LENGTH, VRF_PROOF_LENGTH};
@@ -529,6 +572,8 @@
 
     <span class="kw">pub const </span>CORE_PAYMENTS: <span class="self">Self </span>= <span class="self">Self</span>::new(<span class="number">1</span>);
 
+    <span class="kw">pub const </span>CORE_ETH_RELAY: <span class="self">Self </span>= <span class="self">Self</span>::new(<span class="number">2</span>);
+
     <span class="doccomment">/// Creates a [`DomainId`].
     </span><span class="kw">pub const fn </span>new(id: u32) -&gt; <span class="self">Self </span>{
         <span class="self">Self</span>(id)
@@ -552,6 +597,13 @@
     <span class="doccomment">/// Converts the inner integer to little-endian bytes.
     </span><span class="kw">pub fn </span>to_le_bytes(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; [u8; <span class="number">4</span>] {
         <span class="self">self</span>.<span class="number">0</span>.to_le_bytes()
+    }
+
+    <span class="doccomment">/// Returns the section name when a core domain wasm blob is embedded into the system domain
+    /// runtime via the `link_section` attribute.
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    </span><span class="kw">pub fn </span>link_section_name(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; String {
+        <span class="macro">format!</span>(<span class="string">&quot;runtime_blob_{}&quot;</span>, <span class="self">self</span>.<span class="number">0</span>)
     }
 }
 
@@ -577,9 +629,11 @@
     </span><span class="kw">pub </span>min_operator_stake: Balance,
 }
 
-<span class="doccomment">/// Header of transaction bundle.
+<span class="doccomment">/// Header of bundle.
 </span><span class="attr">#[derive(Debug, Decode, Encode, TypeInfo, PartialEq, Eq, Clone)]
-</span><span class="kw">pub struct </span>BundleHeader&lt;Hash&gt; {
+</span><span class="kw">pub struct </span>BundleHeader&lt;Number, Hash&gt; {
+    <span class="doccomment">/// The block number of primary block at which the bundle was created.
+    </span><span class="kw">pub </span>primary_number: Number,
     <span class="doccomment">/// The hash of primary block at which the bundle was created.
     </span><span class="kw">pub </span>primary_hash: Hash,
     <span class="doccomment">/// The slot number.
@@ -588,7 +642,7 @@
     </span><span class="kw">pub </span>extrinsics_root: H256,
 }
 
-<span class="kw">impl</span>&lt;Hash: Encode&gt; BundleHeader&lt;Hash&gt; {
+<span class="kw">impl</span>&lt;Number: Encode, Hash: Encode&gt; BundleHeader&lt;Number, Hash&gt; {
     <span class="doccomment">/// Returns the hash of this header.
     </span><span class="kw">pub fn </span>hash(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; H256 {
         BlakeTwo256::hash_of(<span class="self">self</span>)
@@ -611,7 +665,7 @@
     </span><span class="kw">pub </span>state_root: DomainHash,
     <span class="doccomment">/// Storage proof for the bundle election state.
     </span><span class="kw">pub </span>storage_proof: StorageProof,
-    <span class="doccomment">/// Number of the secondary block at which the proof of election was created.
+    <span class="doccomment">/// Number of the system domain block at which the proof of election was created.
     </span><span class="kw">pub </span>block_number: BlockNumber,
     <span class="doccomment">/// Block hash corresponding to the `block_number` above.
     </span><span class="kw">pub </span>block_hash: DomainHash,
@@ -638,7 +692,14 @@
 </span><span class="attr">#[derive(Debug, Decode, Encode, TypeInfo, PartialEq, Eq, Clone)]
 </span><span class="kw">pub enum </span>BundleSolution&lt;DomainHash&gt; {
     <span class="doccomment">/// System domain bundle election.
-    </span>System(ProofOfElection&lt;DomainHash&gt;),
+    </span>System {
+        <span class="doccomment">/// Authority&#39;s stake weight.
+        </span>authority_stake_weight: StakeWeight,
+        <span class="doccomment">/// Authority membership witness.
+        </span>authority_witness: Witness,
+        <span class="doccomment">/// Proof of election
+        </span>proof_of_election: ProofOfElection&lt;DomainHash&gt;,
+    },
     <span class="doccomment">/// Core domain bundle election.
     </span>Core {
         <span class="doccomment">/// Proof of election.
@@ -655,7 +716,9 @@
 <span class="kw">impl</span>&lt;DomainHash&gt; BundleSolution&lt;DomainHash&gt; {
     <span class="kw">pub fn </span>proof_of_election(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>ProofOfElection&lt;DomainHash&gt; {
         <span class="kw">match </span><span class="self">self </span>{
-            <span class="self">Self</span>::System(proof_of_election)
+            <span class="self">Self</span>::System {
+                proof_of_election, ..
+            }
             | <span class="self">Self</span>::Core {
                 proof_of_election, ..
             } =&gt; proof_of_election,
@@ -663,21 +726,27 @@
     }
 }
 
-<span class="doccomment">/// Transaction bundle
+<span class="doccomment">/// Domain bundle.
 </span><span class="attr">#[derive(Debug, Decode, Encode, TypeInfo, PartialEq, Eq, Clone)]
 </span><span class="kw">pub struct </span>Bundle&lt;Extrinsic, Number, Hash, DomainHash&gt; {
     <span class="doccomment">/// The bundle header.
-    </span><span class="kw">pub </span>header: BundleHeader&lt;Hash&gt;,
+    </span><span class="kw">pub </span>header: BundleHeader&lt;Number, Hash&gt;,
     <span class="doccomment">/// Expected receipts by the primay chain when the bundle was created.
+    ///
+    /// NOTE: It&#39;s fine to `Vec` instead of `BoundedVec` as each bundle is
+    /// wrapped in an unsigned extrinsic, therefore the number of receipts
+    /// in a bundle is inherently constrained by the max extrinsic size limit.
     </span><span class="kw">pub </span>receipts: Vec&lt;ExecutionReceipt&lt;Number, Hash, DomainHash&gt;&gt;,
     <span class="doccomment">/// The accompanying extrinsics.
     </span><span class="kw">pub </span>extrinsics: Vec&lt;Extrinsic&gt;,
 }
 
-<span class="kw">impl</span>&lt;Extrinsic, Number, Hash: Encode, DomainHash&gt; Bundle&lt;Extrinsic, Number, Hash, DomainHash&gt; {
+<span class="kw">impl</span>&lt;Extrinsic: Encode, Number: Encode, Hash: Encode, DomainHash: Encode&gt;
+    Bundle&lt;Extrinsic, Number, Hash, DomainHash&gt;
+{
     <span class="doccomment">/// Returns the hash of this bundle.
     </span><span class="kw">pub fn </span>hash(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; H256 {
-        <span class="self">self</span>.header.hash()
+        BlakeTwo256::hash_of(<span class="self">self</span>)
     }
 }
 
@@ -749,6 +818,20 @@
     }
 }
 
+<span class="kw">impl</span>&lt;Extrinsic, Number, Hash, DomainHash&gt; SignedBundle&lt;Extrinsic, Number, Hash, DomainHash&gt; {
+    <span class="doccomment">/// Consumes [`SignedBundle`] to extract the inner executor public key.
+    </span><span class="kw">pub fn </span>into_executor_public_key(<span class="self">self</span>) -&gt; ExecutorPublicKey {
+        <span class="kw">match </span><span class="self">self</span>.bundle_solution {
+            BundleSolution::System {
+                proof_of_election, ..
+            }
+            | BundleSolution::Core {
+                proof_of_election, ..
+            } =&gt; proof_of_election.executor_public_key,
+        }
+    }
+}
+
 <span class="doccomment">/// Receipt of a domain block execution.
 </span><span class="attr">#[derive(Debug, Decode, Encode, TypeInfo, PartialEq, Eq, Clone)]
 </span><span class="kw">pub struct </span>ExecutionReceipt&lt;Number, Hash, DomainHash&gt; {
@@ -786,17 +869,7 @@
         </span><span class="kw">fn </span>submit_bundle_unsigned(opaque_bundle: SignedOpaqueBundle&lt;NumberFor&lt;Block&gt;, Block::Hash, DomainHash&gt;);
 
         <span class="doccomment">/// Submits the fraud proof via an unsigned extrinsic.
-        </span><span class="kw">fn </span>submit_fraud_proof_unsigned(fraud_proof: FraudProof);
-
-        <span class="doccomment">/// Submits the bundle equivocation proof via an unsigned extrinsic.
-        </span><span class="kw">fn </span>submit_bundle_equivocation_proof_unsigned(
-            bundle_equivocation_proof: BundleEquivocationProof&lt;Block::Hash&gt;,
-        );
-
-        <span class="doccomment">/// Submits the invalid transaction proof via an unsigned extrinsic.
-        </span><span class="kw">fn </span>submit_invalid_transaction_proof_unsigned(
-            invalid_transaction_proof: InvalidTransactionProof,
-        );
+        </span><span class="kw">fn </span>submit_fraud_proof_unsigned(fraud_proof: FraudProof&lt;NumberFor&lt;Block&gt;, Block::Hash&gt;);
 
         <span class="doccomment">/// Extract the system bundles from the given extrinsics.
         </span><span class="kw">fn </span>extract_system_bundles(
@@ -809,6 +882,9 @@
             domain_id: DomainId,
         ) -&gt; OpaqueBundles&lt;Block, DomainHash&gt;;
 
+        <span class="doccomment">/// Extract the hashes of bundles stored in the block
+        </span><span class="kw">fn </span>extract_stored_bundle_hashes() -&gt; Vec&lt;H256&gt;;
+
         <span class="doccomment">/// Extract the receipts from the given extrinsics.
         </span><span class="kw">fn </span>extract_receipts(
             extrinsics: Vec&lt;Block::Extrinsic&gt;,
@@ -816,13 +892,16 @@
         ) -&gt; Vec&lt;ExecutionReceipt&lt;NumberFor&lt;Block&gt;, Block::Hash, DomainHash&gt;&gt;;
 
         <span class="doccomment">/// Extract the fraud proofs from the given extrinsics.
-        </span><span class="kw">fn </span>extract_fraud_proofs(extrinsics: Vec&lt;Block::Extrinsic&gt;) -&gt; Vec&lt;FraudProof&gt;;
+        </span><span class="kw">fn </span>extract_fraud_proofs(
+            extrinsics: Vec&lt;Block::Extrinsic&gt;,
+            domain_id: DomainId,
+        ) -&gt; Vec&lt;FraudProof&lt;NumberFor&lt;Block&gt;, Block::Hash&gt;&gt;;
 
         <span class="doccomment">/// Generates a randomness seed for extrinsics shuffling.
         </span><span class="kw">fn </span>extrinsics_shuffling_seed(header: Block::Header) -&gt; Randomness;
 
-        <span class="doccomment">/// WASM bundle for execution runtime.
-        </span><span class="kw">fn </span>execution_wasm_bundle() -&gt; Cow&lt;<span class="lifetime">&#39;static</span>, [u8]&gt;;
+        <span class="doccomment">/// WASM bundle for system domain runtime.
+        </span><span class="kw">fn </span>system_domain_wasm_bundle() -&gt; Cow&lt;<span class="lifetime">&#39;static</span>, [u8]&gt;;
 
         <span class="doccomment">/// Returns the best execution chain number.
         </span><span class="kw">fn </span>head_receipt_number() -&gt; NumberFor&lt;Block&gt;;
@@ -832,7 +911,9 @@
 
         <span class="doccomment">/// Returns the maximum receipt drift.
         </span><span class="kw">fn </span>maximum_receipt_drift() -&gt; NumberFor&lt;Block&gt;;
+
+        <span class="comment">// Returns the state root of the system domain at specific number and hash.
+        </span><span class="kw">fn </span>system_domain_state_root_at(number: NumberFor&lt;Block&gt;, domain_hash: DomainHash) -&gt; <span class="prelude-ty">Option</span>&lt;Block::Hash&gt;;
     }
 }
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sp_domains" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</code></pre></div></section></main></body></html>

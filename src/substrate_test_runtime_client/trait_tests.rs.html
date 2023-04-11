@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `substrate/substrate-test-runtime-client/src/trait_tests.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>trait_tests.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../substrate_test_runtime_client/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `substrate/substrate-test-runtime-client/src/trait_tests.rs`."><title>trait_tests.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="substrate_test_runtime_client" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../substrate_test_runtime_client/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -437,17 +437,6 @@
 <a href="#437" id="437">437</a>
 <a href="#438" id="438">438</a>
 <a href="#439" id="439">439</a>
-<a href="#440" id="440">440</a>
-<a href="#441" id="441">441</a>
-<a href="#442" id="442">442</a>
-<a href="#443" id="443">443</a>
-<a href="#444" id="444">444</a>
-<a href="#445" id="445">445</a>
-<a href="#446" id="446">446</a>
-<a href="#447" id="447">447</a>
-<a href="#448" id="448">448</a>
-<a href="#449" id="449">449</a>
-<a href="#450" id="450">450</a>
 </pre><pre class="rust"><code><span class="comment">// This file is part of Substrate.
 
 // Copyright (C) 2018-2021 Parity Technologies (UK) Ltd.
@@ -482,7 +471,7 @@
 	blockchain::{Backend <span class="kw">as </span>BlockChainBackendT, HeaderBackend},
 };
 <span class="kw">use </span>sp_consensus::BlockOrigin;
-<span class="kw">use </span>sp_runtime::{generic::BlockId, traits::Block <span class="kw">as </span>BlockT};
+<span class="kw">use </span>sp_runtime::traits::Block <span class="kw">as </span>BlockT;
 <span class="kw">use </span>substrate_test_runtime::{<span class="self">self</span>, Transfer};
 
 <span class="doccomment">/// helper to test the `leaves` implementation for various backends
@@ -510,7 +499,7 @@
 
 	<span class="comment">// A1 -&gt; A2
 	</span><span class="kw">let </span>a2 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a1.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a1.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -521,7 +510,7 @@
 
 	<span class="comment">// A2 -&gt; A3
 	</span><span class="kw">let </span>a3 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a2.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a2.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -532,7 +521,7 @@
 
 	<span class="comment">// A3 -&gt; A4
 	</span><span class="kw">let </span>a4 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a3.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a3.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -542,7 +531,7 @@
 
 	<span class="comment">// A4 -&gt; A5
 	</span><span class="kw">let </span>a5 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a4.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a4.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -553,7 +542,7 @@
 
 	<span class="comment">// A1 -&gt; B2
 	</span><span class="kw">let </span><span class="kw-2">mut </span>builder = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a1.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a1.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap();
 
 	<span class="comment">// this push is required as otherwise B2 has the same hash as A2 and won&#39;t get imported
@@ -571,7 +560,7 @@
 
 	<span class="comment">// B2 -&gt; B3
 	</span><span class="kw">let </span>b3 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(b2.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(b2.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -582,7 +571,7 @@
 
 	<span class="comment">// B3 -&gt; B4
 	</span><span class="kw">let </span>b4 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(b3.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(b3.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -592,7 +581,7 @@
 
 	<span class="comment">// // B2 -&gt; C3
 	</span><span class="kw">let </span><span class="kw-2">mut </span>builder = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(b2.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(b2.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap();
 	<span class="comment">// this push is required as otherwise C3 has the same hash as B3 and won&#39;t get imported
 	</span>builder
@@ -609,7 +598,7 @@
 
 	<span class="comment">// A1 -&gt; D2
 	</span><span class="kw">let </span><span class="kw-2">mut </span>builder = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a1.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a1.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap();
 	<span class="comment">// this push is required as otherwise D2 has the same hash as B2 and won&#39;t get imported
 	</span>builder
@@ -645,7 +634,7 @@
 
 	<span class="comment">// A1 -&gt; A2
 	</span><span class="kw">let </span>a2 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a1.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a1.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -654,7 +643,7 @@
 
 	<span class="comment">// A2 -&gt; A3
 	</span><span class="kw">let </span>a3 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a2.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a2.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -663,7 +652,7 @@
 
 	<span class="comment">// A3 -&gt; A4
 	</span><span class="kw">let </span>a4 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a3.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a3.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -672,7 +661,7 @@
 
 	<span class="comment">// A4 -&gt; A5
 	</span><span class="kw">let </span>a5 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a4.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a4.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -681,7 +670,7 @@
 
 	<span class="comment">// A1 -&gt; B2
 	</span><span class="kw">let </span><span class="kw-2">mut </span>builder = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a1.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a1.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap();
 	<span class="comment">// this push is required as otherwise B2 has the same hash as A2 and won&#39;t get imported
 	</span>builder
@@ -697,7 +686,7 @@
 
 	<span class="comment">// B2 -&gt; B3
 	</span><span class="kw">let </span>b3 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(b2.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(b2.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -706,7 +695,7 @@
 
 	<span class="comment">// B3 -&gt; B4
 	</span><span class="kw">let </span>b4 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(b3.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(b3.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -715,7 +704,7 @@
 
 	<span class="comment">// // B2 -&gt; C3
 	</span><span class="kw">let </span><span class="kw-2">mut </span>builder = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(b2.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(b2.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap();
 	<span class="comment">// this push is required as otherwise C3 has the same hash as B3 and won&#39;t get imported
 	</span>builder
@@ -731,7 +720,7 @@
 
 	<span class="comment">// A1 -&gt; D2
 	</span><span class="kw">let </span><span class="kw-2">mut </span>builder = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a1.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a1.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap();
 	<span class="comment">// this push is required as otherwise D2 has the same hash as B2 and won&#39;t get imported
 	</span>builder
@@ -778,7 +767,7 @@
 
 	<span class="comment">// A1 -&gt; A2
 	</span><span class="kw">let </span>a2 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a1.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a1.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -787,7 +776,7 @@
 
 	<span class="comment">// A2 -&gt; A3
 	</span><span class="kw">let </span>a3 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a2.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a2.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -796,7 +785,7 @@
 
 	<span class="comment">// A3 -&gt; A4
 	</span><span class="kw">let </span>a4 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a3.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a3.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -805,7 +794,7 @@
 
 	<span class="comment">// A4 -&gt; A5
 	</span><span class="kw">let </span>a5 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a4.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a4.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -814,7 +803,7 @@
 
 	<span class="comment">// A1 -&gt; B2
 	</span><span class="kw">let </span><span class="kw-2">mut </span>builder = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a1.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a1.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap();
 	<span class="comment">// this push is required as otherwise B2 has the same hash as A2 and won&#39;t get imported
 	</span>builder
@@ -830,7 +819,7 @@
 
 	<span class="comment">// B2 -&gt; B3
 	</span><span class="kw">let </span>b3 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(b2.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(b2.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -839,7 +828,7 @@
 
 	<span class="comment">// B3 -&gt; B4
 	</span><span class="kw">let </span>b4 = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(b3.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(b3.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap()
 		.build()
 		.unwrap()
@@ -848,7 +837,7 @@
 
 	<span class="comment">// // B2 -&gt; C3
 	</span><span class="kw">let </span><span class="kw-2">mut </span>builder = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(b2.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(b2.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap();
 	<span class="comment">// this push is required as otherwise C3 has the same hash as B3 and won&#39;t get imported
 	</span>builder
@@ -864,7 +853,7 @@
 
 	<span class="comment">// A1 -&gt; D2
 	</span><span class="kw">let </span><span class="kw-2">mut </span>builder = client
-		.new_block_at(<span class="kw-2">&amp;</span>BlockId::Hash(a1.hash()), Default::default(), <span class="bool-val">false</span>)
+		.new_block_at(a1.hash(), Default::default(), <span class="bool-val">false</span>)
 		.unwrap();
 	<span class="comment">// this push is required as otherwise D2 has the same hash as B2 and won&#39;t get imported
 	</span>builder
@@ -880,23 +869,11 @@
 
 	<span class="kw">let </span>genesis_hash = client.chain_info().genesis_hash;
 
-	<span class="macro">assert_eq!</span>(blockchain.header(BlockId::Number(<span class="number">0</span>)).unwrap().unwrap().hash(), genesis_hash);
 	<span class="macro">assert_eq!</span>(blockchain.hash(<span class="number">0</span>).unwrap().unwrap(), genesis_hash);
-
-	<span class="macro">assert_eq!</span>(blockchain.header(BlockId::Number(<span class="number">1</span>)).unwrap().unwrap().hash(), a1.hash());
 	<span class="macro">assert_eq!</span>(blockchain.hash(<span class="number">1</span>).unwrap().unwrap(), a1.hash());
-
-	<span class="macro">assert_eq!</span>(blockchain.header(BlockId::Number(<span class="number">2</span>)).unwrap().unwrap().hash(), a2.hash());
 	<span class="macro">assert_eq!</span>(blockchain.hash(<span class="number">2</span>).unwrap().unwrap(), a2.hash());
-
-	<span class="macro">assert_eq!</span>(blockchain.header(BlockId::Number(<span class="number">3</span>)).unwrap().unwrap().hash(), a3.hash());
 	<span class="macro">assert_eq!</span>(blockchain.hash(<span class="number">3</span>).unwrap().unwrap(), a3.hash());
-
-	<span class="macro">assert_eq!</span>(blockchain.header(BlockId::Number(<span class="number">4</span>)).unwrap().unwrap().hash(), a4.hash());
 	<span class="macro">assert_eq!</span>(blockchain.hash(<span class="number">4</span>).unwrap().unwrap(), a4.hash());
-
-	<span class="macro">assert_eq!</span>(blockchain.header(BlockId::Number(<span class="number">5</span>)).unwrap().unwrap().hash(), a5.hash());
 	<span class="macro">assert_eq!</span>(blockchain.hash(<span class="number">5</span>).unwrap().unwrap(), a5.hash());
 }
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="substrate_test_runtime_client" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</code></pre></div></section></main></body></html>

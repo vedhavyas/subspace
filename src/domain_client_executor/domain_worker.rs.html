@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `domains/client/domain-executor/src/domain_worker.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>domain_worker.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../domain_client_executor/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `domains/client/domain-executor/src/domain_worker.rs`."><title>domain_worker.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="domain_client_executor" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../domain_client_executor/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -251,109 +251,25 @@
 <a href="#251" id="251">251</a>
 <a href="#252" id="252">252</a>
 <a href="#253" id="253">253</a>
-<a href="#254" id="254">254</a>
-<a href="#255" id="255">255</a>
-<a href="#256" id="256">256</a>
-<a href="#257" id="257">257</a>
-<a href="#258" id="258">258</a>
-<a href="#259" id="259">259</a>
-<a href="#260" id="260">260</a>
-<a href="#261" id="261">261</a>
-<a href="#262" id="262">262</a>
-<a href="#263" id="263">263</a>
-<a href="#264" id="264">264</a>
-<a href="#265" id="265">265</a>
-<a href="#266" id="266">266</a>
-<a href="#267" id="267">267</a>
-<a href="#268" id="268">268</a>
-<a href="#269" id="269">269</a>
-<a href="#270" id="270">270</a>
-<a href="#271" id="271">271</a>
-<a href="#272" id="272">272</a>
-<a href="#273" id="273">273</a>
-<a href="#274" id="274">274</a>
-<a href="#275" id="275">275</a>
-<a href="#276" id="276">276</a>
-<a href="#277" id="277">277</a>
-<a href="#278" id="278">278</a>
-<a href="#279" id="279">279</a>
-<a href="#280" id="280">280</a>
-<a href="#281" id="281">281</a>
-<a href="#282" id="282">282</a>
-<a href="#283" id="283">283</a>
-<a href="#284" id="284">284</a>
-<a href="#285" id="285">285</a>
-<a href="#286" id="286">286</a>
-<a href="#287" id="287">287</a>
-<a href="#288" id="288">288</a>
-<a href="#289" id="289">289</a>
-<a href="#290" id="290">290</a>
-<a href="#291" id="291">291</a>
-<a href="#292" id="292">292</a>
-<a href="#293" id="293">293</a>
-<a href="#294" id="294">294</a>
-<a href="#295" id="295">295</a>
-<a href="#296" id="296">296</a>
-<a href="#297" id="297">297</a>
-<a href="#298" id="298">298</a>
-<a href="#299" id="299">299</a>
-<a href="#300" id="300">300</a>
-<a href="#301" id="301">301</a>
-<a href="#302" id="302">302</a>
-<a href="#303" id="303">303</a>
-<a href="#304" id="304">304</a>
-<a href="#305" id="305">305</a>
-<a href="#306" id="306">306</a>
-<a href="#307" id="307">307</a>
-<a href="#308" id="308">308</a>
-<a href="#309" id="309">309</a>
-<a href="#310" id="310">310</a>
-<a href="#311" id="311">311</a>
-<a href="#312" id="312">312</a>
-<a href="#313" id="313">313</a>
-<a href="#314" id="314">314</a>
-<a href="#315" id="315">315</a>
-<a href="#316" id="316">316</a>
-<a href="#317" id="317">317</a>
-<a href="#318" id="318">318</a>
-<a href="#319" id="319">319</a>
-<a href="#320" id="320">320</a>
-<a href="#321" id="321">321</a>
-<a href="#322" id="322">322</a>
-<a href="#323" id="323">323</a>
-<a href="#324" id="324">324</a>
-<a href="#325" id="325">325</a>
-<a href="#326" id="326">326</a>
-<a href="#327" id="327">327</a>
-<a href="#328" id="328">328</a>
-<a href="#329" id="329">329</a>
-<a href="#330" id="330">330</a>
-<a href="#331" id="331">331</a>
-<a href="#332" id="332">332</a>
-<a href="#333" id="333">333</a>
-<a href="#334" id="334">334</a>
-</pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::utils::{to_number_primitive, BlockInfo, DomainBundles, ExecutorSlotInfo};
+</pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::utils::{to_number_primitive, BlockInfo, ExecutorSlotInfo};
 <span class="kw">use </span>codec::{Decode, Encode};
 <span class="kw">use </span>futures::channel::mpsc;
 <span class="kw">use </span>futures::{SinkExt, Stream, StreamExt};
-<span class="kw">use </span>sc_client_api::BlockBackend;
-<span class="kw">use </span>sc_consensus::ForkChoiceStrategy;
+<span class="kw">use </span>sc_client_api::{BlockBackend, BlockImportNotification, BlockchainEvents};
 <span class="kw">use </span>sp_api::{ApiError, BlockT, ProvideRuntimeApi};
 <span class="kw">use </span>sp_blockchain::HeaderBackend;
-<span class="kw">use </span>sp_domains::{DomainId, ExecutorApi, SignedOpaqueBundle};
-<span class="kw">use </span>sp_runtime::generic::{BlockId, DigestItem};
+<span class="kw">use </span>sp_core::traits::SpawnEssentialNamed;
+<span class="kw">use </span>sp_domains::{ExecutorApi, SignedOpaqueBundle};
 <span class="kw">use </span>sp_runtime::traits::{Header <span class="kw">as </span>HeaderT, NumberFor, One, Saturating};
-<span class="kw">use </span>std::borrow::Cow;
 <span class="kw">use </span>std::collections::hash_map::Entry;
 <span class="kw">use </span>std::collections::HashMap;
 <span class="kw">use </span>std::future::Future;
 <span class="kw">use </span>std::pin::Pin;
-<span class="kw">use </span>subspace_core_primitives::Randomness;
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>handle_slot_notifications&lt;Block, PBlock, PClient, BundlerFn&gt;(
     primary_chain_client: <span class="kw-2">&amp;</span>PClient,
     bundler: BundlerFn,
-    <span class="kw-2">mut </span>slots: <span class="kw">impl </span>Stream&lt;Item = ExecutorSlotInfo&gt; + Unpin,
+    <span class="kw-2">mut </span>slots: <span class="kw">impl </span>Stream&lt;Item = (ExecutorSlotInfo, <span class="prelude-ty">Option</span>&lt;mpsc::Sender&lt;()&gt;&gt;)&gt; + Unpin,
 ) <span class="kw">where
     </span>Block: BlockT,
     PBlock: BlockT,
@@ -373,63 +289,64 @@
         &gt; + Send
         + Sync,
 {
-    <span class="kw">while let </span><span class="prelude-val">Some</span>(executor_slot_info) = slots.next().<span class="kw">await </span>{
+    <span class="kw">while let </span><span class="prelude-val">Some</span>((executor_slot_info, slot_acknowledgement_sender)) = slots.next().<span class="kw">await </span>{
         <span class="kw">if let </span><span class="prelude-val">Err</span>(error) =
             on_new_slot::&lt;Block, PBlock, <span class="kw">_</span>, <span class="kw">_</span>&gt;(primary_chain_client, <span class="kw-2">&amp;</span>bundler, executor_slot_info)
                 .<span class="kw">await
         </span>{
-            <span class="macro">tracing::error!</span>(<span class="question-mark">?</span>error, <span class="string">&quot;Failed to submit transaction bundle&quot;</span>);
+            <span class="macro">tracing::error!</span>(<span class="question-mark">?</span>error, <span class="string">&quot;Failed to submit bundle&quot;</span>);
             <span class="kw">break</span>;
+        }
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(<span class="kw-2">mut </span>sender) = slot_acknowledgement_sender {
+            <span class="kw">let _ </span>= sender.send(()).<span class="kw">await</span>;
         }
     }
 }
 
-<span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>handle_block_import_notifications&lt;
+<span class="attr">#[allow(clippy::too_many_arguments)]
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>handle_block_import_notifications&lt;
     Block,
     PBlock,
     PClient,
     ProcessorFn,
-    BlockImports,
+    BlocksImporting,
+    BlocksImported,
 &gt;(
-    domain_id: DomainId,
+    spawn_essential: Box&lt;<span class="kw">dyn </span>SpawnEssentialNamed&gt;,
     primary_chain_client: <span class="kw-2">&amp;</span>PClient,
-    best_secondary_number: NumberFor&lt;Block&gt;,
+    best_domain_number: NumberFor&lt;Block&gt;,
     processor: ProcessorFn,
-    <span class="kw-2">mut </span>leaves: Vec&lt;(PBlock::Hash, NumberFor&lt;PBlock&gt;, ForkChoiceStrategy)&gt;,
-    <span class="kw-2">mut </span>block_imports: BlockImports,
-    block_import_throttling_buffer_size: u32,
+    <span class="kw-2">mut </span>leaves: Vec&lt;(PBlock::Hash, NumberFor&lt;PBlock&gt;)&gt;,
+    <span class="kw-2">mut </span>blocks_importing: BlocksImporting,
+    <span class="kw-2">mut </span>blocks_imported: BlocksImported,
+    primary_block_import_throttling_buffer_size: u32,
 ) <span class="kw">where
     </span>Block: BlockT,
     PBlock: BlockT,
-    PClient: HeaderBackend&lt;PBlock&gt; + BlockBackend&lt;PBlock&gt; + ProvideRuntimeApi&lt;PBlock&gt;,
+    PClient: HeaderBackend&lt;PBlock&gt;
+        + BlockBackend&lt;PBlock&gt;
+        + ProvideRuntimeApi&lt;PBlock&gt;
+        + BlockchainEvents&lt;PBlock&gt;,
     PClient::Api: ExecutorApi&lt;PBlock, Block::Hash&gt;,
     ProcessorFn: Fn(
-            (PBlock::Hash, NumberFor&lt;PBlock&gt;, ForkChoiceStrategy),
-            DomainBundles&lt;Block, PBlock&gt;,
-            Randomness,
-            <span class="prelude-ty">Option</span>&lt;Cow&lt;<span class="lifetime">&#39;static</span>, [u8]&gt;&gt;,
+            (PBlock::Hash, NumberFor&lt;PBlock&gt;),
         ) -&gt; Pin&lt;Box&lt;<span class="kw">dyn </span>Future&lt;Output = <span class="prelude-ty">Result</span>&lt;(), sp_blockchain::Error&gt;&gt; + Send&gt;&gt;
         + Send
-        + Sync,
-    BlockImports: Stream&lt;Item = (NumberFor&lt;PBlock&gt;, ForkChoiceStrategy, mpsc::Sender&lt;()&gt;)&gt; + Unpin,
+        + Sync
+        + <span class="lifetime">&#39;static</span>,
+    BlocksImporting: Stream&lt;Item = (NumberFor&lt;PBlock&gt;, mpsc::Sender&lt;()&gt;)&gt; + Unpin,
+    BlocksImported: Stream&lt;Item = BlockImportNotification&lt;PBlock&gt;&gt; + Unpin,
 {
     <span class="kw">let </span><span class="kw-2">mut </span>active_leaves = HashMap::with_capacity(leaves.len());
 
-    <span class="kw">let </span>best_secondary_number = to_number_primitive(best_secondary_number);
+    <span class="kw">let </span>best_domain_number = to_number_primitive(best_domain_number);
 
     <span class="comment">// Notify about active leaves on startup before starting the loop
-    </span><span class="kw">for </span>(hash, number, fork_choice) <span class="kw">in </span>std::mem::take(<span class="kw-2">&amp;mut </span>leaves) {
+    </span><span class="kw">for </span>(hash, number) <span class="kw">in </span>std::mem::take(<span class="kw-2">&amp;mut </span>leaves) {
         <span class="kw">let _ </span>= active_leaves.insert(hash, number);
         <span class="comment">// Skip the blocks that have been processed by the execution chain.
-        </span><span class="kw">if </span>number &gt; best_secondary_number.into() {
-            <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = process_primary_block::&lt;Block, PBlock, <span class="kw">_</span>, <span class="kw">_</span>&gt;(
-                domain_id,
-                primary_chain_client,
-                <span class="kw-2">&amp;</span>processor,
-                (hash, number, fork_choice),
-            )
-            .<span class="kw">await
-            </span>{
+        </span><span class="kw">if </span>number &gt; best_domain_number.into() {
+            <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = processor((hash, number)).<span class="kw">await </span>{
                 <span class="macro">tracing::error!</span>(<span class="question-mark">?</span>error, <span class="string">&quot;Failed to process primary block on startup&quot;</span>);
                 <span class="comment">// Bring down the service as bundles processor is an essential task.
                 // TODO: more graceful shutdown.
@@ -438,46 +355,75 @@
         }
     }
 
-    <span class="comment">// Pause the primary block import once this channel is full.
+    <span class="comment">// The primary chain can be ahead of the domain by up to `block_import_throttling_buffer_size/2`
+    // blocks, for there are two notifications per block sent to this buffer (one will be actually
+    // consumed by the domain processor, the other from `sc-consensus-subspace` is used to discontinue
+    // the primary block import in case the primary chain runs much faster than the domain.).
     </span><span class="kw">let </span>(<span class="kw-2">mut </span>block_info_sender, <span class="kw-2">mut </span>block_info_receiver) =
-        mpsc::channel(block_import_throttling_buffer_size <span class="kw">as </span>usize);
+        mpsc::channel(primary_block_import_throttling_buffer_size <span class="kw">as </span>usize);
+
+    <span class="comment">// Run the actual processor in a dedicated task, otherwise `tokio::select!` might hang forever
+    // when the throttling buffer is full.
+    </span>spawn_essential.spawn_essential_blocking(
+        <span class="string">&quot;primary-block-processor&quot;</span>,
+        <span class="prelude-val">None</span>,
+        Box::pin(<span class="kw">async move </span>{
+            <span class="kw">while let </span><span class="prelude-val">Some</span>(maybe_block_info) = block_info_receiver.next().<span class="kw">await </span>{
+                <span class="kw">if let </span><span class="prelude-val">Some</span>(block_info) = maybe_block_info {
+                    <span class="kw">if let </span><span class="prelude-val">Err</span>(error) =
+                        block_imported::&lt;PBlock, <span class="kw">_</span>&gt;(<span class="kw-2">&amp;</span>processor, <span class="kw-2">&amp;mut </span>active_leaves, block_info)
+                            .<span class="kw">await
+                    </span>{
+                        <span class="macro">tracing::error!</span>(<span class="question-mark">?</span>error, <span class="string">&quot;Failed to process primary block&quot;</span>);
+                        <span class="comment">// Bring down the service as bundles processor is an essential task.
+                        // TODO: more graceful shutdown.
+                        </span><span class="kw">break</span>;
+                    }
+                }
+            }
+        }),
+    );
 
     <span class="kw">loop </span>{
         <span class="macro">tokio::select! </span>{
-            maybe_block_import = block_imports.next() =&gt; {
-                <span class="kw">let </span>(block_number, fork_choice, <span class="kw-2">mut </span>block_import_acknowledgement_sender) = <span class="kw">match </span>maybe_block_import {
-                    <span class="prelude-val">Some</span>(block_import) =&gt; block_import,
+            maybe_block_imported = blocks_imported.next() =&gt; {
+                <span class="kw">let </span>block_imported = <span class="kw">match </span>maybe_block_imported {
+                    <span class="prelude-val">Some</span>(block_imported) =&gt; block_imported,
                     <span class="prelude-val">None </span>=&gt; {
                         <span class="comment">// Can be None on graceful shutdown.
                         </span><span class="kw">break</span>;
                     }
                 };
-                <span class="kw">let </span>header = primary_chain_client
-                    .header(BlockId::Number(block_number))
-                    .expect(<span class="string">&quot;Header of imported block must exist; qed&quot;</span>)
-                    .expect(<span class="string">&quot;Header of imported block must exist; qed&quot;</span>);
+                <span class="kw">let </span>header = <span class="kw">match </span>primary_chain_client.header(block_imported.hash) {
+                    <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(header)) =&gt; header,
+                    res =&gt; {
+                        <span class="macro">tracing::error!</span>(
+                            result = <span class="question-mark">?</span>res,
+                            header = <span class="question-mark">?</span>block_imported.header,
+                            <span class="string">&quot;Imported primary block header not found&quot;</span>,
+                        );
+                        <span class="kw">return</span>;
+                    }
+                };
                 <span class="kw">let </span>block_info = BlockInfo {
                     hash: header.hash(),
                     parent_hash: <span class="kw-2">*</span>header.parent_hash(),
                     number: <span class="kw-2">*</span>header.number(),
-                    fork_choice
                 };
-                <span class="kw">let _ </span>= block_info_sender.feed(block_info).<span class="kw">await</span>;
-                <span class="kw">let _ </span>= block_import_acknowledgement_sender.send(()).<span class="kw">await</span>;
+                <span class="kw">let _ </span>= block_info_sender.feed(<span class="prelude-val">Some</span>(block_info)).<span class="kw">await</span>;
             }
-            <span class="prelude-val">Some</span>(block_info) = block_info_receiver.next() =&gt; {
-                <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = block_imported::&lt;Block, PBlock, <span class="kw">_</span>, <span class="kw">_</span>&gt;(
-                    domain_id,
-                    primary_chain_client,
-                    <span class="kw-2">&amp;</span>processor,
-                    <span class="kw-2">&amp;mut </span>active_leaves,
-                    block_info,
-                ).<span class="kw">await </span>{
-                    <span class="macro">tracing::error!</span>(<span class="question-mark">?</span>error, <span class="string">&quot;Failed to process primary block&quot;</span>);
-                    <span class="comment">// Bring down the service as bundles processor is an essential task.
-                    // TODO: more graceful shutdown.
-                    </span><span class="kw">break</span>;
-                }
+            maybe_block_importing = blocks_importing.next() =&gt; {
+                <span class="kw">let </span>(_block_number, <span class="kw-2">mut </span>acknowledgement_sender) =
+                    <span class="kw">match </span>maybe_block_importing {
+                        <span class="prelude-val">Some</span>(block_importing) =&gt; block_importing,
+                        <span class="prelude-val">None </span>=&gt; {
+                            <span class="comment">// Can be None on graceful shutdown.
+                            </span><span class="kw">break</span>;
+                        }
+                    };
+                <span class="comment">// Pause the primary block import when the sink is full.
+                </span><span class="kw">let _ </span>= block_info_sender.feed(<span class="prelude-val">None</span>).<span class="kw">await</span>;
+                <span class="kw">let _ </span>= acknowledgement_sender.send(()).<span class="kw">await</span>;
             }
         }
     }
@@ -524,28 +470,20 @@
 
     primary_chain_client
         .runtime_api()
-        .submit_bundle_unsigned(<span class="kw-2">&amp;</span>BlockId::Hash(best_hash), opaque_bundle)<span class="question-mark">?</span>;
+        .submit_bundle_unsigned(best_hash, opaque_bundle)<span class="question-mark">?</span>;
 
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="kw">async fn </span>block_imported&lt;Block, PBlock, PClient, ProcessorFn&gt;(
-    domain_id: DomainId,
-    primary_chain_client: <span class="kw-2">&amp;</span>PClient,
+<span class="kw">async fn </span>block_imported&lt;PBlock, ProcessorFn&gt;(
     processor: <span class="kw-2">&amp;</span>ProcessorFn,
     active_leaves: <span class="kw-2">&amp;mut </span>HashMap&lt;PBlock::Hash, NumberFor&lt;PBlock&gt;&gt;,
     block_info: BlockInfo&lt;PBlock&gt;,
 ) -&gt; <span class="prelude-ty">Result</span>&lt;(), ApiError&gt;
 <span class="kw">where
-    </span>Block: BlockT,
-    PBlock: BlockT,
-    PClient: HeaderBackend&lt;PBlock&gt; + BlockBackend&lt;PBlock&gt; + ProvideRuntimeApi&lt;PBlock&gt; + Send + Sync,
-    PClient::Api: ExecutorApi&lt;PBlock, Block::Hash&gt;,
+    </span>PBlock: BlockT,
     ProcessorFn: Fn(
-            (PBlock::Hash, NumberFor&lt;PBlock&gt;, ForkChoiceStrategy),
-            DomainBundles&lt;Block, PBlock&gt;,
-            Randomness,
-            <span class="prelude-ty">Option</span>&lt;Cow&lt;<span class="lifetime">&#39;static</span>, [u8]&gt;&gt;,
+            (PBlock::Hash, NumberFor&lt;PBlock&gt;),
         ) -&gt; Pin&lt;Box&lt;<span class="kw">dyn </span>Future&lt;Output = <span class="prelude-ty">Result</span>&lt;(), sp_blockchain::Error&gt;&gt; + Send&gt;&gt;
         + Send
         + Sync,
@@ -562,109 +500,8 @@
         <span class="macro">debug_assert_eq!</span>(block_info.number.saturating_sub(One::one()), number);
     }
 
-    process_primary_block::&lt;Block, PBlock, <span class="kw">_</span>, <span class="kw">_</span>&gt;(
-        domain_id,
-        primary_chain_client,
-        processor,
-        (block_info.hash, block_info.number, block_info.fork_choice),
-    )
-    .<span class="kw">await</span><span class="question-mark">?</span>;
+    processor((block_info.hash, block_info.number)).<span class="kw">await</span><span class="question-mark">?</span>;
 
     <span class="prelude-val">Ok</span>(())
 }
-
-<span class="doccomment">/// Apply the transaction bundles for given primary block as follows:
-///
-/// 1. Extract the transaction bundles from the block.
-/// 2. Pass the bundles to secondary node and do the computation there.
-</span><span class="kw">async fn </span>process_primary_block&lt;Block, PBlock, PClient, ProcessorFn&gt;(
-    domain_id: DomainId,
-    primary_chain_client: <span class="kw-2">&amp;</span>PClient,
-    processor: <span class="kw-2">&amp;</span>ProcessorFn,
-    (block_hash, block_number, fork_choice): (PBlock::Hash, NumberFor&lt;PBlock&gt;, ForkChoiceStrategy),
-) -&gt; <span class="prelude-ty">Result</span>&lt;(), ApiError&gt;
-<span class="kw">where
-    </span>Block: BlockT,
-    PBlock: BlockT,
-    PClient: HeaderBackend&lt;PBlock&gt; + BlockBackend&lt;PBlock&gt; + ProvideRuntimeApi&lt;PBlock&gt; + Send + Sync,
-    PClient::Api: ExecutorApi&lt;PBlock, Block::Hash&gt;,
-    ProcessorFn: Fn(
-            (PBlock::Hash, NumberFor&lt;PBlock&gt;, ForkChoiceStrategy),
-            DomainBundles&lt;Block, PBlock&gt;,
-            Randomness,
-            <span class="prelude-ty">Option</span>&lt;Cow&lt;<span class="lifetime">&#39;static</span>, [u8]&gt;&gt;,
-        ) -&gt; Pin&lt;Box&lt;<span class="kw">dyn </span>Future&lt;Output = <span class="prelude-ty">Result</span>&lt;(), sp_blockchain::Error&gt;&gt; + Send&gt;&gt;
-        + Send
-        + Sync,
-{
-    <span class="kw">let </span>block_id = BlockId::Hash(block_hash);
-    <span class="kw">let </span>extrinsics = <span class="kw">match </span>primary_chain_client.block_body(block_hash) {
-        <span class="prelude-val">Err</span>(err) =&gt; {
-            <span class="macro">tracing::error!</span>(<span class="question-mark">?</span>err, <span class="string">&quot;Failed to get block body from primary chain&quot;</span>);
-            <span class="kw">return </span><span class="prelude-val">Ok</span>(());
-        }
-        <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) =&gt; {
-            <span class="macro">tracing::error!</span>(<span class="question-mark">?</span>block_hash, <span class="string">&quot;BlockBody unavailable&quot;</span>);
-            <span class="kw">return </span><span class="prelude-val">Ok</span>(());
-        }
-        <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(body)) =&gt; body,
-    };
-
-    <span class="kw">let </span>header = <span class="kw">match </span>primary_chain_client.header(block_id) {
-        <span class="prelude-val">Err</span>(err) =&gt; {
-            <span class="macro">tracing::error!</span>(<span class="question-mark">?</span>err, <span class="string">&quot;Failed to get block from primary chain&quot;</span>);
-            <span class="kw">return </span><span class="prelude-val">Ok</span>(());
-        }
-        <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>) =&gt; {
-            <span class="macro">tracing::error!</span>(<span class="question-mark">?</span>block_hash, <span class="string">&quot;BlockHeader unavailable&quot;</span>);
-            <span class="kw">return </span><span class="prelude-val">Ok</span>(());
-        }
-        <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(header)) =&gt; header,
-    };
-
-    <span class="comment">// TODO: handle the core domain runtime upgrade properly.
-    </span><span class="kw">let </span>maybe_new_runtime = <span class="kw">if </span>header
-        .digest()
-        .logs
-        .iter()
-        .any(|item| <span class="kw-2">*</span>item == DigestItem::RuntimeEnvironmentUpdated)
-    {
-        <span class="prelude-val">Some</span>(
-            primary_chain_client
-                .runtime_api()
-                .execution_wasm_bundle(<span class="kw-2">&amp;</span>block_id)<span class="question-mark">?</span>,
-        )
-    } <span class="kw">else </span>{
-        <span class="prelude-val">None
-    </span>};
-
-    <span class="kw">let </span>shuffling_seed = primary_chain_client
-        .runtime_api()
-        .extrinsics_shuffling_seed(<span class="kw-2">&amp;</span>block_id, header)<span class="question-mark">?</span>;
-
-    <span class="kw">let </span>domain_bundles = <span class="kw">if </span>domain_id.is_system() {
-        <span class="kw">let </span>(system_bundles, core_bundles) = primary_chain_client
-            .runtime_api()
-            .extract_system_bundles(<span class="kw-2">&amp;</span>block_id, extrinsics)<span class="question-mark">?</span>;
-        DomainBundles::System(system_bundles, core_bundles)
-    } <span class="kw">else if </span>domain_id.is_core() {
-        <span class="kw">let </span>core_bundles = primary_chain_client
-            .runtime_api()
-            .extract_core_bundles(<span class="kw-2">&amp;</span>block_id, extrinsics, domain_id)<span class="question-mark">?</span>;
-        DomainBundles::Core(core_bundles)
-    } <span class="kw">else </span>{
-        <span class="macro">unreachable!</span>(<span class="string">&quot;Open domains are unsupported&quot;</span>)
-    };
-
-    processor(
-        (block_hash, block_number, fork_choice),
-        domain_bundles,
-        shuffling_seed,
-        maybe_new_runtime,
-    )
-    .<span class="kw">await</span><span class="question-mark">?</span>;
-
-    <span class="prelude-val">Ok</span>(())
-}
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="domain_client_executor" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</code></pre></div></section></main></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `domains/client/domain-executor/src/domain_block_processor.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>domain_block_processor.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../domain_client_executor/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `domains/client/domain-executor/src/domain_block_processor.rs`."><title>domain_block_processor.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="domain_client_executor" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../domain_client_executor/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -512,8 +512,58 @@
 <a href="#512" id="512">512</a>
 <a href="#513" id="513">513</a>
 <a href="#514" id="514">514</a>
+<a href="#515" id="515">515</a>
+<a href="#516" id="516">516</a>
+<a href="#517" id="517">517</a>
+<a href="#518" id="518">518</a>
+<a href="#519" id="519">519</a>
+<a href="#520" id="520">520</a>
+<a href="#521" id="521">521</a>
+<a href="#522" id="522">522</a>
+<a href="#523" id="523">523</a>
+<a href="#524" id="524">524</a>
+<a href="#525" id="525">525</a>
+<a href="#526" id="526">526</a>
+<a href="#527" id="527">527</a>
+<a href="#528" id="528">528</a>
+<a href="#529" id="529">529</a>
+<a href="#530" id="530">530</a>
+<a href="#531" id="531">531</a>
+<a href="#532" id="532">532</a>
+<a href="#533" id="533">533</a>
+<a href="#534" id="534">534</a>
+<a href="#535" id="535">535</a>
+<a href="#536" id="536">536</a>
+<a href="#537" id="537">537</a>
+<a href="#538" id="538">538</a>
+<a href="#539" id="539">539</a>
+<a href="#540" id="540">540</a>
+<a href="#541" id="541">541</a>
+<a href="#542" id="542">542</a>
+<a href="#543" id="543">543</a>
+<a href="#544" id="544">544</a>
+<a href="#545" id="545">545</a>
+<a href="#546" id="546">546</a>
+<a href="#547" id="547">547</a>
+<a href="#548" id="548">548</a>
+<a href="#549" id="549">549</a>
+<a href="#550" id="550">550</a>
+<a href="#551" id="551">551</a>
+<a href="#552" id="552">552</a>
+<a href="#553" id="553">553</a>
+<a href="#554" id="554">554</a>
+<a href="#555" id="555">555</a>
+<a href="#556" id="556">556</a>
+<a href="#557" id="557">557</a>
+<a href="#558" id="558">558</a>
+<a href="#559" id="559">559</a>
+<a href="#560" id="560">560</a>
+<a href="#561" id="561">561</a>
+<a href="#562" id="562">562</a>
+<a href="#563" id="563">563</a>
+<a href="#564" id="564">564</a>
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::fraud_proof::{find_trace_mismatch, FraudProofGenerator};
-<span class="kw">use </span><span class="kw">crate</span>::utils::{shuffle_extrinsics, to_number_primitive};
+<span class="kw">use </span><span class="kw">crate</span>::utils::{to_number_primitive, translate_number_type};
 <span class="kw">use crate</span>::{ExecutionReceiptFor, TransactionFor};
 <span class="kw">use </span>codec::{Decode, Encode};
 <span class="kw">use </span>domain_block_builder::{BlockBuilder, BuiltBlock, RecordProof};
@@ -522,20 +572,16 @@
 <span class="kw">use </span>sc_consensus::{
     BlockImport, BlockImportParams, ForkChoiceStrategy, ImportResult, StateAction, StorageChanges,
 };
-<span class="kw">use </span>sc_network::NetworkService;
 <span class="kw">use </span>sp_api::{NumberFor, ProvideRuntimeApi};
-<span class="kw">use </span>sp_blockchain::HeaderBackend;
+<span class="kw">use </span>sp_blockchain::{HashAndNumber, HeaderBackend, HeaderMetadata};
 <span class="kw">use </span>sp_consensus::{BlockOrigin, SyncOracle};
 <span class="kw">use </span>sp_core::traits::CodeExecutor;
 <span class="kw">use </span>sp_domains::fraud_proof::FraudProof;
-<span class="kw">use </span>sp_domains::{DomainId, ExecutionReceipt, ExecutorApi, OpaqueBundles};
-<span class="kw">use </span>sp_runtime::generic::BlockId;
-<span class="kw">use </span>sp_runtime::traits::{Block <span class="kw">as </span>BlockT, HashFor, Header <span class="kw">as </span>HeaderT, One};
+<span class="kw">use </span>sp_domains::merkle_tree::MerkleTree;
+<span class="kw">use </span>sp_domains::{DomainId, ExecutionReceipt, ExecutorApi};
+<span class="kw">use </span>sp_runtime::traits::{Block <span class="kw">as </span>BlockT, HashFor, Header <span class="kw">as </span>HeaderT, One, Zero};
 <span class="kw">use </span>sp_runtime::Digest;
-<span class="kw">use </span>std::borrow::Cow;
-<span class="kw">use </span>std::marker::PhantomData;
 <span class="kw">use </span>std::sync::Arc;
-<span class="kw">use </span>subspace_core_primitives::Randomness;
 
 <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>DomainBlockResult&lt;Block, PBlock&gt;
 <span class="kw">where
@@ -550,35 +596,45 @@
 <span class="doccomment">/// A common component shared between the system and core domain bundle processor.
 </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>DomainBlockProcessor&lt;Block, PBlock, Client, PClient, Backend, E&gt;
 <span class="kw">where
-    </span>Block: BlockT,
-    PBlock: BlockT,
+    </span>PBlock: BlockT,
 {
     domain_id: DomainId,
     client: Arc&lt;Client&gt;,
     primary_chain_client: Arc&lt;PClient&gt;,
-    primary_network: Arc&lt;NetworkService&lt;PBlock, PBlock::Hash&gt;&gt;,
+    primary_network_sync_oracle: Arc&lt;<span class="kw">dyn </span>SyncOracle + Send + Sync&gt;,
     backend: Arc&lt;Backend&gt;,
-    fraud_proof_generator: FraudProofGenerator&lt;Block, PBlock, Client, Backend, E&gt;,
-    _phantom_data: PhantomData&lt;(Block, PBlock)&gt;,
+    fraud_proof_generator: FraudProofGenerator&lt;Block, PBlock, Client, PClient, Backend, E&gt;,
 }
 
 <span class="kw">impl</span>&lt;Block, PBlock, Client, PClient, Backend, E&gt; Clone
     <span class="kw">for </span>DomainBlockProcessor&lt;Block, PBlock, Client, PClient, Backend, E&gt;
 <span class="kw">where
-    </span>Block: BlockT,
-    PBlock: BlockT,
+    </span>PBlock: BlockT,
 {
     <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             domain_id: <span class="self">self</span>.domain_id,
             client: <span class="self">self</span>.client.clone(),
             primary_chain_client: <span class="self">self</span>.primary_chain_client.clone(),
-            primary_network: <span class="self">self</span>.primary_network.clone(),
+            primary_network_sync_oracle: <span class="self">self</span>.primary_network_sync_oracle.clone(),
             backend: <span class="self">self</span>.backend.clone(),
             fraud_proof_generator: <span class="self">self</span>.fraud_proof_generator.clone(),
-            _phantom_data: <span class="self">self</span>._phantom_data,
         }
     }
+}
+
+<span class="doccomment">/// A list of primary blocks waiting to be processed by executor on each imported primary block
+/// notification.
+///
+/// Usually, each new domain block is built on top of the current best domain block, with the block
+/// content extracted from the incoming primary block. However, an incoming imported primary block
+/// notification can also imply multiple pending primary blocks in case of the primary chain re-org.
+</span><span class="attr">#[derive(Debug)]
+</span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">struct </span>PendingPrimaryBlocks&lt;Block: BlockT, PBlock: BlockT&gt; {
+    <span class="doccomment">/// Base block used to build new domain blocks derived from the primary blocks below.
+    </span><span class="kw">pub </span>initial_parent: (Block::Hash, NumberFor&lt;Block&gt;),
+    <span class="doccomment">/// Pending primary blocks that need to be processed sequentially.
+    </span><span class="kw">pub </span>primary_imports: Vec&lt;HashAndNumber&lt;PBlock&gt;&gt;,
 }
 
 <span class="kw">impl</span>&lt;Block, PBlock, Client, PClient, Backend, E&gt;
@@ -596,7 +652,11 @@
         Transaction = sp_api::TransactionFor&lt;Client, Block&gt;,
         Error = sp_consensus::Error,
     &gt;,
-    PClient: HeaderBackend&lt;PBlock&gt; + BlockBackend&lt;PBlock&gt; + ProvideRuntimeApi&lt;PBlock&gt; + <span class="lifetime">&#39;static</span>,
+    PClient: HeaderBackend&lt;PBlock&gt;
+        + HeaderMetadata&lt;PBlock, Error = sp_blockchain::Error&gt;
+        + BlockBackend&lt;PBlock&gt;
+        + ProvideRuntimeApi&lt;PBlock&gt;
+        + <span class="lifetime">&#39;static</span>,
     PClient::Api: ExecutorApi&lt;PBlock, Block::Hash&gt; + <span class="lifetime">&#39;static</span>,
     Backend: sc_client_api::Backend&lt;Block&gt; + <span class="lifetime">&#39;static</span>,
     TransactionFor&lt;Backend, Block&gt;: sp_trie::HashDBT&lt;HashFor&lt;Block&gt;, sp_trie::DBValue&gt;,
@@ -606,85 +666,114 @@
         domain_id: DomainId,
         client: Arc&lt;Client&gt;,
         primary_chain_client: Arc&lt;PClient&gt;,
-        primary_network: Arc&lt;NetworkService&lt;PBlock, PBlock::Hash&gt;&gt;,
+        primary_network_sync_oracle: Arc&lt;<span class="kw">dyn </span>SyncOracle + Send + Sync&gt;,
         backend: Arc&lt;Backend&gt;,
-        fraud_proof_generator: FraudProofGenerator&lt;Block, PBlock, Client, Backend, E&gt;,
+        fraud_proof_generator: FraudProofGenerator&lt;Block, PBlock, Client, PClient, Backend, E&gt;,
     ) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
             domain_id,
             client,
             primary_chain_client,
-            primary_network,
+            primary_network_sync_oracle,
             backend,
             fraud_proof_generator,
-            _phantom_data: PhantomData::default(),
         }
     }
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>compile_own_domain_bundles(
+    <span class="doccomment">/// Returns a list of primary blocks waiting to be processed if any.
+    ///
+    /// It&#39;s possible to have multiple pending primary blocks that need to be processed in case
+    /// the primary chain re-org occurs.
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>pending_imported_primary_blocks(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        bundles: OpaqueBundles&lt;PBlock, Block::Hash&gt;,
-    ) -&gt; Vec&lt;Block::Extrinsic&gt; {
-        bundles
-            .into_iter()
-            .flat_map(|bundle| {
-                bundle.extrinsics.into_iter().filter_map(|opaque_extrinsic| {
-                    <span class="kw">match </span>&lt;&lt;Block <span class="kw">as </span>BlockT&gt;::Extrinsic&gt;::decode(
-                        <span class="kw-2">&amp;mut </span>opaque_extrinsic.encode().as_slice(),
-                    ) {
-                        <span class="prelude-val">Ok</span>(uxt) =&gt; <span class="prelude-val">Some</span>(uxt),
-                        <span class="prelude-val">Err</span>(e) =&gt; {
-                            <span class="macro">tracing::error!</span>(
-                                error = <span class="question-mark">?</span>e,
-                                <span class="string">&quot;Failed to decode the opaque extrisic in bundle, this should not happen&quot;
-                            </span>);
-                            <span class="prelude-val">None
-                        </span>},
-                    }
-                })
-            })
-            .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;()
-    }
+        primary_hash: PBlock::Hash,
+        primary_number: NumberFor&lt;PBlock&gt;,
+    ) -&gt; sp_blockchain::Result&lt;<span class="prelude-ty">Option</span>&lt;PendingPrimaryBlocks&lt;Block, PBlock&gt;&gt;&gt; {
+        <span class="kw">if </span>primary_number == One::one() {
+            <span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(PendingPrimaryBlocks {
+                initial_parent: (<span class="self">self</span>.client.info().genesis_hash, Zero::zero()),
+                primary_imports: <span class="macro">vec!</span>[HashAndNumber {
+                    hash: primary_hash,
+                    number: primary_number,
+                }],
+            }));
+        }
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>deduplicate_and_shuffle_extrinsics(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        parent_hash: Block::Hash,
-        <span class="kw-2">mut </span>extrinsics: Vec&lt;Block::Extrinsic&gt;,
-        shuffling_seed: Randomness,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;Vec&lt;Block::Extrinsic&gt;, sp_blockchain::Error&gt; {
-        <span class="comment">// TODO: or just Vec::new()?
-        // Ideally there should be only a few duplicated transactions.
-        </span><span class="kw">let </span><span class="kw-2">mut </span>seen = Vec::with_capacity(extrinsics.len());
-        extrinsics.retain(|uxt| <span class="kw">match </span>seen.contains(uxt) {
-            <span class="bool-val">true </span>=&gt; {
-                <span class="macro">tracing::trace!</span>(extrinsic = <span class="question-mark">?</span>uxt, <span class="string">&quot;Duplicated extrinsic&quot;</span>);
-                <span class="bool-val">false
-            </span>}
-            <span class="bool-val">false </span>=&gt; {
-                seen.push(uxt.clone());
-                <span class="bool-val">true
-            </span>}
-        });
-        drop(seen);
+        <span class="kw">let </span>best_hash = <span class="self">self</span>.client.info().best_hash;
+        <span class="kw">let </span>best_number = <span class="self">self</span>.client.info().best_number;
+        <span class="kw">let </span>best_receipt = <span class="kw">crate</span>::aux_schema::load_execution_receipt::&lt;
+            <span class="kw">_</span>,
+            Block::Hash,
+            NumberFor&lt;PBlock&gt;,
+            PBlock::Hash,
+        &gt;(<span class="kw-2">&amp;*</span><span class="self">self</span>.client, best_hash)<span class="question-mark">?
+        </span>.ok_or_else(|| {
+            sp_blockchain::Error::Backend(<span class="macro">format!</span>(
+                <span class="string">&quot;Receipt for #{best_number},{best_hash:?} not found&quot;
+            </span>))
+        })<span class="question-mark">?</span>;
 
-        <span class="macro">tracing::trace!</span>(<span class="question-mark">?</span>extrinsics, <span class="string">&quot;Origin deduplicated extrinsics&quot;</span>);
+        <span class="kw">let </span>primary_from = best_receipt.primary_hash;
+        <span class="kw">let </span>primary_to = primary_hash;
 
-        <span class="kw">let </span>extrinsics: Vec&lt;<span class="kw">_</span>&gt; = <span class="kw">match </span><span class="self">self
-            </span>.client
-            .runtime_api()
-            .extract_signer(<span class="kw-2">&amp;</span>BlockId::Hash(parent_hash), extrinsics)
-        {
-            <span class="prelude-val">Ok</span>(res) =&gt; res,
-            <span class="prelude-val">Err</span>(e) =&gt; {
-                <span class="macro">tracing::error!</span>(error = <span class="question-mark">?</span>e, <span class="string">&quot;Error at calling runtime api: extract_signer&quot;</span>);
-                <span class="kw">return </span><span class="prelude-val">Err</span>(e.into());
+        <span class="kw">if </span>primary_from == primary_to {
+            <span class="kw">return </span><span class="prelude-val">Err</span>(sp_blockchain::Error::Application(Box::from(
+                <span class="string">&quot;Primary block {primary_hash:?} has already been processed.&quot;</span>,
+            )));
+        }
+
+        <span class="kw">let </span>route =
+            sp_blockchain::tree_route(<span class="kw-2">&amp;*</span><span class="self">self</span>.primary_chain_client, primary_from, primary_to)<span class="question-mark">?</span>;
+
+        <span class="kw">let </span>retracted = route.retracted();
+        <span class="kw">let </span>enacted = route.enacted();
+
+        <span class="macro">tracing::trace!</span>(
+            <span class="question-mark">?</span>retracted,
+            <span class="question-mark">?</span>enacted,
+            common_block = <span class="question-mark">?</span>route.common_block(),
+            <span class="string">&quot;Calculating PendingPrimaryBlocks on #{best_number},{best_hash:?}&quot;
+        </span>);
+
+        <span class="kw">match </span>(retracted.is_empty(), enacted.is_empty()) {
+            (<span class="bool-val">true</span>, <span class="bool-val">false</span>) =&gt; {
+                <span class="comment">// New tip, A -&gt; B
+                </span><span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(PendingPrimaryBlocks {
+                    initial_parent: (<span class="self">self</span>.client.info().best_hash, <span class="self">self</span>.client.info().best_number),
+                    primary_imports: enacted.to_vec(),
+                }))
             }
-        };
+            (<span class="bool-val">false</span>, <span class="bool-val">true</span>) =&gt; {
+                <span class="macro">tracing::debug!</span>(<span class="string">&quot;Primary blocks {retracted:?} have been already processed&quot;</span>);
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
+            }
+            (<span class="bool-val">true</span>, <span class="bool-val">true</span>) =&gt; {
+                <span class="macro">unreachable!</span>(
+                    <span class="string">&quot;Tree route is not empty as `primary_from` and `primary_to` in tree_route() \
+                    are checked above to be not the same; qed&quot;</span>,
+                );
+            }
+            (<span class="bool-val">false</span>, <span class="bool-val">false</span>) =&gt; {
+                <span class="kw">let </span>common_block_number = translate_number_type(route.common_block().number);
+                <span class="kw">let </span>parent_header = <span class="self">self
+                    </span>.client
+                    .header(<span class="self">self</span>.client.hash(common_block_number)<span class="question-mark">?</span>.ok_or_else(|| {
+                        sp_blockchain::Error::Backend(<span class="macro">format!</span>(
+                            <span class="string">&quot;Header for #{common_block_number} not found&quot;
+                        </span>))
+                    })<span class="question-mark">?</span>)<span class="question-mark">?
+                    </span>.ok_or_else(|| {
+                        sp_blockchain::Error::Backend(<span class="macro">format!</span>(
+                            <span class="string">&quot;Header for #{common_block_number} not found&quot;
+                        </span>))
+                    })<span class="question-mark">?</span>;
 
-        <span class="kw">let </span>extrinsics =
-            shuffle_extrinsics::&lt;&lt;Block <span class="kw">as </span>BlockT&gt;::Extrinsic&gt;(extrinsics, shuffling_seed);
-
-        <span class="prelude-val">Ok</span>(extrinsics)
+                <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(PendingPrimaryBlocks {
+                    initial_parent: (parent_header.hash(), <span class="kw-2">*</span>parent_header.number()),
+                    primary_imports: enacted.to_vec(),
+                }))
+            }
+        }
     }
 
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">async fn </span>process_domain_block(
@@ -692,33 +781,34 @@
         (primary_hash, primary_number): (PBlock::Hash, NumberFor&lt;PBlock&gt;),
         (parent_hash, parent_number): (Block::Hash, NumberFor&lt;Block&gt;),
         extrinsics: Vec&lt;Block::Extrinsic&gt;,
-        maybe_new_runtime: <span class="prelude-ty">Option</span>&lt;Cow&lt;<span class="lifetime">&#39;static</span>, [u8]&gt;&gt;,
-        fork_choice: ForkChoiceStrategy,
         digests: Digest,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;DomainBlockResult&lt;Block, PBlock&gt;, sp_blockchain::Error&gt; {
         <span class="kw">let </span>primary_number = to_number_primitive(primary_number);
 
-        <span class="macro">assert_eq!</span>(
-            Into::&lt;NumberFor&lt;Block&gt;&gt;::into(primary_number),
-            parent_number + One::one(),
-            <span class="string">&quot;New secondary best number must be equal to the primary number&quot;
-        </span>);
+        <span class="kw">if </span>to_number_primitive(parent_number) + <span class="number">1 </span>!= primary_number {
+            <span class="kw">return </span><span class="prelude-val">Err</span>(sp_blockchain::Error::Application(Box::from(<span class="macro">format!</span>(
+                <span class="string">&quot;Wrong domain parent block #{parent_number},{parent_hash:?} for \
+                primary block #{primary_number},{primary_hash:?}, the number of new \
+                domain block must match the number of corresponding primary block.&quot;
+            </span>))));
+        }
+
+        <span class="comment">// Although the domain block intuitively ought to use the same fork choice
+        // from the corresponding primary block, it&#39;s fine to forcibly always use
+        // the longest chain for simplicity as we manually build all the domain
+        // branches by literally following the primary chain branches anyway.
+        </span><span class="kw">let </span>fork_choice = ForkChoiceStrategy::LongestChain;
 
         <span class="kw">let </span>(header_hash, header_number, state_root) = <span class="self">self
-            </span>.build_and_import_block(
-                parent_hash,
-                parent_number,
-                extrinsics,
-                maybe_new_runtime,
-                fork_choice,
-                digests,
-            )
+            </span>.build_and_import_block(parent_hash, parent_number, extrinsics, fork_choice, digests)
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
-        <span class="kw">let </span><span class="kw-2">mut </span>roots = <span class="self">self
-            </span>.client
-            .runtime_api()
-            .intermediate_roots(<span class="kw-2">&amp;</span>BlockId::Hash(header_hash))<span class="question-mark">?</span>;
+        <span class="macro">tracing::debug!</span>(
+            <span class="string">&quot;Built new domain block #{header_number},{header_hash} \
+            from primary block #{primary_number},{primary_hash}&quot;</span>,
+        );
+
+        <span class="kw">let </span><span class="kw-2">mut </span>roots = <span class="self">self</span>.client.runtime_api().intermediate_roots(header_hash)<span class="question-mark">?</span>;
 
         <span class="kw">let </span>state_root = state_root
             .encode()
@@ -727,7 +817,9 @@
 
         roots.push(state_root);
 
-        <span class="kw">let </span>trace_root = <span class="kw">crate</span>::merkle_tree::construct_trace_merkle_tree(roots.clone())<span class="question-mark">?</span>.root();
+        <span class="kw">let </span>trace_root = MerkleTree::from_leaves(<span class="kw-2">&amp;</span>roots).root().ok_or_else(|| {
+            sp_blockchain::Error::Application(Box::from(<span class="string">&quot;Failed to get merkle root of trace&quot;</span>))
+        })<span class="question-mark">?</span>;
         <span class="kw">let </span>trace = roots
             .into_iter()
             .map(|r| {
@@ -736,10 +828,10 @@
             })
             .collect();
 
-        <span class="macro">tracing::debug!</span>(
+        <span class="macro">tracing::trace!</span>(
             <span class="question-mark">?</span>trace,
             <span class="question-mark">?</span>trace_root,
-            <span class="string">&quot;Trace root calculated for #{header_hash}&quot;
+            <span class="string">&quot;Trace root calculated for #{header_number},{header_hash}&quot;
         </span>);
 
         <span class="kw">let </span>execution_receipt = ExecutionReceipt {
@@ -761,21 +853,10 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         parent_hash: Block::Hash,
         parent_number: NumberFor&lt;Block&gt;,
-        <span class="kw-2">mut </span>extrinsics: Vec&lt;Block::Extrinsic&gt;,
-        maybe_new_runtime: <span class="prelude-ty">Option</span>&lt;Cow&lt;<span class="lifetime">&#39;static</span>, [u8]&gt;&gt;,
+        extrinsics: Vec&lt;Block::Extrinsic&gt;,
         fork_choice: ForkChoiceStrategy,
         digests: Digest,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;(Block::Hash, NumberFor&lt;Block&gt;, Block::Hash), sp_blockchain::Error&gt; {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(new_runtime) = maybe_new_runtime {
-            <span class="kw">let </span>encoded_set_code = <span class="self">self
-                </span>.client
-                .runtime_api()
-                .construct_set_code_extrinsic(<span class="kw-2">&amp;</span>BlockId::Hash(parent_hash), new_runtime.to_vec())<span class="question-mark">?</span>;
-            <span class="kw">let </span>set_code_extrinsic =
-                Block::Extrinsic::decode(<span class="kw-2">&amp;mut </span>encoded_set_code.as_slice()).unwrap();
-            extrinsics.push(set_code_extrinsic);
-        }
-
         <span class="kw">let </span>block_builder = BlockBuilder::new(
             <span class="kw-2">&amp;*</span><span class="self">self</span>.client,
             parent_hash,
@@ -807,13 +888,13 @@
             import_block
         };
 
-        <span class="kw">let </span>import_result = (<span class="kw-2">&amp;*</span><span class="self">self</span>.client)
-            .import_block(block_import_params, Default::default())
-            .<span class="kw">await</span><span class="question-mark">?</span>;
+        <span class="kw">let </span>import_result = (<span class="kw-2">&amp;*</span><span class="self">self</span>.client).import_block(block_import_params).<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="kw">match </span>import_result {
             ImportResult::Imported(..) =&gt; {}
-            ImportResult::AlreadyInChain =&gt; {}
+            ImportResult::AlreadyInChain =&gt; {
+                <span class="macro">tracing::debug!</span>(<span class="string">&quot;Block #{header_number},{header_hash:?} is already in chain&quot;</span>);
+            }
             ImportResult::KnownBad =&gt; {
                 <span class="kw">return </span><span class="prelude-val">Err</span>(sp_consensus::Error::ClientImport(<span class="macro">format!</span>(
                     <span class="string">&quot;Bad block #{header_number}({header_hash:?})&quot;
@@ -837,13 +918,18 @@
         <span class="prelude-val">Ok</span>((header_hash, header_number, state_root))
     }
 
-    <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>on_domain_block_processed(
+    <span class="comment">// TODO: remove once fraud-proof is enabled again.
+    </span><span class="attr">#[allow(unreachable_code, unused_variables)]
+    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>on_domain_block_processed&lt;PCB&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         primary_hash: PBlock::Hash,
         domain_block_result: DomainBlockResult&lt;Block, PBlock&gt;,
         head_receipt_number: NumberFor&lt;Block&gt;,
         oldest_receipt_number: NumberFor&lt;Block&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;FraudProof&gt;, sp_blockchain::Error&gt; {
+    ) -&gt; sp_blockchain::Result&lt;<span class="prelude-ty">Option</span>&lt;FraudProof&lt;NumberFor&lt;PCB&gt;, PCB::Hash&gt;&gt;&gt;
+    <span class="kw">where
+        </span>PCB: BlockT,
+    {
         <span class="kw">let </span>DomainBlockResult {
             header_hash,
             header_number,
@@ -859,9 +945,13 @@
 
         <span class="comment">// TODO: The applied txs can be fully removed from the transaction pool
 
-        </span><span class="self">self</span>.check_receipts_in_primary_block(primary_hash)<span class="question-mark">?</span>;
+        // TODO: Skip fraud-proof processing until
+        // https://github.com/subspace/subspace/issues/1020 is resolved.
+        </span><span class="kw">return </span><span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>);
 
-        <span class="kw">if </span><span class="self">self</span>.primary_network.is_major_syncing() {
+        <span class="self">self</span>.check_receipts_in_primary_block(primary_hash)<span class="question-mark">?</span>;
+
+        <span class="kw">if </span><span class="self">self</span>.primary_network_sync_oracle.is_major_syncing() {
             <span class="macro">tracing::debug!</span>(
                 <span class="string">&quot;Skip checking the receipts as the primary node is still major syncing...&quot;
             </span>);
@@ -871,7 +961,7 @@
         <span class="comment">// Submit fraud proof for the first unconfirmed incorrent ER.
         </span><span class="kw">crate</span>::aux_schema::prune_expired_bad_receipts(<span class="kw-2">&amp;*</span><span class="self">self</span>.client, oldest_receipt_number)<span class="question-mark">?</span>;
 
-        <span class="self">self</span>.create_fraud_proof_for_first_unconfirmed_bad_receipt()
+        <span class="self">self</span>.create_fraud_proof_for_first_unconfirmed_bad_receipt::&lt;PCB&gt;()
     }
 
     <span class="kw">fn </span>check_receipts_in_primary_block(
@@ -883,14 +973,12 @@
             .block_body(primary_hash)<span class="question-mark">?
             </span>.ok_or_else(|| {
                 sp_blockchain::Error::Backend(<span class="macro">format!</span>(
-                    <span class="string">&quot;Primary block body for {:?} not found&quot;</span>,
-                    primary_hash
+                    <span class="string">&quot;Primary block body for {primary_hash:?} not found&quot;</span>,
                 ))
             })<span class="question-mark">?</span>;
 
-        <span class="comment">// TODO: extract the receipts specific to this domain.
-        </span><span class="kw">let </span>receipts = <span class="self">self</span>.primary_chain_client.runtime_api().extract_receipts(
-            <span class="kw-2">&amp;</span>BlockId::Hash(primary_hash),
+        <span class="kw">let </span>receipts = <span class="self">self</span>.primary_chain_client.runtime_api().extract_receipts(
+            primary_hash,
             extrinsics.clone(),
             <span class="self">self</span>.domain_id,
         )<span class="question-mark">?</span>;
@@ -926,12 +1014,12 @@
                     // becomes the canonical chain later.
                     </span><span class="kw">let </span>block_hash = <span class="self">self</span>.client.hash(block_number.into())<span class="question-mark">?</span>.ok_or_else(|| {
                         sp_blockchain::Error::Backend(<span class="macro">format!</span>(
-                            <span class="string">&quot;Header hash not found for number {block_number}&quot;
+                            <span class="string">&quot;Header hash for #{block_number} not found&quot;
                         </span>))
                     })<span class="question-mark">?</span>;
 
                     <span class="comment">// The receipt of a prior block must exist, otherwise it means the receipt included
-                    // on the primary chain points to an invalid secondary block.
+                    // on the primary chain points to an invalid domain block.
                     </span>bad_receipts_to_write.push((
                         execution_receipt.primary_number,
                         execution_receipt.hash(),
@@ -944,48 +1032,53 @@
         <span class="kw">let </span>fraud_proofs = <span class="self">self
             </span>.primary_chain_client
             .runtime_api()
-            .extract_fraud_proofs(<span class="kw-2">&amp;</span>BlockId::Hash(primary_hash), extrinsics)<span class="question-mark">?</span>;
+            .extract_fraud_proofs(primary_hash, extrinsics, <span class="self">self</span>.domain_id)<span class="question-mark">?</span>;
 
         <span class="kw">let </span>bad_receipts_to_delete = fraud_proofs
             .into_iter()
             .filter_map(|fraud_proof| {
-                <span class="kw">let </span>bad_receipt_number = fraud_proof.parent_number + <span class="number">1</span>;
-                <span class="kw">let </span>bad_bundle_hash = fraud_proof.bad_signed_bundle_hash;
+                <span class="kw">match </span>fraud_proof {
+                    FraudProof::InvalidStateTransition(fraud_proof) =&gt; {
+                        <span class="kw">let </span>bad_receipt_number = fraud_proof.parent_number + <span class="number">1</span>;
+                        <span class="kw">let </span>bad_receipt_hash = fraud_proof.bad_receipt_hash;
 
-                <span class="comment">// In order to not delete a receipt which was just inserted, accumulate the write&amp;delete operations
-                // in case the bad receipt and corresponding farud proof are included in the same block.
-                </span><span class="kw">if let </span><span class="prelude-val">Some</span>(index) = bad_receipts_to_write
-                    .iter()
-                    .map(|(<span class="kw">_</span>, hash, <span class="kw">_</span>)| hash)
-                    .position(|v| <span class="kw-2">*</span>v == bad_bundle_hash)
-                {
-                    bad_receipts_to_write.swap_remove(index);
-                    <span class="prelude-val">None
-                </span>} <span class="kw">else </span>{
-                    <span class="prelude-val">Some</span>((bad_receipt_number, bad_bundle_hash))
+                        <span class="comment">// In order to not delete a receipt which was just inserted, accumulate the write&amp;delete operations
+                        // in case the bad receipt and corresponding farud proof are included in the same block.
+                        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(index) = bad_receipts_to_write
+                            .iter()
+                            .map(|(<span class="kw">_</span>, receipt_hash, <span class="kw">_</span>)| receipt_hash)
+                            .position(|v| <span class="kw-2">*</span>v == bad_receipt_hash)
+                        {
+                            bad_receipts_to_write.swap_remove(index);
+                            <span class="prelude-val">None
+                        </span>} <span class="kw">else </span>{
+                            <span class="prelude-val">Some</span>((bad_receipt_number, bad_receipt_hash))
+                        }
+                    }
+                    <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
                 }
             })
             .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
 
-        <span class="kw">for </span>(bad_receipt_number, bad_signed_bundle_hash, mismatch_info) <span class="kw">in </span>bad_receipts_to_write {
+        <span class="kw">for </span>(bad_receipt_number, bad_receipt_hash, mismatch_info) <span class="kw">in </span>bad_receipts_to_write {
             <span class="kw">crate</span>::aux_schema::write_bad_receipt::&lt;<span class="kw">_</span>, PBlock, <span class="kw">_</span>&gt;(
                 <span class="kw-2">&amp;*</span><span class="self">self</span>.client,
                 bad_receipt_number,
-                bad_signed_bundle_hash,
+                bad_receipt_hash,
                 mismatch_info,
             )<span class="question-mark">?</span>;
         }
 
-        <span class="kw">for </span>(bad_receipt_number, bad_signed_bundle_hash) <span class="kw">in </span>bad_receipts_to_delete {
+        <span class="kw">for </span>(bad_receipt_number, bad_receipt_hash) <span class="kw">in </span>bad_receipts_to_delete {
             <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = <span class="kw">crate</span>::aux_schema::delete_bad_receipt(
                 <span class="kw-2">&amp;*</span><span class="self">self</span>.client,
                 bad_receipt_number,
-                bad_signed_bundle_hash,
+                bad_receipt_hash,
             ) {
                 <span class="macro">tracing::error!</span>(
                     error = <span class="question-mark">?</span>e,
                     <span class="question-mark">?</span>bad_receipt_number,
-                    <span class="question-mark">?</span>bad_signed_bundle_hash,
+                    <span class="question-mark">?</span>bad_receipt_hash,
                     <span class="string">&quot;Failed to delete bad receipt&quot;
                 </span>);
             }
@@ -994,26 +1087,33 @@
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">fn </span>create_fraud_proof_for_first_unconfirmed_bad_receipt(
+    <span class="kw">fn </span>create_fraud_proof_for_first_unconfirmed_bad_receipt&lt;PCB&gt;(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="prelude-ty">Option</span>&lt;FraudProof&gt;, sp_blockchain::Error&gt; {
-        <span class="kw">if let </span><span class="prelude-val">Some</span>((bad_signed_bundle_hash, trace_mismatch_index, block_hash)) =
+    ) -&gt; sp_blockchain::Result&lt;<span class="prelude-ty">Option</span>&lt;FraudProof&lt;NumberFor&lt;PCB&gt;, PCB::Hash&gt;&gt;&gt;
+    <span class="kw">where
+        </span>PCB: BlockT,
+    {
+        <span class="kw">if let </span><span class="prelude-val">Some</span>((bad_receipt_hash, trace_mismatch_index, block_hash)) =
             <span class="kw">crate</span>::aux_schema::find_first_unconfirmed_bad_receipt_info::&lt;<span class="kw">_</span>, Block, NumberFor&lt;PBlock&gt;&gt;(
                 <span class="kw-2">&amp;*</span><span class="self">self</span>.client,
             )<span class="question-mark">?
         </span>{
-            <span class="kw">let </span>local_receipt =
-                <span class="kw">crate</span>::aux_schema::load_execution_receipt(<span class="kw-2">&amp;*</span><span class="self">self</span>.client, block_hash)<span class="question-mark">?</span>.ok_or_else(
-                    || {
-                        sp_blockchain::Error::Backend(<span class="macro">format!</span>(
-                            <span class="string">&quot;Execution receipt not found for {block_hash:?}&quot;
-                        </span>))
-                    },
-                )<span class="question-mark">?</span>;
+            <span class="kw">let </span>local_receipt = <span class="kw">crate</span>::aux_schema::load_execution_receipt(
+                <span class="kw-2">&amp;*</span><span class="self">self</span>.client,
+                block_hash,
+            )<span class="question-mark">?
+            </span>.ok_or_else(|| {
+                sp_blockchain::Error::Backend(<span class="macro">format!</span>(<span class="string">&quot;Receipt for {block_hash:?} not found&quot;</span>))
+            })<span class="question-mark">?</span>;
 
             <span class="kw">let </span>fraud_proof = <span class="self">self
                 </span>.fraud_proof_generator
-                .generate_proof(trace_mismatch_index, <span class="kw-2">&amp;</span>local_receipt, bad_signed_bundle_hash)
+                .generate_proof::&lt;PCB&gt;(
+                    <span class="self">self</span>.domain_id,
+                    trace_mismatch_index,
+                    <span class="kw-2">&amp;</span>local_receipt,
+                    bad_receipt_hash,
+                )
                 .map_err(|err| {
                     sp_blockchain::Error::Application(Box::from(<span class="macro">format!</span>(
                         <span class="string">&quot;Failed to generate fraud proof: {err}&quot;
@@ -1026,5 +1126,4 @@
         <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
     }
 }
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="domain_client_executor" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</code></pre></div></section></main></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `domains/pallets/executor-registry/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../pallet_executor_registry/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `domains/pallets/executor-registry/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="pallet_executor_registry" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../pallet_executor_registry/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -834,6 +834,53 @@
 <a href="#834" id="834">834</a>
 <a href="#835" id="835">835</a>
 <a href="#836" id="836">836</a>
+<a href="#837" id="837">837</a>
+<a href="#838" id="838">838</a>
+<a href="#839" id="839">839</a>
+<a href="#840" id="840">840</a>
+<a href="#841" id="841">841</a>
+<a href="#842" id="842">842</a>
+<a href="#843" id="843">843</a>
+<a href="#844" id="844">844</a>
+<a href="#845" id="845">845</a>
+<a href="#846" id="846">846</a>
+<a href="#847" id="847">847</a>
+<a href="#848" id="848">848</a>
+<a href="#849" id="849">849</a>
+<a href="#850" id="850">850</a>
+<a href="#851" id="851">851</a>
+<a href="#852" id="852">852</a>
+<a href="#853" id="853">853</a>
+<a href="#854" id="854">854</a>
+<a href="#855" id="855">855</a>
+<a href="#856" id="856">856</a>
+<a href="#857" id="857">857</a>
+<a href="#858" id="858">858</a>
+<a href="#859" id="859">859</a>
+<a href="#860" id="860">860</a>
+<a href="#861" id="861">861</a>
+<a href="#862" id="862">862</a>
+<a href="#863" id="863">863</a>
+<a href="#864" id="864">864</a>
+<a href="#865" id="865">865</a>
+<a href="#866" id="866">866</a>
+<a href="#867" id="867">867</a>
+<a href="#868" id="868">868</a>
+<a href="#869" id="869">869</a>
+<a href="#870" id="870">870</a>
+<a href="#871" id="871">871</a>
+<a href="#872" id="872">872</a>
+<a href="#873" id="873">873</a>
+<a href="#874" id="874">874</a>
+<a href="#875" id="875">875</a>
+<a href="#876" id="876">876</a>
+<a href="#877" id="877">877</a>
+<a href="#878" id="878">878</a>
+<a href="#879" id="879">879</a>
+<a href="#880" id="880">880</a>
+<a href="#881" id="881">881</a>
+<a href="#882" id="882">882</a>
+<a href="#883" id="883">883</a>
 </pre><pre class="rust"><code><span class="comment">// Copyright (C) 2021 Subspace Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -861,6 +908,7 @@
 <span class="kw">use </span>sp_arithmetic::Percent;
 <span class="kw">use </span>sp_domains::ExecutorPublicKey;
 <span class="kw">use </span>sp_executor_registry::ExecutorRegistry;
+<span class="kw">use </span>sp_runtime::traits::{CheckedAdd, CheckedSub};
 <span class="kw">use </span>sp_runtime::BoundedVec;
 <span class="kw">use </span>sp_std::vec::Vec;
 
@@ -878,16 +926,31 @@
     <span class="kw">use </span>frame_support::pallet_prelude::<span class="kw-2">*</span>;
     <span class="kw">use </span>frame_support::traits::{Currency, LockableCurrency};
     <span class="kw">use </span>frame_system::pallet_prelude::<span class="kw-2">*</span>;
+    <span class="kw">use </span>sp_arithmetic::traits::{BaseArithmetic, Unsigned};
+    <span class="kw">use </span>sp_domains::merkle_tree::authorities_merkle_tree;
     <span class="kw">use </span>sp_domains::ExecutorPublicKey;
     <span class="kw">use </span>sp_executor_registry::OnNewEpoch;
     <span class="kw">use </span>sp_runtime::traits::{
-        AtLeast32BitUnsigned, BlockNumberProvider, CheckedAdd, CheckedSub,
-        MaybeSerializeDeserialize, Zero,
+        BlockNumberProvider, CheckedAdd, CheckedSub, MaybeSerializeDeserialize, Zero,
     };
     <span class="kw">use </span>sp_runtime::FixedPointOperand;
     <span class="kw">use </span>sp_std::collections::btree_map::BTreeMap;
     <span class="kw">use </span>sp_std::fmt::Debug;
     <span class="kw">use </span>sp_std::vec::Vec;
+    <span class="kw">use </span>subspace_core_primitives::Blake2b256Hash;
+
+    <span class="doccomment">/// Same sematic as `AtLeast32Bit` but requires at least `u128`.
+    </span><span class="kw">pub trait </span>AtLeast128Bit:
+        BaseArithmetic + From&lt;u16&gt; + From&lt;u32&gt; + From&lt;u64&gt; + From&lt;u128&gt;
+    {
+    }
+
+    <span class="kw">impl</span>&lt;T: BaseArithmetic + From&lt;u16&gt; + From&lt;u32&gt; + From&lt;u64&gt; + From&lt;u128&gt;&gt; AtLeast128Bit <span class="kw">for </span>T {}
+
+    <span class="doccomment">/// Same as `AtLeast128Bit` but bounded to be unsigned.
+    </span><span class="kw">pub trait </span>AtLeast128BitUnsigned: AtLeast128Bit + Unsigned {}
+
+    <span class="kw">impl</span>&lt;T: AtLeast128Bit + Unsigned&gt; AtLeast128BitUnsigned <span class="kw">for </span>T {}
 
     <span class="attr">#[pallet::config]
     </span><span class="kw">pub trait </span>Config: frame_system::Config {
@@ -898,7 +961,7 @@
         <span class="doccomment">/// The stake weight of an executor.
         </span><span class="kw">type </span>StakeWeight: Parameter
             + Member
-            + AtLeast32BitUnsigned
+            + AtLeast128BitUnsigned
             + Codec
             + Default
             + Copy
@@ -953,7 +1016,6 @@
     }
 
     <span class="attr">#[pallet::pallet]
-    #[pallet::generate_store(<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">trait </span>Store)]
     #[pallet::without_storage_info]
     </span><span class="kw">pub struct </span>Pallet&lt;T&gt;(<span class="kw">_</span>);
 
@@ -995,7 +1057,8 @@
     </span><span class="kw">impl</span>&lt;T: Config&gt; Pallet&lt;T&gt; {
         <span class="doccomment">/// Register the origin account as an executor.
         </span><span class="comment">// TODO: proper weight
-        </span><span class="attr">#[pallet::weight(<span class="number">10_000</span>)]
+        </span><span class="attr">#[pallet::call_index(<span class="number">0</span>)]
+        #[pallet::weight(<span class="number">10_000</span>)]
         </span><span class="kw">pub fn </span>register(
             origin: OriginFor&lt;T&gt;,
             public_key: ExecutorPublicKey,
@@ -1031,7 +1094,7 @@
             );
 
             <span class="kw">let </span>executor_config =
-                <span class="self">Self</span>::apply_register(<span class="kw-2">&amp;</span>who, public_key, reward_address, is_active, stake);
+                <span class="self">Self</span>::apply_register(<span class="kw-2">&amp;</span>who, public_key, reward_address, is_active, stake)<span class="question-mark">?</span>;
 
             <span class="self">Self</span>::deposit_event(Event::&lt;T&gt;::NewExecutor {
                 who,
@@ -1043,7 +1106,8 @@
 
         <span class="doccomment">/// Declare no desire to be an executor and remove the registration.
         </span><span class="comment">// TODO: proper weight
-        </span><span class="attr">#[pallet::weight(<span class="number">10_000</span>)]
+        </span><span class="attr">#[pallet::call_index(<span class="number">1</span>)]
+        #[pallet::weight(<span class="number">10_000</span>)]
         </span><span class="kw">pub fn </span>deregister(origin: OriginFor&lt;T&gt;) -&gt; DispatchResult {
             <span class="kw">let </span>_who = ensure_signed(origin)<span class="question-mark">?</span>;
 
@@ -1059,7 +1123,8 @@
 
         <span class="doccomment">/// Increase the executor&#39;s stake by locking some more balance.
         </span><span class="comment">// TODO: proper weight
-        </span><span class="attr">#[pallet::weight(<span class="number">10_000</span>)]
+        </span><span class="attr">#[pallet::call_index(<span class="number">2</span>)]
+        #[pallet::weight(<span class="number">10_000</span>)]
         </span><span class="kw">pub fn </span>increase_stake(origin: OriginFor&lt;T&gt;, amount: BalanceOf&lt;T&gt;) -&gt; DispatchResult {
             <span class="kw">let </span>who = ensure_signed(origin)<span class="question-mark">?</span>;
 
@@ -1088,9 +1153,7 @@
                     <span class="self">Self</span>::lock_fund(<span class="kw-2">&amp;</span>who, executor_config.stake);
 
                     <span class="kw">if </span>executor_config.is_active {
-                        TotalActiveStake::&lt;T&gt;::mutate(|total| {
-                            <span class="kw-2">*</span>total += amount;
-                        });
+                        <span class="self">Self</span>::increase_total_active_stake(amount)<span class="question-mark">?</span>;
                     }
 
                     <span class="prelude-val">Ok</span>(())
@@ -1107,7 +1170,8 @@
         /// The reduced stake will be held locked for a while until it
         /// can be withdrawn to be transferrable.
         </span><span class="comment">// TODO: proper weight
-        </span><span class="attr">#[pallet::weight(<span class="number">10_000</span>)]
+        </span><span class="attr">#[pallet::call_index(<span class="number">3</span>)]
+        #[pallet::weight(<span class="number">10_000</span>)]
         </span><span class="kw">pub fn </span>decrease_stake(origin: OriginFor&lt;T&gt;, amount: BalanceOf&lt;T&gt;) -&gt; DispatchResult {
             <span class="kw">let </span>who = ensure_signed(origin)<span class="question-mark">?</span>;
 
@@ -1140,9 +1204,7 @@
                         .map_err(|<span class="kw">_</span>| Error::&lt;T&gt;::TooManyWithdrawals)<span class="question-mark">?</span>;
 
                     <span class="kw">if </span>executor_config.is_active {
-                        TotalActiveStake::&lt;T&gt;::mutate(|total| {
-                            <span class="kw-2">*</span>total -= amount;
-                        });
+                        <span class="self">Self</span>::decrease_total_active_stake(amount)<span class="question-mark">?</span>;
                     }
 
                     <span class="prelude-val">Ok</span>(())
@@ -1161,11 +1223,9 @@
         ///
         /// The balance being locked will become free on success.
         </span><span class="comment">// TODO: proper weight
-        </span><span class="attr">#[pallet::weight(<span class="number">10_000</span>)]
-        </span><span class="kw">pub fn </span>withdraw_decreased_stake(
-            origin: OriginFor&lt;T&gt;,
-            withdrawal_index: u32,
-        ) -&gt; DispatchResult {
+        </span><span class="attr">#[pallet::call_index(<span class="number">4</span>)]
+        #[pallet::weight(<span class="number">10_000</span>)]
+        </span><span class="kw">pub fn </span>withdraw_stake(origin: OriginFor&lt;T&gt;, withdrawal_index: u32) -&gt; DispatchResult {
             <span class="kw">let </span>who = ensure_signed(origin)<span class="question-mark">?</span>;
 
             Executors::&lt;T&gt;::try_mutate(<span class="kw-2">&amp;</span>who, |maybe_executor_config| -&gt; DispatchResult {
@@ -1210,7 +1270,8 @@
 
         <span class="doccomment">/// Stop participating in the bundle election temporarily.
         </span><span class="comment">// TODO: proper weight
-        </span><span class="attr">#[pallet::weight(<span class="number">10_000</span>)]
+        </span><span class="attr">#[pallet::call_index(<span class="number">5</span>)]
+        #[pallet::weight(<span class="number">10_000</span>)]
         </span><span class="kw">pub fn </span>pause_execution(origin: OriginFor&lt;T&gt;) -&gt; DispatchResult {
             <span class="kw">let </span>who = ensure_signed(origin)<span class="question-mark">?</span>;
 
@@ -1229,9 +1290,7 @@
 
                     executor_config.is_active = <span class="bool-val">false</span>;
 
-                    TotalActiveStake::&lt;T&gt;::mutate(|total| {
-                        <span class="kw-2">*</span>total -= executor_config.stake;
-                    });
+                    <span class="self">Self</span>::decrease_total_active_stake(executor_config.stake)<span class="question-mark">?</span>;
                     TotalActiveExecutors::&lt;T&gt;::mutate(|total| {
                         <span class="kw-2">*</span>total -= <span class="number">1</span>;
                     });
@@ -1245,7 +1304,8 @@
 
         <span class="doccomment">/// Participate in the bundle election again.
         </span><span class="comment">// TODO: proper weight
-        </span><span class="attr">#[pallet::weight(<span class="number">10_000</span>)]
+        </span><span class="attr">#[pallet::call_index(<span class="number">6</span>)]
+        #[pallet::weight(<span class="number">10_000</span>)]
         </span><span class="kw">pub fn </span>resume_execution(origin: OriginFor&lt;T&gt;) -&gt; DispatchResult {
             <span class="kw">let </span>who = ensure_signed(origin)<span class="question-mark">?</span>;
 
@@ -1257,9 +1317,7 @@
                 <span class="kw">if </span>!executor_config.is_active {
                     executor_config.is_active = <span class="bool-val">true</span>;
 
-                    TotalActiveStake::&lt;T&gt;::mutate(|total| {
-                        <span class="kw-2">*</span>total += executor_config.stake;
-                    });
+                    <span class="self">Self</span>::increase_total_active_stake(executor_config.stake)<span class="question-mark">?</span>;
                     TotalActiveExecutors::&lt;T&gt;::mutate(|total| {
                         <span class="kw-2">*</span>total += <span class="number">1</span>;
                     });
@@ -1275,7 +1333,8 @@
         ///
         /// It won&#39;t take effect until next epoch.
         </span><span class="comment">// TODO: proper weight
-        </span><span class="attr">#[pallet::weight(<span class="number">10_000</span>)]
+        </span><span class="attr">#[pallet::call_index(<span class="number">7</span>)]
+        #[pallet::weight(<span class="number">10_000</span>)]
         </span><span class="kw">pub fn </span>update_public_key(
             origin: OriginFor&lt;T&gt;,
             next_key: ExecutorPublicKey,
@@ -1287,6 +1346,8 @@
                 Error::&lt;T&gt;::DuplicatedKey
             );
 
+            <span class="macro">ensure!</span>(Executors::&lt;T&gt;::contains_key(<span class="kw-2">&amp;</span>who), Error::&lt;T&gt;::NotExecutor);
+
             NextKey::&lt;T&gt;::insert(<span class="kw-2">&amp;</span>who, <span class="kw-2">&amp;</span>next_key);
             KeyOwner::&lt;T&gt;::insert(<span class="kw-2">&amp;</span>next_key, <span class="kw-2">&amp;</span>who);
 
@@ -1297,7 +1358,8 @@
 
         <span class="doccomment">/// Set a new reward address.
         </span><span class="comment">// TODO: proper weight
-        </span><span class="attr">#[pallet::weight(<span class="number">10_000</span>)]
+        </span><span class="attr">#[pallet::call_index(<span class="number">8</span>)]
+        #[pallet::weight(<span class="number">10_000</span>)]
         </span><span class="kw">pub fn </span>update_reward_address(origin: OriginFor&lt;T&gt;, new: T::AccountId) -&gt; DispatchResult {
             <span class="kw">let </span>who = ensure_signed(origin)<span class="question-mark">?</span>;
 
@@ -1374,11 +1436,18 @@
                     reward_address,
                     <span class="bool-val">true</span>,
                     initial_stake,
-                );
+                )
+                .expect(<span class="string">&quot;Genesis executor registration can not fail&quot;</span>);
 
                 <span class="kw">let </span>stake_weight: T::StakeWeight = initial_stake.into();
                 authorities.push((public_key, stake_weight));
             }
+
+            <span class="kw">let </span>merkle_tree = authorities_merkle_tree(authorities.as_slice());
+            <span class="kw">let </span>merkle_root = merkle_tree
+                .root()
+                .expect(<span class="string">&quot;Merkle root must exist as authorities are always non-empty; qed&quot;</span>);
+            AuthoritiesRoot::&lt;T&gt;::put(merkle_root);
 
             <span class="kw">let </span>bounded_authorities = BoundedVec::&lt;<span class="kw">_</span>, T::MaxExecutors&gt;::try_from(authorities)
                 .expect(<span class="string">&quot;T::MaxExecutors bound is checked above; qed&quot;</span>);
@@ -1425,11 +1494,17 @@
         <span class="doccomment">/// The withdrawal entry is still undue.
         </span>PrematureWithdrawal,
 
-        <span class="doccomment">/// Foo few active executors.
+        <span class="doccomment">/// Too few active executors.
         </span>TooFewActiveExecutors,
 
         <span class="doccomment">/// Executor public key is already occupied.
         </span>DuplicatedKey,
+
+        <span class="doccomment">/// An arithmetic overflow error.
+        </span>ArithmeticOverflow,
+
+        <span class="doccomment">/// An arithmetic underflow error.
+        </span>ArithmeticUnderflow,
     }
 
     <span class="attr">#[pallet::event]
@@ -1487,8 +1562,6 @@
             </span><span class="kw">if </span>(block_number % T::EpochDuration::get()).is_zero() {
                 <span class="kw">let </span><span class="kw-2">mut </span>executor_weights = BTreeMap::new();
 
-                <span class="kw">let </span><span class="kw-2">mut </span>total_stake_weight = T::StakeWeight::zero();
-
                 <span class="comment">// TODO: currently, we are iterating the Executors map, figure out how many executors
                 // we can support with this approach and optimize it when it does not satisfy our requirement.
                 </span><span class="kw">let </span>authorities = Executors::&lt;T&gt;::iter()
@@ -1518,17 +1591,17 @@
 
                         <span class="kw">let </span>stake_weight: T::StakeWeight = executor_config.stake.into();
 
-                        total_stake_weight = total_stake_weight.checked_add(<span class="kw-2">&amp;</span>stake_weight).expect(
-                            <span class="string">&quot;
-                                `total_stake_weight` as u128 won&#39;t overflow even with 100K executor and \
-                                each of them has 1_000_000_000 SSC at stake; qed&quot;</span>,
-                        );
-
                         executor_weights.insert(who, stake_weight);
 
                         (public_key, stake_weight)
                     })
                     .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
+
+                <span class="kw">let </span>merkle_tree = authorities_merkle_tree(authorities.as_slice());
+                <span class="kw">let </span>merkle_root = merkle_tree
+                    .root()
+                    .expect(<span class="string">&quot;Merkle root must exist as authorities are always non-empty; qed&quot;</span>);
+                AuthoritiesRoot::&lt;T&gt;::put(merkle_root);
 
                 <span class="kw">let </span>bounded_authorities = BoundedVec::&lt;<span class="kw">_</span>, T::MaxExecutors&gt;::try_from(authorities)
                     .expect(
@@ -1536,6 +1609,7 @@
                     );
                 Authorities::&lt;T&gt;::put(bounded_authorities);
 
+                <span class="kw">let </span>total_stake_weight: T::StakeWeight = TotalActiveStake::&lt;T&gt;::get().into();
                 TotalStakeWeight::&lt;T&gt;::put(total_stake_weight);
 
                 T::OnNewEpoch::on_new_epoch(executor_weights);
@@ -1586,6 +1660,10 @@
         BoundedVec&lt;(ExecutorPublicKey, T::StakeWeight), T::MaxExecutors&gt;,
         ValueQuery,
     &gt;;
+
+    <span class="doccomment">/// Merkle root of authorities.
+    </span><span class="attr">#[pallet::storage]
+    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">type </span>AuthoritiesRoot&lt;T&gt; = StorageValue&lt;<span class="kw">_</span>, Blake2b256Hash, ValueQuery&gt;;
 
     <span class="doccomment">/// Total stake weight of authorities.
     </span><span class="attr">#[pallet::storage]
@@ -1644,7 +1722,7 @@
         reward_address: T::AccountId,
         is_active: bool,
         stake: BalanceOf&lt;T&gt;,
-    ) -&gt; ExecutorConfig&lt;T&gt; {
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;ExecutorConfig&lt;T&gt;, Error&lt;T&gt;&gt; {
         <span class="self">Self</span>::lock_fund(who, stake);
 
         KeyOwner::&lt;T&gt;::insert(<span class="kw-2">&amp;</span>public_key, who);
@@ -1659,16 +1737,31 @@
         Executors::&lt;T&gt;::insert(who, <span class="kw-2">&amp;</span>executor_config);
 
         <span class="kw">if </span>is_active {
-            TotalActiveStake::&lt;T&gt;::mutate(|total| {
-                <span class="kw-2">*</span>total += stake;
-            });
+            <span class="self">Self</span>::increase_total_active_stake(stake)<span class="question-mark">?</span>;
             TotalActiveExecutors::&lt;T&gt;::mutate(|total| {
                 <span class="kw-2">*</span>total += <span class="number">1</span>;
             });
         }
 
-        executor_config
+        <span class="prelude-val">Ok</span>(executor_config)
+    }
+
+    <span class="kw">fn </span>increase_total_active_stake(value: BalanceOf&lt;T&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&lt;T&gt;&gt; {
+        <span class="kw">let </span>old = TotalActiveStake::&lt;T&gt;::get();
+        <span class="kw">let </span>new = old
+            .checked_add(<span class="kw-2">&amp;</span>value)
+            .ok_or(Error::&lt;T&gt;::ArithmeticOverflow)<span class="question-mark">?</span>;
+        TotalActiveStake::&lt;T&gt;::put(new);
+        <span class="prelude-val">Ok</span>(())
+    }
+
+    <span class="kw">fn </span>decrease_total_active_stake(value: BalanceOf&lt;T&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&lt;T&gt;&gt; {
+        <span class="kw">let </span>old = TotalActiveStake::&lt;T&gt;::get();
+        <span class="kw">let </span>new = old
+            .checked_sub(<span class="kw-2">&amp;</span>value)
+            .ok_or(Error::&lt;T&gt;::ArithmeticUnderflow)<span class="question-mark">?</span>;
+        TotalActiveStake::&lt;T&gt;::put(new);
+        <span class="prelude-val">Ok</span>(())
     }
 }
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="pallet_executor_registry" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</code></pre></div></section></main></body></html>

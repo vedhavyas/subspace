@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/subspace-networking/src/request_handlers/generic_request_handler.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>generic_request_handler.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../subspace_networking/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/subspace-networking/src/request_handlers/generic_request_handler.rs`."><title>generic_request_handler.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="subspace_networking" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../subspace_networking/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -163,6 +163,15 @@
 <a href="#163" id="163">163</a>
 <a href="#164" id="164">164</a>
 <a href="#165" id="165">165</a>
+<a href="#166" id="166">166</a>
+<a href="#167" id="167">167</a>
+<a href="#168" id="168">168</a>
+<a href="#169" id="169">169</a>
+<a href="#170" id="170">170</a>
+<a href="#171" id="171">171</a>
+<a href="#172" id="172">172</a>
+<a href="#173" id="173">173</a>
+<a href="#174" id="174">174</a>
 </pre><pre class="rust"><code><span class="comment">// Copyright (C) 2020-2022 Parity Technologies (UK) Ltd.
 // SPDX-License-Identifier: GPL-3.0-or-later WITH Classpath-exception-2.0
 
@@ -185,33 +194,42 @@
 <span class="kw">use </span>futures::prelude::<span class="kw-2">*</span>;
 <span class="kw">use </span>libp2p::PeerId;
 <span class="kw">use </span>parity_scale_codec::{Decode, Encode};
+<span class="kw">use </span>std::pin::Pin;
 <span class="kw">use </span>std::sync::Arc;
 <span class="kw">use </span>tracing::{debug, trace};
 
-<span class="comment">// Could be changed after the production feedback.
+<span class="doccomment">/// Could be changed after the production feedback.
 </span><span class="kw">const </span>REQUESTS_BUFFER_SIZE: usize = <span class="number">50</span>;
 
 <span class="doccomment">/// Generic request with associated response
-</span><span class="kw">pub trait </span>GenericRequest: Encode + Decode + <span class="lifetime">&#39;static </span>{
+</span><span class="kw">pub trait </span>GenericRequest: Encode + Decode + Send + Sync + <span class="lifetime">&#39;static </span>{
     <span class="kw">const </span>PROTOCOL_NAME: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str;
     <span class="kw">const </span>LOG_TARGET: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str;
     <span class="doccomment">/// Response type that corresponds to this request
-    </span><span class="kw">type </span>Response: Encode + Decode + <span class="lifetime">&#39;static</span>;
+    </span><span class="kw">type </span>Response: Encode + Decode + Send + Sync + <span class="lifetime">&#39;static</span>;
 }
+
+<span class="kw">pub type </span>RequestHandlerFn&lt;Request&gt; = Arc&lt;
+    <span class="kw">dyn </span>(Fn(
+            <span class="kw-2">&amp;</span>Request,
+        )
+            -&gt; Pin&lt;Box&lt;<span class="kw">dyn </span>Future&lt;Output = <span class="prelude-ty">Option</span>&lt;&lt;Request <span class="kw">as </span>GenericRequest&gt;::Response&gt;&gt; + Send&gt;&gt;)
+        + Send
+        + Sync
+        + <span class="lifetime">&#39;static</span>,
+&gt;;
 
 <span class="kw">pub struct </span>GenericRequestHandler&lt;Request: GenericRequest&gt; {
     request_receiver: mpsc::Receiver&lt;IncomingRequest&gt;,
-    <span class="attr">#[allow(clippy::type_complexity)]
-    </span>request_handler: Arc&lt;
-        <span class="kw">dyn </span>(Fn(<span class="kw-2">&amp;</span>Request) -&gt; <span class="prelude-ty">Option</span>&lt;&lt;Request <span class="kw">as </span>GenericRequest&gt;::Response&gt;) + Send + Sync + <span class="lifetime">&#39;static</span>,
-    &gt;,
+    request_handler: RequestHandlerFn&lt;Request&gt;,
     protocol_config: ProtocolConfig,
 }
 
 <span class="kw">impl</span>&lt;Request: GenericRequest&gt; GenericRequestHandler&lt;Request&gt; {
-    <span class="kw">pub fn </span>create&lt;F&gt;(request_handler: F) -&gt; Box&lt;<span class="kw">dyn </span>RequestHandler&gt;
+    <span class="kw">pub fn </span>create&lt;RH, Fut&gt;(request_handler: RH) -&gt; Box&lt;<span class="kw">dyn </span>RequestHandler&gt;
     <span class="kw">where
-        </span>F: (Fn(<span class="kw-2">&amp;</span>Request) -&gt; <span class="prelude-ty">Option</span>&lt;Request::Response&gt;) + Send + Sync + <span class="lifetime">&#39;static</span>,
+        </span>RH: (Fn(<span class="kw-2">&amp;</span>Request) -&gt; Fut) + Send + Sync + <span class="lifetime">&#39;static</span>,
+        Fut: Future&lt;Output = <span class="prelude-ty">Option</span>&lt;Request::Response&gt;&gt; + Send + <span class="lifetime">&#39;static</span>,
     {
         <span class="kw">let </span>(request_sender, request_receiver) = mpsc::channel(REQUESTS_BUFFER_SIZE);
 
@@ -220,13 +238,13 @@
 
         Box::new(<span class="self">Self </span>{
             request_receiver,
-            request_handler: Arc::new(request_handler),
+            request_handler: Arc::new(<span class="kw">move </span>|request| Box::pin(request_handler(request))),
             protocol_config,
         })
     }
 
-    <span class="comment">// Invokes external protocol handler.
-    </span><span class="kw">fn </span>handle_request(
+    <span class="doccomment">/// Invokes external protocol handler.
+    </span><span class="kw">async fn </span>handle_request(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         peer: PeerId,
         payload: Vec&lt;u8&gt;,
@@ -234,7 +252,7 @@
         <span class="macro">trace!</span>(%peer, protocol=Request::LOG_TARGET, <span class="string">&quot;Handling request...&quot;</span>);
         <span class="kw">let </span>request = Request::decode(<span class="kw-2">&amp;mut </span>payload.as_slice())
             .map_err(|<span class="kw">_</span>| RequestHandlerError::InvalidRequestFormat)<span class="question-mark">?</span>;
-        <span class="kw">let </span>response = (<span class="self">self</span>.request_handler)(<span class="kw-2">&amp;</span>request);
+        <span class="kw">let </span>response = (<span class="self">self</span>.request_handler)(<span class="kw-2">&amp;</span>request).<span class="kw">await</span>;
 
         <span class="prelude-val">Ok</span>(response.ok_or(RequestHandlerError::NoResponse)<span class="question-mark">?</span>.encode())
     }
@@ -251,7 +269,7 @@
                 pending_response,
             } = request;
 
-            <span class="kw">match </span><span class="self">self</span>.handle_request(peer, payload) {
+            <span class="kw">match </span><span class="self">self</span>.handle_request(peer, payload).<span class="kw">await </span>{
                 <span class="prelude-val">Ok</span>(response_data) =&gt; {
                     <span class="kw">let </span>response = OutgoingResponse {
                         result: <span class="prelude-val">Ok</span>(response_data),
@@ -328,5 +346,4 @@
     <span class="attr">#[error(<span class="string">&quot;No response.&quot;</span>)]
     </span>NoResponse,
 }
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="subspace_networking" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</code></pre></div></section></main></body></html>

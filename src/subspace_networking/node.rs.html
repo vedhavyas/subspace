@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/subspace-networking/src/node.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>node.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../subspace_networking/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/subspace-networking/src/node.rs`."><title>node.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="subspace_networking" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../subspace_networking/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -529,9 +529,29 @@
 <a href="#529" id="529">529</a>
 <a href="#530" id="530">530</a>
 <a href="#531" id="531">531</a>
+<a href="#532" id="532">532</a>
+<a href="#533" id="533">533</a>
+<a href="#534" id="534">534</a>
+<a href="#535" id="535">535</a>
+<a href="#536" id="536">536</a>
+<a href="#537" id="537">537</a>
+<a href="#538" id="538">538</a>
+<a href="#539" id="539">539</a>
+<a href="#540" id="540">540</a>
+<a href="#541" id="541">541</a>
+<a href="#542" id="542">542</a>
+<a href="#543" id="543">543</a>
+<a href="#544" id="544">544</a>
+<a href="#545" id="545">545</a>
+<a href="#546" id="546">546</a>
+<a href="#547" id="547">547</a>
+<a href="#548" id="548">548</a>
+<a href="#549" id="549">549</a>
+<a href="#550" id="550">550</a>
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::request_handlers::generic_request_handler::GenericRequest;
 <span class="kw">use </span><span class="kw">crate</span>::request_responses;
-<span class="kw">use </span><span class="kw">crate</span>::shared::{Command, CreatedSubscription, Shared};
+<span class="kw">use </span><span class="kw">crate</span>::shared::{Command, CreatedSubscription, HandlerFn, HandlerFn2, Shared};
+<span class="kw">use </span><span class="kw">crate</span>::utils::ResizableSemaphorePermit;
 <span class="kw">use </span>bytes::Bytes;
 <span class="kw">use </span>event_listener_primitives::HandlerId;
 <span class="kw">use </span>futures::channel::mpsc::SendError;
@@ -540,12 +560,17 @@
 <span class="kw">use </span>libp2p::core::multihash::Multihash;
 <span class="kw">use </span>libp2p::gossipsub::error::SubscriptionError;
 <span class="kw">use </span>libp2p::gossipsub::Sha256Topic;
+<span class="kw">use </span>libp2p::kad::handler::InboundStreamEventGuard;
+<span class="kw">use </span>libp2p::kad::record::Key;
+<span class="kw">use </span>libp2p::kad::{PeerRecord, ProviderRecord};
 <span class="kw">use </span>libp2p::{Multiaddr, PeerId};
 <span class="kw">use </span>parity_scale_codec::Decode;
-<span class="kw">use </span>std::sync::atomic::{AtomicBool, Ordering};
+<span class="kw">use </span>std::pin::Pin;
 <span class="kw">use </span>std::sync::Arc;
+<span class="kw">use </span>std::task::{Context, Poll};
 <span class="kw">use </span>std::time::Duration;
 <span class="kw">use </span>thiserror::Error;
+<span class="kw">use </span>tokio::sync::watch;
 <span class="kw">use </span>tokio::time::sleep;
 <span class="kw">use </span>tracing::{error, trace};
 
@@ -558,14 +583,12 @@
     command_sender: <span class="prelude-ty">Option</span>&lt;mpsc::Sender&lt;Command&gt;&gt;,
     <span class="attr">#[pin]
     </span>receiver: mpsc::UnboundedReceiver&lt;Bytes&gt;,
+    _permit: ResizableSemaphorePermit,
 }
 
 <span class="kw">impl </span>Stream <span class="kw">for </span>TopicSubscription {
     <span class="kw">type </span>Item = Bytes;
-    <span class="kw">fn </span>poll_next(
-        <span class="self">self</span>: std::pin::Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;,
-        cx: <span class="kw-2">&amp;mut </span>std::task::Context&lt;<span class="lifetime">&#39;_</span>&gt;,
-    ) -&gt; std::task::Poll&lt;<span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>::Item&gt;&gt; {
+    <span class="kw">fn </span>poll_next(<span class="self">self</span>: Pin&lt;<span class="kw-2">&amp;mut </span><span class="self">Self</span>&gt;, cx: <span class="kw-2">&amp;mut </span>Context&lt;<span class="lifetime">&#39;_</span>&gt;) -&gt; Poll&lt;<span class="prelude-ty">Option</span>&lt;<span class="self">Self</span>::Item&gt;&gt; {
         <span class="self">self</span>.project().receiver.poll_next(cx)
     }
     <span class="kw">fn </span>size_hint(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; (usize, <span class="prelude-ty">Option</span>&lt;usize&gt;) {
@@ -788,52 +811,11 @@
 #[must_use = <span class="string">&quot;Node doesn&#39;t do anything if dropped&quot;</span>]
 </span><span class="kw">pub struct </span>Node {
     shared: Arc&lt;Shared&gt;,
-    <span class="doccomment">/// Indicates whether the peer data synchronization is in progress
-    </span>sync_status: NodeSynchronizationStatusHandler,
-}
-
-<span class="doccomment">/// Provides operations for managing thread-safe node synchronization status.
-</span><span class="attr">#[derive(Debug, Clone)]
-</span><span class="kw">pub struct </span>NodeSynchronizationStatusHandler {
-    syncing: Arc&lt;AtomicBool&gt;,
-}
-
-<span class="kw">impl </span>NodeSynchronizationStatusHandler {
-    <span class="doccomment">/// Constructor. Set initial sync status to false.
-    </span><span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new() -&gt; <span class="self">Self </span>{
-        <span class="self">Self </span>{
-            syncing: Arc::new(AtomicBool::new(<span class="bool-val">false</span>)),
-        }
-    }
-    <span class="doccomment">/// Sets sync status.
-    </span><span class="kw">pub fn </span>toggle_on(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="macro">trace!</span>(<span class="string">&quot;Toggle syncing on.&quot;</span>);
-        <span class="self">self</span>.syncing.store(<span class="bool-val">true</span>, Ordering::Relaxed);
-    }
-
-    <span class="doccomment">/// Unsets sync status.
-    </span><span class="kw">pub fn </span>toggle_off(<span class="kw-2">&amp;</span><span class="self">self</span>) {
-        <span class="macro">trace!</span>(<span class="string">&quot;Toggle syncing off.&quot;</span>);
-        <span class="self">self</span>.syncing.store(<span class="bool-val">false</span>, Ordering::Relaxed);
-    }
-
-    <span class="doccomment">/// Returns the current node synchronization status.
-    </span><span class="kw">pub fn </span>status(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; bool {
-        <span class="self">self</span>.syncing.load(Ordering::Relaxed)
-    }
 }
 
 <span class="kw">impl </span>Node {
     <span class="kw">pub</span>(<span class="kw">crate</span>) <span class="kw">fn </span>new(shared: Arc&lt;Shared&gt;) -&gt; <span class="self">Self </span>{
-        <span class="self">Self </span>{
-            shared,
-            sync_status: NodeSynchronizationStatusHandler::new(),
-        }
-    }
-
-    <span class="doccomment">/// Node&#39;s synchronization status handler.
-    </span><span class="kw">pub fn </span>sync_status_handler(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; NodeSynchronizationStatusHandler {
-        <span class="self">self</span>.sync_status.clone()
+        <span class="self">Self </span>{ shared }
     }
 
     <span class="doccomment">/// Node&#39;s own local ID.
@@ -841,16 +823,25 @@
         <span class="self">self</span>.shared.id
     }
 
+    <span class="kw">pub fn </span>online_status_observer(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>watch::Receiver&lt;bool&gt; {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.shared.online_status_observer_rx
+    }
+
     <span class="kw">pub async fn </span>get_value(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         key: Multihash,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">impl </span>Stream&lt;Item = Vec&lt;u8&gt;&gt;, GetValueError&gt; {
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">impl </span>Stream&lt;Item = PeerRecord&gt;, GetValueError&gt; {
+        <span class="kw">let </span>permit = <span class="self">self</span>.shared.kademlia_tasks_semaphore.acquire().<span class="kw">await</span>;
         <span class="kw">let </span>(result_sender, result_receiver) = mpsc::unbounded();
 
         <span class="self">self</span>.shared
             .command_sender
             .clone()
-            .send(Command::GetValue { key, result_sender })
+            .send(Command::GetValue {
+                key,
+                result_sender,
+                permit,
+            })
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="comment">// TODO: A wrapper that&#39;ll immediately cancel query on drop
@@ -862,6 +853,7 @@
         key: Multihash,
         value: Vec&lt;u8&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">impl </span>Stream&lt;Item = ()&gt;, PutValueError&gt; {
+        <span class="kw">let </span>permit = <span class="self">self</span>.shared.kademlia_tasks_semaphore.acquire().<span class="kw">await</span>;
         <span class="kw">let </span>(result_sender, result_receiver) = mpsc::unbounded();
 
         <span class="self">self</span>.shared
@@ -871,6 +863,7 @@
                 key,
                 value,
                 result_sender,
+                permit,
             })
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
@@ -879,6 +872,7 @@
     }
 
     <span class="kw">pub async fn </span>subscribe(<span class="kw-2">&amp;</span><span class="self">self</span>, topic: Sha256Topic) -&gt; <span class="prelude-ty">Result</span>&lt;TopicSubscription, SubscribeError&gt; {
+        <span class="kw">let </span>permit = <span class="self">self</span>.shared.regular_tasks_semaphore.acquire().<span class="kw">await</span>;
         <span class="kw">let </span>(result_sender, result_receiver) = oneshot::channel();
 
         <span class="self">self</span>.shared
@@ -900,10 +894,12 @@
             subscription_id,
             command_sender: <span class="prelude-val">Some</span>(<span class="self">self</span>.shared.command_sender.clone()),
             receiver,
+            _permit: permit,
         })
     }
 
     <span class="kw">pub async fn </span>publish(<span class="kw-2">&amp;</span><span class="self">self</span>, topic: Sha256Topic, message: Vec&lt;u8&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;(), PublishError&gt; {
+        <span class="kw">let </span>_permit = <span class="self">self</span>.shared.regular_tasks_semaphore.acquire().<span class="kw">await</span>;
         <span class="kw">let </span>(result_sender, result_receiver) = oneshot::channel();
 
         <span class="self">self</span>.shared
@@ -928,6 +924,7 @@
     <span class="kw">where
         </span>Request: GenericRequest,
     {
+        <span class="kw">let </span>_permit = <span class="self">self</span>.shared.regular_tasks_semaphore.acquire().<span class="kw">await</span>;
         <span class="kw">let </span>(result_sender, result_receiver) = oneshot::channel();
         <span class="kw">let </span>command = Command::GenericRequest {
             peer_id,
@@ -948,6 +945,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         key: Multihash,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">impl </span>Stream&lt;Item = PeerId&gt;, GetClosestPeersError&gt; {
+        <span class="kw">let </span>permit = <span class="self">self</span>.shared.kademlia_tasks_semaphore.acquire().<span class="kw">await</span>;
         <span class="macro">trace!</span>(<span class="question-mark">?</span>key, <span class="string">&quot;Starting &#39;GetClosestPeers&#39; request.&quot;</span>);
 
         <span class="kw">let </span>(result_sender, result_receiver) = mpsc::unbounded();
@@ -955,7 +953,11 @@
         <span class="self">self</span>.shared
             .command_sender
             .clone()
-            .send(Command::GetClosestPeers { key, result_sender })
+            .send(Command::GetClosestPeers {
+                key,
+                result_sender,
+                permit,
+            })
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="comment">// TODO: A wrapper that&#39;ll immediately cancel query on drop
@@ -994,8 +996,9 @@
     <span class="doccomment">/// Start announcing item by its key. Initiate &#39;start_providing&#39; Kademlia operation.
     </span><span class="kw">pub async fn </span>start_announcing(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
-        key: Multihash,
+        key: Key,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">impl </span>Stream&lt;Item = ()&gt;, AnnounceError&gt; {
+        <span class="kw">let </span>permit = <span class="self">self</span>.shared.kademlia_tasks_semaphore.acquire().<span class="kw">await</span>;
         <span class="kw">let </span>(result_sender, result_receiver) = mpsc::unbounded();
 
         <span class="macro">trace!</span>(<span class="question-mark">?</span>key, <span class="string">&quot;Starting &#39;start_announcing&#39; request.&quot;</span>);
@@ -1003,7 +1006,11 @@
         <span class="self">self</span>.shared
             .command_sender
             .clone()
-            .send(Command::StartAnnouncing { key, result_sender })
+            .send(Command::StartAnnouncing {
+                key,
+                result_sender,
+                permit,
+            })
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="comment">// TODO: A wrapper that&#39;ll immediately cancel query on drop
@@ -1033,6 +1040,7 @@
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         key: Multihash,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="kw">impl </span>Stream&lt;Item = PeerId&gt;, GetProvidersError&gt; {
+        <span class="kw">let </span>permit = <span class="self">self</span>.shared.kademlia_tasks_semaphore.acquire().<span class="kw">await</span>;
         <span class="kw">let </span>(result_sender, result_receiver) = mpsc::unbounded();
 
         <span class="macro">trace!</span>(<span class="question-mark">?</span>key, <span class="string">&quot;Starting &#39;get_providers&#39; request.&quot;</span>);
@@ -1040,12 +1048,37 @@
         <span class="self">self</span>.shared
             .command_sender
             .clone()
-            .send(Command::GetProviders { key, result_sender })
+            .send(Command::GetProviders {
+                key,
+                result_sender,
+                permit,
+            })
             .<span class="kw">await</span><span class="question-mark">?</span>;
 
         <span class="comment">// TODO: A wrapper that&#39;ll immediately cancel query on drop
         </span><span class="prelude-val">Ok</span>(result_receiver)
     }
+
+    <span class="doccomment">/// Ban peer with specified peer ID.
+    </span><span class="kw">pub async fn </span>ban_peer(<span class="kw-2">&amp;</span><span class="self">self</span>, peer_id: PeerId) -&gt; <span class="prelude-ty">Result</span>&lt;(), SendError&gt; {
+        <span class="self">self</span>.shared
+            .command_sender
+            .clone()
+            .send(Command::BanPeer { peer_id })
+            .<span class="kw">await
+    </span>}
+
+    <span class="doccomment">/// Dial multiaddress.
+    /// It could be used to test libp2p transports bypassing protocol checks for bootstrap
+    /// or listen-on addresses.
+    </span><span class="attr">#[doc(hidden)]
+    </span><span class="kw">pub async fn </span>dial(<span class="kw-2">&amp;</span><span class="self">self</span>, address: Multiaddr) -&gt; <span class="prelude-ty">Result</span>&lt;(), SendError&gt; {
+        <span class="self">self</span>.shared
+            .command_sender
+            .clone()
+            .send(Command::Dial { address })
+            .<span class="kw">await
+    </span>}
 
     <span class="doccomment">/// Node&#39;s own addresses where it listens for incoming requests.
     </span><span class="kw">pub fn </span>listeners(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; Vec&lt;Multiaddr&gt; {
@@ -1053,12 +1086,16 @@
     }
 
     <span class="doccomment">/// Callback is called when node starts listening on new address.
-    </span><span class="kw">pub fn </span>on_new_listener(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        callback: Arc&lt;<span class="kw">dyn </span>Fn(<span class="kw-2">&amp;</span>Multiaddr) + Send + Sync + <span class="lifetime">&#39;static</span>&gt;,
-    ) -&gt; HandlerId {
+    </span><span class="kw">pub fn </span>on_new_listener(<span class="kw-2">&amp;</span><span class="self">self</span>, callback: HandlerFn&lt;Multiaddr&gt;) -&gt; HandlerId {
         <span class="self">self</span>.shared.handlers.new_listener.add(callback)
     }
+
+    <span class="doccomment">/// Callback is called when node starts listening on new address.
+    </span><span class="kw">pub fn </span>on_announcement(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        callback: HandlerFn2&lt;ProviderRecord, Arc&lt;InboundStreamEventGuard&gt;&gt;,
+    ) -&gt; HandlerId {
+        <span class="self">self</span>.shared.handlers.announcement.add(callback)
+    }
 }
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="subspace_networking" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</code></pre></div></section></main></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `domains/client/domain-executor/src/system_gossip_message_validator.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>system_gossip_message_validator.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../domain_client_executor/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `domains/client/domain-executor/src/system_gossip_message_validator.rs`."><title>system_gossip_message_validator.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="domain_client_executor" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../domain_client_executor/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -215,51 +215,56 @@
 <a href="#215" id="215">215</a>
 <a href="#216" id="216">216</a>
 <a href="#217" id="217">217</a>
-<a href="#218" id="218">218</a>
-<a href="#219" id="219">219</a>
-<a href="#220" id="220">220</a>
-<a href="#221" id="221">221</a>
-<a href="#222" id="222">222</a>
-<a href="#223" id="223">223</a>
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::fraud_proof::FraudProofGenerator;
 <span class="kw">use </span><span class="kw">crate</span>::gossip_message_validator::{GossipMessageError, GossipMessageValidator};
-<span class="kw">use </span><span class="kw">crate</span>::utils::to_number_primitive;
-<span class="kw">use crate</span>::{ExecutionReceiptFor, TransactionFor};
+<span class="kw">use </span><span class="kw">crate</span>::parent_chain::ParentChainInterface;
+<span class="kw">use </span><span class="kw">crate</span>::TransactionFor;
 <span class="kw">use </span>domain_client_executor_gossip::{Action, GossipMessageHandler};
 <span class="kw">use </span>sc_client_api::{AuxStore, BlockBackend, ProofProvider, StateBackendFor};
 <span class="kw">use </span>sp_api::ProvideRuntimeApi;
 <span class="kw">use </span>sp_blockchain::HeaderBackend;
 <span class="kw">use </span>sp_core::traits::{CodeExecutor, SpawnNamed};
-<span class="kw">use </span>sp_core::H256;
-<span class="kw">use </span>sp_domains::fraud_proof::{BundleEquivocationProof, InvalidTransactionProof};
-<span class="kw">use </span>sp_domains::{Bundle, ExecutorApi, SignedBundle};
-<span class="kw">use </span>sp_runtime::generic::BlockId;
+<span class="kw">use </span>sp_domains::fraud_proof::{BundleEquivocationProof, FraudProof, InvalidTransactionProof};
+<span class="kw">use </span>sp_domains::{Bundle, SignedBundle};
 <span class="kw">use </span>sp_runtime::traits::{Block <span class="kw">as </span>BlockT, HashFor, NumberFor};
 <span class="kw">use </span>sp_runtime::RuntimeAppPublic;
 <span class="kw">use </span>std::sync::Arc;
 <span class="kw">use </span>system_runtime_primitives::SystemDomainApi;
 
 <span class="doccomment">/// Gossip message validator for system domain.
-</span><span class="kw">pub struct </span>SystemGossipMessageValidator&lt;Block, PBlock, Client, PClient, TransactionPool, Backend, E&gt;
-<span class="kw">where
-    </span>Block: BlockT,
-    PBlock: BlockT,
-{
-    primary_chain_client: Arc&lt;PClient&gt;,
+</span><span class="kw">pub struct </span>SystemGossipMessageValidator&lt;
+    Block,
+    PBlock,
+    Client,
+    PClient,
+    TransactionPool,
+    Backend,
+    E,
+    ParentChain,
+&gt; {
+    parent_chain: ParentChain,
     client: Arc&lt;Client&gt;,
     transaction_pool: Arc&lt;TransactionPool&gt;,
     gossip_message_validator: GossipMessageValidator&lt;Block, PBlock, Client, PClient, Backend, E&gt;,
 }
 
-<span class="kw">impl</span>&lt;Block, PBlock, Client, PClient, TransactionPool, Backend, E&gt; Clone
-    <span class="kw">for </span>SystemGossipMessageValidator&lt;Block, PBlock, Client, PClient, TransactionPool, Backend, E&gt;
+<span class="kw">impl</span>&lt;Block, PBlock, Client, PClient, TransactionPool, Backend, E, ParentChain&gt; Clone
+    <span class="kw">for </span>SystemGossipMessageValidator&lt;
+        Block,
+        PBlock,
+        Client,
+        PClient,
+        TransactionPool,
+        Backend,
+        E,
+        ParentChain,
+    &gt;
 <span class="kw">where
-    </span>Block: BlockT,
-    PBlock: BlockT,
+    </span>ParentChain: Clone,
 {
     <span class="kw">fn </span>clone(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="self">Self </span>{
         <span class="self">Self </span>{
-            primary_chain_client: <span class="self">self</span>.primary_chain_client.clone(),
+            parent_chain: <span class="self">self</span>.parent_chain.clone(),
             client: <span class="self">self</span>.client.clone(),
             transaction_pool: <span class="self">self</span>.transaction_pool.clone(),
             gossip_message_validator: <span class="self">self</span>.gossip_message_validator.clone(),
@@ -267,8 +272,17 @@
     }
 }
 
-<span class="kw">impl</span>&lt;Block, PBlock, Client, PClient, TransactionPool, Backend, E&gt;
-    SystemGossipMessageValidator&lt;Block, PBlock, Client, PClient, TransactionPool, Backend, E&gt;
+<span class="kw">impl</span>&lt;Block, PBlock, Client, PClient, TransactionPool, Backend, E, ParentChain&gt;
+    SystemGossipMessageValidator&lt;
+        Block,
+        PBlock,
+        Client,
+        PClient,
+        TransactionPool,
+        Backend,
+        E,
+        ParentChain,
+    &gt;
 <span class="kw">where
     </span>Block: BlockT,
     PBlock: BlockT,
@@ -281,65 +295,43 @@
     Client::Api: SystemDomainApi&lt;Block, NumberFor&lt;PBlock&gt;, PBlock::Hash&gt;
         + sp_block_builder::BlockBuilder&lt;Block&gt;
         + sp_api::ApiExt&lt;Block, StateBackend = StateBackendFor&lt;Backend, Block&gt;&gt;,
-    PClient: HeaderBackend&lt;PBlock&gt; + ProvideRuntimeApi&lt;PBlock&gt; + <span class="lifetime">&#39;static</span>,
-    PClient::Api: ExecutorApi&lt;PBlock, Block::Hash&gt;,
+    PClient: HeaderBackend&lt;PBlock&gt; + <span class="lifetime">&#39;static</span>,
     Backend: sc_client_api::Backend&lt;Block&gt; + <span class="lifetime">&#39;static</span>,
     TransactionFor&lt;Backend, Block&gt;: sp_trie::HashDBT&lt;HashFor&lt;Block&gt;, sp_trie::DBValue&gt;,
     TransactionPool: sc_transaction_pool_api::TransactionPool&lt;Block = Block&gt; + <span class="lifetime">&#39;static</span>,
     E: CodeExecutor,
+    ParentChain: ParentChainInterface&lt;PBlock&gt;,
 {
     <span class="kw">pub fn </span>new(
-        primary_chain_client: Arc&lt;PClient&gt;,
+        parent_chain: ParentChain,
         client: Arc&lt;Client&gt;,
         spawner: Box&lt;<span class="kw">dyn </span>SpawnNamed + Send + Sync&gt;,
         transaction_pool: Arc&lt;TransactionPool&gt;,
-        fraud_proof_generator: FraudProofGenerator&lt;Block, PBlock, Client, Backend, E&gt;,
+        fraud_proof_generator: FraudProofGenerator&lt;Block, PBlock, Client, PClient, Backend, E&gt;,
     ) -&gt; <span class="self">Self </span>{
-        <span class="kw">let </span>gossip_message_validator = GossipMessageValidator::new(
-            primary_chain_client.clone(),
-            client.clone(),
-            spawner,
-            fraud_proof_generator,
-        );
+        <span class="kw">let </span>gossip_message_validator =
+            GossipMessageValidator::new(client.clone(), spawner, fraud_proof_generator);
         <span class="self">Self </span>{
-            primary_chain_client,
+            parent_chain,
             client,
             transaction_pool,
             gossip_message_validator,
         }
     }
-
-    <span class="kw">fn </span>validate_gossiped_execution_receipt(
-        <span class="kw-2">&amp;</span><span class="self">self</span>,
-        signed_bundle_hash: H256,
-        execution_receipt: <span class="kw-2">&amp;</span>ExecutionReceiptFor&lt;PBlock, Block::Hash&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;(), GossipMessageError&gt; {
-        <span class="kw">let </span>head_receipt_number = <span class="self">self
-            </span>.primary_chain_client
-            .runtime_api()
-            .head_receipt_number(<span class="kw-2">&amp;</span>BlockId::Hash(<span class="self">self</span>.primary_chain_client.info().best_hash))<span class="question-mark">?</span>;
-        <span class="kw">let </span>head_receipt_number = to_number_primitive(head_receipt_number);
-
-        <span class="kw">if let </span><span class="prelude-val">Some</span>(fraud_proof) = <span class="self">self</span>.gossip_message_validator.validate_execution_receipt(
-            signed_bundle_hash,
-            execution_receipt,
-            head_receipt_number,
-        )<span class="question-mark">? </span>{
-            <span class="self">self</span>.primary_chain_client
-                .runtime_api()
-                .submit_fraud_proof_unsigned(
-                    <span class="kw-2">&amp;</span>BlockId::Hash(<span class="self">self</span>.primary_chain_client.info().best_hash),
-                    fraud_proof,
-                )<span class="question-mark">?</span>;
-        }
-
-        <span class="prelude-val">Ok</span>(())
-    }
 }
 
-<span class="kw">impl</span>&lt;Block, PBlock, Client, PClient, TransactionPool, Backend, E&gt;
+<span class="kw">impl</span>&lt;Block, PBlock, Client, PClient, TransactionPool, Backend, E, ParentChain&gt;
     GossipMessageHandler&lt;PBlock, Block&gt;
-    <span class="kw">for </span>SystemGossipMessageValidator&lt;Block, PBlock, Client, PClient, TransactionPool, Backend, E&gt;
+    <span class="kw">for </span>SystemGossipMessageValidator&lt;
+        Block,
+        PBlock,
+        Client,
+        PClient,
+        TransactionPool,
+        Backend,
+        E,
+        ParentChain,
+    &gt;
 <span class="kw">where
     </span>Block: BlockT,
     PBlock: BlockT,
@@ -352,12 +344,12 @@
     Client::Api: SystemDomainApi&lt;Block, NumberFor&lt;PBlock&gt;, PBlock::Hash&gt;
         + sp_block_builder::BlockBuilder&lt;Block&gt;
         + sp_api::ApiExt&lt;Block, StateBackend = StateBackendFor&lt;Backend, Block&gt;&gt;,
-    PClient: HeaderBackend&lt;PBlock&gt; + ProvideRuntimeApi&lt;PBlock&gt; + <span class="lifetime">&#39;static</span>,
-    PClient::Api: ExecutorApi&lt;PBlock, Block::Hash&gt;,
     Backend: sc_client_api::Backend&lt;Block&gt; + <span class="lifetime">&#39;static</span>,
+    PClient: HeaderBackend&lt;PBlock&gt; + <span class="lifetime">&#39;static</span>,
     TransactionFor&lt;Backend, Block&gt;: sp_trie::HashDBT&lt;HashFor&lt;Block&gt;, sp_trie::DBValue&gt;,
     TransactionPool: sc_transaction_pool_api::TransactionPool&lt;Block = Block&gt; + <span class="lifetime">&#39;static</span>,
     E: CodeExecutor,
+    ParentChain: ParentChainInterface&lt;PBlock&gt;,
 {
     <span class="kw">type </span>Error = GossipMessageError;
 
@@ -370,8 +362,6 @@
             Block::Hash,
         &gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;Action, <span class="self">Self</span>::Error&gt; {
-        <span class="kw">let </span>signed_bundle_hash = signed_bundle.hash();
-
         <span class="kw">let </span>SignedBundle {
             bundle,
             bundle_solution,
@@ -391,12 +381,8 @@
 
         <span class="comment">// A bundle equivocation occurs.
         </span><span class="kw">if let </span><span class="prelude-val">Some</span>(equivocation_proof) = check_equivocation(bundle) {
-            <span class="self">self</span>.primary_chain_client
-                .runtime_api()
-                .submit_bundle_equivocation_proof_unsigned(
-                    <span class="kw-2">&amp;</span>BlockId::Hash(<span class="self">self</span>.primary_chain_client.info().best_hash),
-                    equivocation_proof,
-                )<span class="question-mark">?</span>;
+            <span class="kw">let </span>fraud_proof = FraudProof::BundleEquivocation(equivocation_proof);
+            <span class="self">self</span>.parent_chain.submit_fraud_proof_unsigned(fraud_proof)<span class="question-mark">?</span>;
             <span class="kw">return </span><span class="prelude-val">Err</span>(GossipMessageError::BundleEquivocation);
         }
 
@@ -414,8 +400,14 @@
             <span class="comment">// TODO: validate the bundle election.
 
             // TODO: Validate the receipts correctly when the bundle gossip is re-enabled.
-            </span><span class="kw">for </span>receipt <span class="kw">in </span><span class="kw-2">&amp;</span>bundle.receipts {
-                <span class="self">self</span>.validate_gossiped_execution_receipt(signed_bundle_hash, receipt)<span class="question-mark">?</span>;
+            </span><span class="kw">let </span>domain_id = bundle_solution.proof_of_election().domain_id;
+            <span class="kw">for </span>receipt <span class="kw">in </span><span class="kw-2">&amp;</span>bundle.receipts {
+                <span class="self">self</span>.gossip_message_validator
+                    .validate_gossiped_execution_receipt::&lt;PBlock, <span class="kw">_</span>&gt;(
+                        <span class="kw-2">&amp;</span><span class="self">self</span>.parent_chain,
+                        receipt,
+                        domain_id,
+                    )<span class="question-mark">?</span>;
             }
 
             <span class="kw">for </span>extrinsic <span class="kw">in </span>bundle.extrinsics.iter() {
@@ -427,14 +419,10 @@
                     <span class="comment">// TODO: check the legality
                     //
                     // if illegal =&gt; illegal tx proof
-                    </span><span class="kw">let </span>invalid_transaction_proof = InvalidTransactionProof;
+                    </span><span class="kw">let </span>invalid_transaction_proof = InvalidTransactionProof { domain_id };
+                    <span class="kw">let </span>fraud_proof = FraudProof::InvalidTransaction(invalid_transaction_proof);
 
-                    <span class="self">self</span>.primary_chain_client
-                        .runtime_api()
-                        .submit_invalid_transaction_proof_unsigned(
-                            <span class="kw-2">&amp;</span>BlockId::Hash(<span class="self">self</span>.primary_chain_client.info().best_hash),
-                            invalid_transaction_proof,
-                        )<span class="question-mark">?</span>;
+                    <span class="self">self</span>.parent_chain.submit_fraud_proof_unsigned(fraud_proof)<span class="question-mark">?</span>;
                 }
             }
 
@@ -444,5 +432,4 @@
         }
     }
 }
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="domain_client_executor" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</code></pre></div></section></main></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `domains/client/consensus-relay-chain/src/import_queue.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>import_queue.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../domain_client_consensus_relay_chain/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `domains/client/consensus-relay-chain/src/import_queue.rs`."><title>import_queue.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="domain_client_consensus_relay_chain" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../domain_client_consensus_relay_chain/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -121,42 +121,6 @@
 <a href="#121" id="121">121</a>
 <a href="#122" id="122">122</a>
 <a href="#123" id="123">123</a>
-<a href="#124" id="124">124</a>
-<a href="#125" id="125">125</a>
-<a href="#126" id="126">126</a>
-<a href="#127" id="127">127</a>
-<a href="#128" id="128">128</a>
-<a href="#129" id="129">129</a>
-<a href="#130" id="130">130</a>
-<a href="#131" id="131">131</a>
-<a href="#132" id="132">132</a>
-<a href="#133" id="133">133</a>
-<a href="#134" id="134">134</a>
-<a href="#135" id="135">135</a>
-<a href="#136" id="136">136</a>
-<a href="#137" id="137">137</a>
-<a href="#138" id="138">138</a>
-<a href="#139" id="139">139</a>
-<a href="#140" id="140">140</a>
-<a href="#141" id="141">141</a>
-<a href="#142" id="142">142</a>
-<a href="#143" id="143">143</a>
-<a href="#144" id="144">144</a>
-<a href="#145" id="145">145</a>
-<a href="#146" id="146">146</a>
-<a href="#147" id="147">147</a>
-<a href="#148" id="148">148</a>
-<a href="#149" id="149">149</a>
-<a href="#150" id="150">150</a>
-<a href="#151" id="151">151</a>
-<a href="#152" id="152">152</a>
-<a href="#153" id="153">153</a>
-<a href="#154" id="154">154</a>
-<a href="#155" id="155">155</a>
-<a href="#156" id="156">156</a>
-<a href="#157" id="157">157</a>
-<a href="#158" id="158">158</a>
-<a href="#159" id="159">159</a>
 </pre><pre class="rust"><code><span class="comment">// Copyright 2019-2021 Parity Technologies (UK) Ltd.
 // This file is part of Cumulus.
 
@@ -173,52 +137,37 @@
 // You should have received a copy of the GNU General Public License
 // along with Cumulus.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 
-</span><span class="kw">use </span><span class="kw">crate</span>::notification::{SubspaceNotificationSender, SubspaceNotificationStream};
-<span class="kw">use </span>sc_consensus::import_queue::{BasicQueue, Verifier <span class="kw">as </span>VerifierT};
+</span><span class="kw">use </span>sc_consensus::import_queue::{BasicQueue, Verifier <span class="kw">as </span>VerifierT};
 <span class="kw">use </span>sc_consensus::{
     BlockCheckParams, BlockImport, BlockImportParams, ForkChoiceStrategy, ImportResult,
 };
 <span class="kw">use </span>sp_blockchain::Result <span class="kw">as </span>ClientResult;
 <span class="kw">use </span>sp_consensus::error::Error <span class="kw">as </span>ConsensusError;
-<span class="kw">use </span>sp_consensus::{BlockOrigin, CacheKeyId};
+<span class="kw">use </span>sp_consensus::BlockOrigin;
 <span class="kw">use </span>sp_core::traits::SpawnEssentialNamed;
-<span class="kw">use </span>sp_runtime::traits::{Block <span class="kw">as </span>BlockT, Header <span class="kw">as </span>HeaderT, NumberFor};
-<span class="kw">use </span>std::collections::HashMap;
-<span class="kw">use </span>std::fmt::Debug;
+<span class="kw">use </span>sp_runtime::traits::{Block <span class="kw">as </span>BlockT, Header <span class="kw">as </span>HeaderT};
 <span class="kw">use </span>std::marker::PhantomData;
 <span class="kw">use </span>substrate_prometheus_endpoint::Registry;
 
-<span class="doccomment">/// Secondary chain specific block import.
+<span class="comment">// TODO: remove as it&#39;s unused, and may even remove this whole crate.
+</span><span class="doccomment">/// Domain specific block import.
 ///
 /// This is used to set `block_import_params.fork_choice` to `false` as long as the block origin is
-/// not `NetworkInitialSync`. The best block for secondary chain is determined by the primary chain.
+/// not `NetworkInitialSync`. The best block for domain is determined by the primary chain.
 /// Meaning we will update the best block, as it is included by the primary chain.
-</span><span class="kw">struct </span>SecondaryChainBlockImport&lt;I, Number&gt;
-<span class="kw">where
-    </span>Number: Clone + Send + Sync + Debug + <span class="lifetime">&#39;static</span>,
-{
+</span><span class="kw">struct </span>DomainBlockImport&lt;I&gt; {
     inner: I,
-    imported_block_notification_sender: SubspaceNotificationSender&lt;Number&gt;,
 }
 
-<span class="kw">impl</span>&lt;I, Number&gt; SecondaryChainBlockImport&lt;I, Number&gt;
-<span class="kw">where
-    </span>Number: Clone + Send + Sync + Debug + <span class="lifetime">&#39;static</span>,
-{
+<span class="kw">impl</span>&lt;I&gt; DomainBlockImport&lt;I&gt; {
     <span class="doccomment">/// Create a new instance.
-    </span><span class="kw">fn </span>new(
-        inner: I,
-        imported_block_notification_sender: SubspaceNotificationSender&lt;Number&gt;,
-    ) -&gt; <span class="self">Self </span>{
-        <span class="self">Self </span>{
-            inner,
-            imported_block_notification_sender,
-        }
+    </span><span class="kw">fn </span>new(inner: I) -&gt; <span class="self">Self </span>{
+        <span class="self">Self </span>{ inner }
     }
 }
 
 <span class="attr">#[async_trait::async_trait]
-</span><span class="kw">impl</span>&lt;Block, I&gt; BlockImport&lt;Block&gt; <span class="kw">for </span>SecondaryChainBlockImport&lt;I, NumberFor&lt;Block&gt;&gt;
+</span><span class="kw">impl</span>&lt;Block, I&gt; BlockImport&lt;Block&gt; <span class="kw">for </span>DomainBlockImport&lt;I&gt;
 <span class="kw">where
     </span>Block: BlockT,
     I: BlockImport&lt;Block&gt; + Send,
@@ -236,17 +185,13 @@
     <span class="kw">async fn </span>import_block(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         <span class="kw-2">mut </span>block_import_params: BlockImportParams&lt;Block, <span class="self">Self</span>::Transaction&gt;,
-        cache: HashMap&lt;CacheKeyId, Vec&lt;u8&gt;&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;ImportResult, <span class="self">Self</span>::Error&gt; {
         <span class="comment">// Best block is determined by the primary chain, or if we are doing the initial sync
         // we import all blocks as new best.
-        </span><span class="kw">let </span>number = <span class="kw-2">*</span>block_import_params.header.number();
-        block_import_params.fork_choice = <span class="prelude-val">Some</span>(ForkChoiceStrategy::Custom(
+        </span>block_import_params.fork_choice = <span class="prelude-val">Some</span>(ForkChoiceStrategy::Custom(
             block_import_params.origin == BlockOrigin::NetworkInitialSync,
         ));
-        <span class="kw">let </span>import_result = <span class="self">self</span>.inner.import_block(block_import_params, cache).<span class="kw">await</span><span class="question-mark">?</span>;
-        <span class="self">self</span>.imported_block_notification_sender
-            .notify(<span class="kw">move </span>|| number);
+        <span class="kw">let </span>import_result = <span class="self">self</span>.inner.import_block(block_import_params).<span class="kw">await</span><span class="question-mark">?</span>;
         <span class="prelude-val">Ok</span>(import_result)
     }
 }
@@ -273,16 +218,10 @@
     <span class="kw">async fn </span>verify(
         <span class="kw-2">&amp;mut </span><span class="self">self</span>,
         <span class="kw-2">mut </span>block_params: BlockImportParams&lt;Block, ()&gt;,
-    ) -&gt; <span class="prelude-ty">Result</span>&lt;
-        (
-            BlockImportParams&lt;Block, ()&gt;,
-            <span class="prelude-ty">Option</span>&lt;Vec&lt;(CacheKeyId, Vec&lt;u8&gt;)&gt;&gt;,
-        ),
-        String,
-    &gt; {
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;BlockImportParams&lt;Block, ()&gt;, String&gt; {
         block_params.post_hash = <span class="prelude-val">Some</span>(block_params.header.hash());
 
-        <span class="prelude-val">Ok</span>((block_params, <span class="prelude-val">None</span>))
+        <span class="prelude-val">Ok</span>(block_params)
     }
 }
 
@@ -292,29 +231,17 @@
     block_import: I,
     spawner: <span class="kw-2">&amp;</span><span class="kw">impl </span>SpawnEssentialNamed,
     registry: <span class="prelude-ty">Option</span>&lt;<span class="kw-2">&amp;</span>Registry&gt;,
-) -&gt; ClientResult&lt;(
-    BasicQueue&lt;Block, I::Transaction&gt;,
-    SubspaceNotificationStream&lt;NumberFor&lt;Block&gt;&gt;,
-)&gt;
+) -&gt; ClientResult&lt;BasicQueue&lt;Block, I::Transaction&gt;&gt;
 <span class="kw">where
     </span>I: BlockImport&lt;Block, Error = ConsensusError&gt; + Send + Sync + <span class="lifetime">&#39;static</span>,
     I::Transaction: Send,
 {
-    <span class="kw">let </span>(imported_block_notification_sender, imported_block_notification_receiver) =
-        <span class="kw">crate</span>::notification::channel(<span class="string">&quot;system_domain_imported_block_notification_stream&quot;</span>);
-    <span class="prelude-val">Ok</span>((
-        BasicQueue::new(
-            Verifier::default(),
-            Box::new(SecondaryChainBlockImport::&lt;I, NumberFor&lt;Block&gt;&gt;::new(
-                block_import,
-                imported_block_notification_sender,
-            )),
-            <span class="prelude-val">None</span>,
-            spawner,
-            registry,
-        ),
-        imported_block_notification_receiver,
+    <span class="prelude-val">Ok</span>(BasicQueue::new(
+        Verifier::default(),
+        Box::new(DomainBlockImport::&lt;I&gt;::new(block_import)),
+        <span class="prelude-val">None</span>,
+        spawner,
+        registry,
     ))
 }
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="domain_client_consensus_relay_chain" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</code></pre></div></section></main></body></html>

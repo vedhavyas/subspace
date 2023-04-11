@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/sp-domains/src/fraud_proof.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>fraud_proof.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../sp_domains/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/sp-domains/src/fraud_proof.rs`."><title>fraud_proof.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sp_domains" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../sp_domains/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -185,7 +185,80 @@
 <a href="#185" id="185">185</a>
 <a href="#186" id="186">186</a>
 <a href="#187" id="187">187</a>
-</pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::BundleHeader;
+<a href="#188" id="188">188</a>
+<a href="#189" id="189">189</a>
+<a href="#190" id="190">190</a>
+<a href="#191" id="191">191</a>
+<a href="#192" id="192">192</a>
+<a href="#193" id="193">193</a>
+<a href="#194" id="194">194</a>
+<a href="#195" id="195">195</a>
+<a href="#196" id="196">196</a>
+<a href="#197" id="197">197</a>
+<a href="#198" id="198">198</a>
+<a href="#199" id="199">199</a>
+<a href="#200" id="200">200</a>
+<a href="#201" id="201">201</a>
+<a href="#202" id="202">202</a>
+<a href="#203" id="203">203</a>
+<a href="#204" id="204">204</a>
+<a href="#205" id="205">205</a>
+<a href="#206" id="206">206</a>
+<a href="#207" id="207">207</a>
+<a href="#208" id="208">208</a>
+<a href="#209" id="209">209</a>
+<a href="#210" id="210">210</a>
+<a href="#211" id="211">211</a>
+<a href="#212" id="212">212</a>
+<a href="#213" id="213">213</a>
+<a href="#214" id="214">214</a>
+<a href="#215" id="215">215</a>
+<a href="#216" id="216">216</a>
+<a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
+<a href="#252" id="252">252</a>
+<a href="#253" id="253">253</a>
+<a href="#254" id="254">254</a>
+<a href="#255" id="255">255</a>
+<a href="#256" id="256">256</a>
+<a href="#257" id="257">257</a>
+<a href="#258" id="258">258</a>
+<a href="#259" id="259">259</a>
+<a href="#260" id="260">260</a>
+</pre><pre class="rust"><code><span class="kw">use crate</span>::{BundleHeader, DomainId};
 <span class="kw">use </span>parity_scale_codec::{Decode, Encode};
 <span class="kw">use </span>scale_info::TypeInfo;
 <span class="kw">use </span>sp_consensus_slots::Slot;
@@ -196,18 +269,16 @@
 <span class="kw">use </span>subspace_core_primitives::BlockNumber;
 <span class="kw">use </span>subspace_runtime_primitives::AccountId;
 
-<span class="doccomment">/// Execution phase along with an optional encoded call data.
-///
-/// Each execution phase has a different method for the runtime call.
+<span class="doccomment">/// A phase of a block&#39;s execution, carrying necessary information needed for verifying the
+/// invalid state transition proof.
 </span><span class="attr">#[derive(Debug, Decode, Encode, TypeInfo, PartialEq, Eq, Clone)]
 </span><span class="kw">pub enum </span>ExecutionPhase {
     <span class="doccomment">/// Executes the `initialize_block` hook.
-    </span>InitializeBlock { call_data: Vec&lt;u8&gt; },
+    </span>InitializeBlock { domain_parent_hash: H256 },
     <span class="doccomment">/// Executes some extrinsic.
-    /// TODO: maybe optimized to not include the whole extrinsic blob in the future.
-    </span>ApplyExtrinsic { call_data: Vec&lt;u8&gt; },
+    </span>ApplyExtrinsic(u32),
     <span class="doccomment">/// Executes the `finalize_block` hook.
-    </span>FinalizeBlock,
+    </span>FinalizeBlock { total_extrinsics: u32 },
 }
 
 <span class="kw">impl </span>ExecutionPhase {
@@ -217,8 +288,8 @@
             <span class="comment">// TODO: Replace `DomainCoreApi_initialize_block_with_post_state_root` with `Core_initalize_block`
             // Should be a same issue with https://github.com/paritytech/substrate/pull/10922#issuecomment-1068997467
             </span><span class="self">Self</span>::InitializeBlock { .. } =&gt; <span class="string">&quot;DomainCoreApi_initialize_block_with_post_state_root&quot;</span>,
-            <span class="self">Self</span>::ApplyExtrinsic { .. } =&gt; <span class="string">&quot;BlockBuilder_apply_extrinsic&quot;</span>,
-            <span class="self">Self</span>::FinalizeBlock =&gt; <span class="string">&quot;BlockBuilder_finalize_block&quot;</span>,
+            <span class="self">Self</span>::ApplyExtrinsic(<span class="kw">_</span>) =&gt; <span class="string">&quot;BlockBuilder_apply_extrinsic&quot;</span>,
+            <span class="self">Self</span>::FinalizeBlock { .. } =&gt; <span class="string">&quot;BlockBuilder_finalize_block&quot;</span>,
         }
     }
 
@@ -230,16 +301,8 @@
     </span><span class="kw">pub fn </span>verifying_method(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str {
         <span class="kw">match </span><span class="self">self </span>{
             <span class="self">Self</span>::InitializeBlock { .. } =&gt; <span class="string">&quot;DomainCoreApi_initialize_block_with_post_state_root&quot;</span>,
-            <span class="self">Self</span>::ApplyExtrinsic { .. } =&gt; <span class="string">&quot;DomainCoreApi_apply_extrinsic_with_post_state_root&quot;</span>,
-            <span class="self">Self</span>::FinalizeBlock =&gt; <span class="string">&quot;BlockBuilder_finalize_block&quot;</span>,
-        }
-    }
-
-    <span class="doccomment">/// Returns the call data used to generate and verify the proof.
-    </span><span class="kw">pub fn </span>call_data(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; <span class="kw-2">&amp;</span>[u8] {
-        <span class="kw">match </span><span class="self">self </span>{
-            <span class="self">Self</span>::InitializeBlock { call_data } | <span class="self">Self</span>::ApplyExtrinsic { call_data } =&gt; call_data,
-            <span class="self">Self</span>::FinalizeBlock =&gt; Default::default(),
+            <span class="self">Self</span>::ApplyExtrinsic(<span class="kw">_</span>) =&gt; <span class="string">&quot;DomainCoreApi_apply_extrinsic_with_post_state_root&quot;</span>,
+            <span class="self">Self</span>::FinalizeBlock { .. } =&gt; <span class="string">&quot;BlockBuilder_finalize_block&quot;</span>,
         }
     }
 
@@ -249,13 +312,13 @@
         execution_result: Vec&lt;u8&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;Header::Hash, VerificationError&gt; {
         <span class="kw">match </span><span class="self">self </span>{
-            ExecutionPhase::InitializeBlock { .. } | ExecutionPhase::ApplyExtrinsic { .. } =&gt; {
+            <span class="self">Self</span>::InitializeBlock { .. } | <span class="self">Self</span>::ApplyExtrinsic(<span class="kw">_</span>) =&gt; {
                 <span class="kw">let </span>encoded_storage_root = Vec::&lt;u8&gt;::decode(<span class="kw-2">&amp;mut </span>execution_result.as_slice())
                     .map_err(VerificationError::InitializeBlockOrApplyExtrinsicDecode)<span class="question-mark">?</span>;
                 Header::Hash::decode(<span class="kw-2">&amp;mut </span>encoded_storage_root.as_slice())
                     .map_err(VerificationError::StorageRootDecode)
             }
-            ExecutionPhase::FinalizeBlock =&gt; {
+            <span class="self">Self</span>::FinalizeBlock { .. } =&gt; {
                 <span class="kw">let </span>new_header = Header::decode(<span class="kw-2">&amp;mut </span>execution_result.as_slice())
                     .map_err(VerificationError::HeaderDecode)<span class="question-mark">?</span>;
                 <span class="prelude-val">Ok</span>(<span class="kw-2">*</span>new_header.state_root())
@@ -268,6 +331,33 @@
 </span><span class="attr">#[derive(Debug)]
 #[cfg_attr(feature = <span class="string">&quot;thiserror&quot;</span>, derive(thiserror::Error))]
 </span><span class="kw">pub enum </span>VerificationError {
+    <span class="doccomment">/// `pre_state_root` in the invalid state transition proof is invalid.
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;thiserror&quot;</span>, error(<span class="string">&quot;invalid `pre_state_root`&quot;</span>))]
+    </span>InvalidPreStateRoot,
+    <span class="doccomment">/// Hash of the primary block being challenged not found.
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;thiserror&quot;</span>, error(<span class="string">&quot;primary hash not found&quot;</span>))]
+    </span>PrimaryHashNotFound,
+    <span class="doccomment">/// `post_state_root` not found in the state.
+    </span><span class="attr">#[cfg_attr(feature = <span class="string">&quot;thiserror&quot;</span>, error(<span class="string">&quot;`post_state_root` not found&quot;</span>))]
+    </span>PostStateRootNotFound,
+    <span class="doccomment">/// `post_state_root` is same as the one stored on chain.
+    </span><span class="attr">#[cfg_attr(
+        feature = <span class="string">&quot;thiserror&quot;</span>,
+        error(<span class="string">&quot;`post_state_root` is same as the one on chain&quot;</span>)
+    )]
+    </span>SamePostStateRoot,
+    <span class="doccomment">/// Domain extrinsic at given index not found.
+    </span><span class="attr">#[cfg_attr(
+        feature = <span class="string">&quot;thiserror&quot;</span>,
+        error(<span class="string">&quot;Domain extrinsic at index {0} not found&quot;</span>)
+    )]
+    </span>DomainExtrinsicNotFound(u32),
+    <span class="doccomment">/// Error occurred while building the domain extrinsics.
+    </span><span class="attr">#[cfg_attr(
+        feature = <span class="string">&quot;thiserror&quot;</span>,
+        error(<span class="string">&quot;Failed to rebuild the domain extrinsic list&quot;</span>)
+    )]
+    </span>FailedToBuildDomainExtrinsics,
     <span class="doccomment">/// Failed to pass the execution proof check.
     </span><span class="attr">#[cfg_attr(
         feature = <span class="string">&quot;thiserror&quot;</span>,
@@ -302,23 +392,63 @@
         error(<span class="string">&quot;Failed to decode the header from verifying `finalize_block`: {0}&quot;</span>)
     )]
     </span>HeaderDecode(parity_scale_codec::Error),
+    <span class="doccomment">/// Decode error.
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    #[cfg_attr(feature = <span class="string">&quot;thiserror&quot;</span>, error(<span class="string">&quot;Decode error: {0}&quot;</span>))]
+    </span>Decode(<span class="attr">#[from] </span>parity_scale_codec::Error),
     <span class="doccomment">/// Runtime api error.
     </span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
     #[cfg_attr(feature = <span class="string">&quot;thiserror&quot;</span>, error(<span class="string">&quot;Runtime api error: {0}&quot;</span>))]
     </span>RuntimeApi(<span class="attr">#[from] </span>sp_api::ApiError),
+    <span class="doccomment">/// Fail to get runtime code.
+    </span><span class="comment">// The `String` here actually repersenting the `sc_executor_common::error::WasmError`
+    // error, but it will be improper to use `WasmError` directly here since it will make
+    // `sp-domain` (a runtime crate) depend on `sc_executor_common` (a client crate).
+    </span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    #[cfg_attr(feature = <span class="string">&quot;thiserror&quot;</span>, error(<span class="string">&quot;Failed to get runtime code: {0}&quot;</span>))]
+    </span>RuntimeCode(String),
+    <span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
+    #[cfg_attr(
+        feature = <span class="string">&quot;thiserror&quot;</span>,
+        error(<span class="string">&quot;Oneshot error when verifying fraud proof in tx pool: {0}&quot;</span>)
+    )]
+    </span>Oneshot(String),
 }
 
-<span class="doccomment">/// Fraud proof for the state computation.
+<span class="doccomment">/// Fraud proof.
 </span><span class="attr">#[derive(Debug, Decode, Encode, TypeInfo, PartialEq, Eq, Clone)]
-</span><span class="kw">pub struct </span>FraudProof {
-    <span class="doccomment">/// Hash of the signed bundle in which an invalid state transition occurred.
-    </span><span class="kw">pub </span>bad_signed_bundle_hash: H256,
+</span><span class="kw">pub enum </span>FraudProof&lt;Number, Hash&gt; {
+    InvalidStateTransition(InvalidStateTransitionProof),
+    InvalidTransaction(InvalidTransactionProof),
+    BundleEquivocation(BundleEquivocationProof&lt;Number, Hash&gt;),
+    ImproperTransactionSortition(ImproperTransactionSortitionProof),
+}
+
+<span class="kw">impl</span>&lt;Number, Hash&gt; FraudProof&lt;Number, Hash&gt; {
+    <span class="kw">pub fn </span>domain_id(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; DomainId {
+        <span class="kw">match </span><span class="self">self </span>{
+            <span class="self">Self</span>::InvalidStateTransition(proof) =&gt; proof.domain_id,
+            <span class="self">Self</span>::InvalidTransaction(proof) =&gt; proof.domain_id,
+            <span class="self">Self</span>::BundleEquivocation(proof) =&gt; proof.domain_id,
+            <span class="self">Self</span>::ImproperTransactionSortition(proof) =&gt; proof.domain_id,
+        }
+    }
+}
+
+<span class="doccomment">/// Proves an invalid state transition by challenging the trace at specific index in a bad receipt.
+</span><span class="attr">#[derive(Debug, Decode, Encode, TypeInfo, PartialEq, Eq, Clone)]
+</span><span class="kw">pub struct </span>InvalidStateTransitionProof {
+    <span class="doccomment">/// The id of the domain this fraud proof targeted
+    </span><span class="kw">pub </span>domain_id: DomainId,
+    <span class="doccomment">/// Hash of the bad receipt in which an invalid trace occurred.
+    </span><span class="kw">pub </span>bad_receipt_hash: H256,
     <span class="doccomment">/// Parent number.
     </span><span class="kw">pub </span>parent_number: BlockNumber,
-    <span class="doccomment">/// Parent hash of the block at which the invalid execution occurred.
+    <span class="doccomment">/// Hash of the primary block corresponding to `parent_number`.
     ///
-    /// Runtime code for this block&#39;s execution is retrieved on top of the parent block.
-    </span><span class="kw">pub </span>parent_hash: H256,
+    /// Runtime code for the execution of the domain block that is being challenged
+    /// is retrieved on top of the primary parent block from the primary chain.
+    </span><span class="kw">pub </span>primary_parent_hash: H256,
     <span class="doccomment">/// State root before the fraudulent transaction.
     </span><span class="kw">pub </span>pre_state_root: H256,
     <span class="doccomment">/// State root after the fraudulent transaction.
@@ -333,19 +463,23 @@
 /// produces more than one bundle on the same slot. The proof of equivocation
 /// are the given distinct bundle headers that were signed by the validator and which
 /// include the slot number.
-</span><span class="attr">#[derive(Clone, Debug, Decode, Encode, PartialEq, TypeInfo)]
-</span><span class="kw">pub struct </span>BundleEquivocationProof&lt;Hash&gt; {
+</span><span class="attr">#[derive(Debug, Decode, Encode, TypeInfo, PartialEq, Eq, Clone)]
+</span><span class="kw">pub struct </span>BundleEquivocationProof&lt;Number, Hash&gt; {
+    <span class="doccomment">/// The id of the domain this fraud proof targeted
+    </span><span class="kw">pub </span>domain_id: DomainId,
     <span class="doccomment">/// The authority id of the equivocator.
     </span><span class="kw">pub </span>offender: AccountId,
     <span class="doccomment">/// The slot at which the equivocation happened.
     </span><span class="kw">pub </span>slot: Slot,
     <span class="doccomment">/// The first header involved in the equivocation.
-    </span><span class="kw">pub </span>first_header: BundleHeader&lt;Hash&gt;,
+    </span><span class="kw">pub </span>first_header: BundleHeader&lt;Number, Hash&gt;,
     <span class="doccomment">/// The second header involved in the equivocation.
-    </span><span class="kw">pub </span>second_header: BundleHeader&lt;Hash&gt;,
+    </span><span class="kw">pub </span>second_header: BundleHeader&lt;Number, Hash&gt;,
 }
 
-<span class="kw">impl</span>&lt;Hash: Clone + Default + Encode&gt; BundleEquivocationProof&lt;Hash&gt; {
+<span class="kw">impl</span>&lt;Number: Clone + From&lt;u32&gt; + Encode, Hash: Clone + Default + Encode&gt;
+    BundleEquivocationProof&lt;Number, Hash&gt;
+{
     <span class="doccomment">/// Returns the hash of this bundle equivocation proof.
     </span><span class="kw">pub fn </span>hash(<span class="kw-2">&amp;</span><span class="self">self</span>) -&gt; H256 {
         BlakeTwo256::hash_of(<span class="self">self</span>)
@@ -355,11 +489,13 @@
     </span><span class="doccomment">/// Constructs a dummy bundle equivocation proof.
     </span><span class="kw">pub fn </span>dummy_at(slot_number: u64) -&gt; <span class="self">Self </span>{
         <span class="kw">let </span>dummy_header = BundleHeader {
+            primary_number: Number::from(<span class="number">0u32</span>),
             primary_hash: Hash::default(),
             slot_number,
             extrinsics_root: H256::default(),
         };
         <span class="self">Self </span>{
+            domain_id: DomainId::SYSTEM,
             offender: AccountId::decode(<span class="kw-2">&amp;mut </span>sp_runtime::traits::TrailingZeroInput::zeroes())
                 .expect(<span class="string">&quot;Failed to create zero account&quot;</span>),
             slot: Slot::default(),
@@ -371,6 +507,15 @@
 
 <span class="doccomment">/// Represents an invalid transaction proof.
 </span><span class="attr">#[derive(Clone, Debug, Decode, Encode, Eq, PartialEq, TypeInfo)]
-</span><span class="kw">pub struct </span>InvalidTransactionProof;
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="sp_domains" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</span><span class="kw">pub struct </span>InvalidTransactionProof {
+    <span class="doccomment">/// The id of the domain this fraud proof targeted
+    </span><span class="kw">pub </span>domain_id: DomainId,
+}
+
+<span class="doccomment">/// Represents an invalid transaction proof.
+</span><span class="attr">#[derive(Clone, Debug, Decode, Encode, Eq, PartialEq, TypeInfo)]
+</span><span class="kw">pub struct </span>ImproperTransactionSortitionProof {
+    <span class="doccomment">/// The id of the domain this fraud proof targeted
+    </span><span class="kw">pub </span>domain_id: DomainId,
+}
+</code></pre></div></section></main></body></html>

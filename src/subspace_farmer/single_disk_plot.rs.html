@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/subspace-farmer/src/single_disk_plot.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>single_disk_plot.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../subspace_farmer/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/subspace-farmer/src/single_disk_plot.rs`."><title>single_disk_plot.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="subspace_farmer" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../subspace_farmer/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1165,24 +1165,13 @@
 <a href="#1165" id="1165">1165</a>
 <a href="#1166" id="1166">1166</a>
 <a href="#1167" id="1167">1167</a>
-<a href="#1168" id="1168">1168</a>
-<a href="#1169" id="1169">1169</a>
-<a href="#1170" id="1170">1170</a>
-<a href="#1171" id="1171">1171</a>
-<a href="#1172" id="1172">1172</a>
-<a href="#1173" id="1173">1173</a>
-<a href="#1174" id="1174">1174</a>
-<a href="#1175" id="1175">1175</a>
-</pre><pre class="rust"><code><span class="kw">pub mod </span>piece_publisher;
-<span class="kw">pub mod </span>piece_reader;
-<span class="kw">pub mod </span>piece_receiver;
+</pre><pre class="rust"><code><span class="kw">pub mod </span>piece_reader;
 
 <span class="kw">use </span><span class="kw">crate</span>::identity::Identity;
+<span class="kw">use </span><span class="kw">crate</span>::node_client;
+<span class="kw">use </span><span class="kw">crate</span>::node_client::NodeClient;
 <span class="kw">use </span><span class="kw">crate</span>::reward_signing::reward_signing;
-<span class="kw">use </span><span class="kw">crate</span>::rpc_client;
-<span class="kw">use </span><span class="kw">crate</span>::rpc_client::RpcClient;
 <span class="kw">use </span><span class="kw">crate</span>::single_disk_plot::farming::audit_sector;
-<span class="kw">use </span><span class="kw">crate</span>::single_disk_plot::piece_publisher::PieceSectorPublisher;
 <span class="kw">use </span><span class="kw">crate</span>::single_disk_plot::piece_reader::{read_piece, PieceReader, ReadPieceRequest};
 <span class="kw">use </span><span class="kw">crate</span>::single_disk_plot::plotting::{plot_sector, PlottedSector};
 <span class="kw">use </span><span class="kw">crate</span>::utils::JoinOnDrop;
@@ -1190,12 +1179,12 @@
 <span class="kw">use </span>derive_more::{Display, From};
 <span class="kw">use </span>event_listener_primitives::{Bag, HandlerId};
 <span class="kw">use </span>futures::channel::{mpsc, oneshot};
+<span class="kw">use </span>futures::future::{select, Either};
 <span class="kw">use </span>futures::stream::FuturesUnordered;
 <span class="kw">use </span>futures::StreamExt;
 <span class="kw">use </span>memmap2::{Mmap, MmapMut, MmapOptions};
 <span class="kw">use </span>parity_scale_codec::{Decode, Encode};
 <span class="kw">use </span>parking_lot::Mutex;
-<span class="kw">use </span>piece_receiver::MultiChannelPieceReceiver;
 <span class="kw">use </span>serde::{Deserialize, Serialize};
 <span class="kw">use </span>static_assertions::const_assert;
 <span class="kw">use </span>std::fs::OpenOptions;
@@ -1204,25 +1193,29 @@
 <span class="kw">use </span>std::num::NonZeroU16;
 <span class="kw">use </span>std::path::{Path, PathBuf};
 <span class="kw">use </span>std::pin::Pin;
-<span class="kw">use </span>std::sync::atomic::{AtomicBool, Ordering};
 <span class="kw">use </span>std::sync::Arc;
 <span class="kw">use </span>std::time::SystemTime;
 <span class="kw">use </span>std::{fmt, fs, io, thread};
 <span class="kw">use </span>std_semaphore::{Semaphore, SemaphoreGuard};
-<span class="kw">use </span>subspace_core_primitives::crypto::kzg::{test_public_parameters, Kzg};
+<span class="kw">use </span>subspace_core_primitives::crypto::kzg::Kzg;
 <span class="kw">use </span>subspace_core_primitives::sector_codec::SectorCodec;
 <span class="kw">use </span>subspace_core_primitives::{
-    PieceIndex, PublicKey, SectorId, SectorIndex, Solution, PIECES_IN_SECTOR, PLOT_SECTOR_SIZE,
+    LegacySectorId, PieceIndex, PublicKey, SectorIndex, Solution, PIECES_IN_SECTOR,
+    PLOT_SECTOR_SIZE,
 };
 <span class="kw">use </span>subspace_farmer_components::file_ext::FileExt;
+<span class="kw">use </span>subspace_farmer_components::piece_caching::PieceMemoryCache;
+<span class="kw">use </span>subspace_farmer_components::plotting::{PieceGetter, PieceGetterRetryPolicy};
 <span class="kw">use </span>subspace_farmer_components::{farming, plotting, SectorMetadata};
-<span class="kw">use </span>subspace_networking::Node;
 <span class="kw">use </span>subspace_rpc_primitives::{SlotInfo, SolutionResponse};
 <span class="kw">use </span>thiserror::Error;
 <span class="kw">use </span>tokio::runtime::Handle;
-<span class="kw">use </span>tokio::sync::broadcast;
+<span class="kw">use </span>tokio::sync::{broadcast, OwnedSemaphorePermit};
 <span class="kw">use </span>tracing::{debug, error, info, info_span, trace, warn, Instrument, Span};
 <span class="kw">use </span>ulid::Ulid;
+
+<span class="doccomment">/// Get piece retry attempts number.
+</span><span class="kw">const </span>PIECE_GETTER_RETRY_NUMBER: NonZeroU16 = NonZeroU16::new(<span class="number">30</span>).expect(<span class="string">&quot;Not zero; qed&quot;</span>);
 
 <span class="comment">// Refuse to compile on non-64-bit platforms, offsets may fail on those when converting from u64 to
 // usize depending on chain parameters
@@ -1435,21 +1428,23 @@
 }
 
 <span class="doccomment">/// Options used to open single dis plot
-</span><span class="kw">pub struct </span>SingleDiskPlotOptions&lt;RC&gt; {
+</span><span class="kw">pub struct </span>SingleDiskPlotOptions&lt;NC, PG&gt; {
     <span class="doccomment">/// Path to directory where plot are stored.
     </span><span class="kw">pub </span>directory: PathBuf,
     <span class="doccomment">/// How much space in bytes can plot use for plot
     </span><span class="kw">pub </span>allocated_space: u64,
     <span class="doccomment">/// RPC client connected to Subspace node
-    </span><span class="kw">pub </span>rpc_client: RC,
+    </span><span class="kw">pub </span>node_client: NC,
     <span class="doccomment">/// Address where farming rewards should go
     </span><span class="kw">pub </span>reward_address: PublicKey,
-    <span class="doccomment">/// Optional DSN Node.
-    </span><span class="kw">pub </span>dsn_node: Node,
-    <span class="doccomment">/// Defines size for the pieces batch of the piece receiving process.
-    </span><span class="kw">pub </span>piece_receiver_batch_size: usize,
-    <span class="doccomment">/// Defines size for the pieces batch of the piece publishing process.
-    </span><span class="kw">pub </span>piece_publisher_batch_size: usize,
+    <span class="doccomment">/// Piece receiver implementation for plotting purposes.
+    </span><span class="kw">pub </span>piece_getter: PG,
+    <span class="doccomment">/// Kzg instance to use.
+    </span><span class="kw">pub </span>kzg: Kzg,
+    <span class="doccomment">/// Semaphore to limit concurrency of plotting process.
+    </span><span class="kw">pub </span>concurrent_plotting_semaphore: Arc&lt;tokio::sync::Semaphore&gt;,
+    <span class="doccomment">/// Additional memory cache for pieces from archival storage
+    </span><span class="kw">pub </span>piece_memory_cache: PieceMemoryCache,
 }
 
 <span class="doccomment">/// Errors happening when trying to create/open single disk plot
@@ -1461,8 +1456,8 @@
     </span>Io(<span class="attr">#[from] </span>io::Error),
     <span class="doccomment">/// Can&#39;t resize plot after creation
     </span><span class="attr">#[error(
-        <span class="string">&quot;Usable plotting space of plot {id} {new_space} is different from {old_space} when plot was \
-        created, resizing isn&#39;t supported yet&quot;
+        <span class="string">&quot;Usable plotting space of plot {id} {new_space} is different from {old_space} when plot \
+        was created, resizing isn&#39;t supported yet&quot;
     </span>)]
     </span>CantResize {
         <span class="doccomment">/// Plot ID
@@ -1524,7 +1519,7 @@
     </span><span class="attr">#[error(<span class="string">&quot;Failed to retrieve farmer info: {error}&quot;</span>)]
     </span>FailedToGetFarmerInfo {
         <span class="doccomment">/// Lower-level error
-        </span>error: rpc_client::Error,
+        </span>error: node_client::Error,
     },
     <span class="doccomment">/// Low-level plotting error
     </span><span class="attr">#[error(<span class="string">&quot;Low-level plotting error: {0}&quot;</span>)]
@@ -1538,13 +1533,13 @@
     </span><span class="attr">#[error(<span class="string">&quot;Failed to substribe to slot info notifications: {error}&quot;</span>)]
     </span>FailedToSubscribeSlotInfo {
         <span class="doccomment">/// Lower-level error
-        </span>error: rpc_client::Error,
+        </span>error: node_client::Error,
     },
     <span class="doccomment">/// Failed to retrieve farmer info
     </span><span class="attr">#[error(<span class="string">&quot;Failed to retrieve farmer info: {error}&quot;</span>)]
     </span>FailedToGetFarmerInfo {
         <span class="doccomment">/// Lower-level error
-        </span>error: rpc_client::Error,
+        </span>error: node_client::Error,
     },
     <span class="doccomment">/// Failed to create memory mapping for plot
     </span><span class="attr">#[error(<span class="string">&quot;Failed to create memory mapping for plot: {error}&quot;</span>)]
@@ -1562,7 +1557,7 @@
     </span><span class="attr">#[error(<span class="string">&quot;Failed to submit solutions response: {error}&quot;</span>)]
     </span>FailedToSubmitSolutionsResponse {
         <span class="doccomment">/// Lower-level error
-        </span>error: rpc_client::Error,
+        </span>error: node_client::Error,
     },
     <span class="doccomment">/// Low-level farming error
     </span><span class="attr">#[error(<span class="string">&quot;Low-level farming error: {0}&quot;</span>)]
@@ -1590,7 +1585,7 @@
 
 <span class="attr">#[derive(Default, Debug)]
 </span><span class="kw">struct </span>Handlers {
-    sector_plotted: Handler&lt;PlottedSector&gt;,
+    sector_plotted: Handler&lt;(usize, PlottedSector, Arc&lt;OwnedSemaphorePermit&gt;)&gt;,
     solution: Handler&lt;SolutionResponse&gt;,
 }
 
@@ -1613,16 +1608,17 @@
     _reading_join_handle: JoinOnDrop,
     <span class="doccomment">/// Sender that will be used to signal to background threads that they should start
     </span>start_sender: <span class="prelude-ty">Option</span>&lt;broadcast::Sender&lt;()&gt;&gt;,
-    shutting_down: Arc&lt;AtomicBool&gt;,
+    <span class="doccomment">/// Sender that will be used to signal to background threads that they must stop
+    </span>stop_sender: <span class="prelude-ty">Option</span>&lt;broadcast::Sender&lt;()&gt;&gt;,
 }
 
 <span class="kw">impl </span>Drop <span class="kw">for </span>SingleDiskPlot {
     <span class="kw">fn </span>drop(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
         <span class="self">self</span>.piece_reader.close_all_readers();
-        <span class="comment">// Make background threads that are doing something exit as soon as possible
-        </span><span class="self">self</span>.shutting_down.store(<span class="bool-val">true</span>, Ordering::SeqCst);
         <span class="comment">// Make background threads that are waiting to do something exit immediately
         </span><span class="self">self</span>.start_sender.take();
+        <span class="comment">// Notify background tasks that they must stop
+        </span><span class="self">self</span>.stop_sender.take();
     }
 }
 
@@ -1631,20 +1627,27 @@
     <span class="kw">const </span>METADATA_FILE: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static </span>str = <span class="string">&quot;metadata.bin&quot;</span>;
 
     <span class="doccomment">/// Create new single disk plot instance
-    </span><span class="kw">pub fn </span>new&lt;RC&gt;(options: SingleDiskPlotOptions&lt;RC&gt;) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, SingleDiskPlotError&gt;
+    ///
+    /// NOTE: Thought this function is async, it will do some blocking I/O.
+    </span><span class="kw">pub async fn </span>new&lt;NC, PG&gt;(
+        options: SingleDiskPlotOptions&lt;NC, PG&gt;,
+        disk_farm_index: usize,
+    ) -&gt; <span class="prelude-ty">Result</span>&lt;<span class="self">Self</span>, SingleDiskPlotError&gt;
     <span class="kw">where
-        </span>RC: RpcClient,
+        </span>NC: NodeClient,
+        PG: PieceGetter + Send + <span class="lifetime">&#39;static</span>,
     {
         <span class="kw">let </span>handle = Handle::current();
 
         <span class="kw">let </span>SingleDiskPlotOptions {
             directory,
             allocated_space,
-            rpc_client,
+            node_client,
             reward_address,
-            dsn_node,
-            piece_receiver_batch_size,
-            piece_publisher_batch_size,
+            piece_getter,
+            kzg,
+            concurrent_plotting_semaphore,
+            piece_memory_cache,
         } = options;
 
         <span class="comment">// TODO: Account for plot overhead
@@ -1667,11 +1670,10 @@
         </span><span class="kw">let </span>identity = Identity::open_or_create(<span class="kw-2">&amp;</span>directory).unwrap();
         <span class="kw">let </span>public_key = identity.public_key().to_bytes().into();
 
-        <span class="kw">let </span>farmer_app_info = tokio::task::block_in_place(|| {
-            Handle::current()
-                .block_on(rpc_client.farmer_app_info())
-                .map_err(SingleDiskPlotError::NodeRpcError)
-        })<span class="question-mark">?</span>;
+        <span class="kw">let </span>farmer_app_info = node_client
+            .farmer_app_info()
+            .<span class="kw">await
+            </span>.map_err(SingleDiskPlotError::NodeRpcError)<span class="question-mark">?</span>;
 
         <span class="kw">let </span>single_disk_plot_info = <span class="kw">match </span>SingleDiskPlotInfo::load_from(<span class="kw-2">&amp;</span>directory)<span class="question-mark">? </span>{
             <span class="prelude-val">Some</span>(single_disk_plot_info) =&gt; {
@@ -1724,7 +1726,6 @@
             }
         };
 
-        <span class="kw">let </span>single_disk_plot_id = <span class="kw-2">*</span>single_disk_plot_info.id();
         <span class="kw">let </span>first_sector_index = single_disk_plot_info.first_sector_index();
 
         <span class="comment">// TODO: Consider file locking to prevent other apps from modifying it
@@ -1807,36 +1808,34 @@
         }));
 
         <span class="kw">let </span>handlers = Arc::&lt;Handlers&gt;::default();
-        <span class="kw">let </span>shutting_down = Arc::new(AtomicBool::new(<span class="bool-val">false</span>));
-        <span class="kw">let </span>kzg = Kzg::new(test_public_parameters());
         <span class="kw">let </span>sector_codec = SectorCodec::new(PLOT_SECTOR_SIZE <span class="kw">as </span>usize)
             .expect(<span class="string">&quot;Protocol constant must be correct; qed&quot;</span>);
         <span class="kw">let </span>(start_sender, <span class="kw-2">mut </span>start_receiver) = broadcast::channel::&lt;()&gt;(<span class="number">1</span>);
+        <span class="kw">let </span>(stop_sender, <span class="kw-2">mut </span>stop_receiver) = broadcast::channel::&lt;()&gt;(<span class="number">1</span>);
+
+        <span class="kw">let </span>span = <span class="macro">info_span!</span>(<span class="string">&quot;single_disk_plot&quot;</span>, %disk_farm_index);
 
         <span class="kw">let </span>plotting_join_handle = thread::Builder::new()
-            .name(<span class="macro">format!</span>(<span class="string">&quot;p-{single_disk_plot_id}&quot;</span>))
+            .name(<span class="macro">format!</span>(<span class="string">&quot;plotting-{disk_farm_index}&quot;</span>))
             .spawn({
                 <span class="kw">let </span>handle = handle.clone();
                 <span class="kw">let </span>metadata_header = Arc::clone(<span class="kw-2">&amp;</span>metadata_header);
                 <span class="kw">let </span>handlers = Arc::clone(<span class="kw-2">&amp;</span>handlers);
-                <span class="kw">let </span>shutting_down = Arc::clone(<span class="kw-2">&amp;</span>shutting_down);
-                <span class="kw">let </span>rpc_client = rpc_client.clone();
+                <span class="kw">let </span>node_client = node_client.clone();
                 <span class="kw">let </span>error_sender = Arc::clone(<span class="kw-2">&amp;</span>error_sender);
-                <span class="kw">let </span>piece_publisher =
-                    PieceSectorPublisher::new(dsn_node.clone(), shutting_down.clone());
+                <span class="kw">let </span>span = span.clone();
 
                 <span class="kw">move </span>|| {
                     <span class="kw">let </span>_tokio_handle_guard = handle.enter();
-                    <span class="kw">let </span>span = <span class="macro">info_span!</span>(<span class="string">&quot;single_disk_plot&quot;</span>, %single_disk_plot_id);
                     <span class="kw">let </span>_span_guard = span.enter();
 
-                    <span class="kw">if </span>handle.block_on(start_receiver.recv()).is_err() {
-                        <span class="comment">// Dropped before starting
-                        </span><span class="kw">return</span>;
-                    }
-
                     <span class="comment">// Initial plotting
-                    </span><span class="kw">let </span>initial_plotting_result = <span class="kw">try </span>{
+                    </span><span class="kw">let </span>initial_plotting_fut = <span class="kw">async move </span>{
+                        <span class="kw">if </span>start_receiver.recv().<span class="kw">await</span>.is_err() {
+                            <span class="comment">// Dropped before starting
+                            </span><span class="kw">return </span><span class="prelude-val">Ok</span>(());
+                        }
+
                         <span class="kw">let </span>chunked_sectors = plot_mmap_mut
                             .as_mut()
                             .chunks_exact_mut(PLOT_SECTOR_SIZE <span class="kw">as </span>usize);
@@ -1851,48 +1850,57 @@
                                 </span>metadata_header.lock().sector_count <span class="kw">as </span>usize,
                             )
                             .map(|(sector_offset, (sector, metadata))| {
-                                (sector_offset <span class="kw">as </span>u64 + first_sector_index, sector, metadata)
+                                (
+                                    sector_offset,
+                                    sector_offset <span class="kw">as </span>u64 + first_sector_index,
+                                    sector,
+                                    metadata,
+                                )
                             });
 
                         <span class="comment">// TODO: Concurrency
-                        </span><span class="kw">for </span>(sector_index, sector, sector_metadata) <span class="kw">in </span>plot_initial_sector {
-                            <span class="kw">if </span>shutting_down.load(Ordering::Acquire) {
-                                <span class="macro">debug!</span>(
-                                    %sector_index,
-                                    <span class="string">&quot;Instance is shutting down, interrupting plotting&quot;
-                                </span>);
-                                <span class="kw">return</span>;
-                            }
+                        </span><span class="kw">for </span>(sector_offset, sector_index, sector, sector_metadata) <span class="kw">in
+                            </span>plot_initial_sector
+                        {
+                            <span class="macro">trace!</span>(%sector_offset, %sector_index, <span class="string">&quot;Preparing to plot sector&quot;</span>);
 
-                            <span class="macro">debug!</span>(%sector_index, <span class="string">&quot;Plotting sector&quot;</span>);
+                            <span class="kw">let </span>plotting_permit =
+                                <span class="kw">match </span>concurrent_plotting_semaphore.clone().acquire_owned().<span class="kw">await </span>{
+                                    <span class="prelude-val">Ok</span>(plotting_permit) =&gt; plotting_permit,
+                                    <span class="prelude-val">Err</span>(error) =&gt; {
+                                        <span class="macro">warn!</span>(
+                                            %sector_index,
+                                            %error,
+                                            <span class="string">&quot;Semaphore was closed, interrupting plotting&quot;
+                                        </span>);
+                                        <span class="kw">return </span><span class="prelude-val">Ok</span>(());
+                                    }
+                                };
 
-                            <span class="kw">let </span>farmer_app_info = handle
-                                .block_on(rpc_client.farmer_app_info())
-                                .map_err(|error| PlottingError::FailedToGetFarmerInfo { error })<span class="question-mark">?</span>;
+                            <span class="macro">debug!</span>(%sector_offset, %sector_index, <span class="string">&quot;Plotting sector&quot;</span>);
 
-                            <span class="comment">// TODO: Remove RPC version and keep DSN version only.
-                            </span><span class="kw">let </span>piece_receiver =
-                                MultiChannelPieceReceiver::new(dsn_node.clone(), <span class="kw-2">&amp;</span>shutting_down);
+                            <span class="kw">let </span>farmer_app_info = node_client
+                                .farmer_app_info()
+                                .<span class="kw">await
+                                </span>.map_err(|error| PlottingError::FailedToGetFarmerInfo { error })<span class="question-mark">?</span>;
 
-                            <span class="kw">let </span>plotted_sector = <span class="kw">match </span>handle.block_on(plot_sector(
+                            <span class="kw">let </span>plot_sector_fut = plot_sector(
                                 <span class="kw-2">&amp;</span>public_key,
                                 sector_index,
-                                <span class="kw-2">&amp;</span>piece_receiver,
-                                <span class="kw-2">&amp;</span>shutting_down,
+                                <span class="kw-2">&amp;</span>piece_getter,
+                                PieceGetterRetryPolicy::Limited(PIECE_GETTER_RETRY_NUMBER.get()),
                                 <span class="kw-2">&amp;</span>farmer_app_info.protocol_info,
                                 <span class="kw-2">&amp;</span>kzg,
                                 <span class="kw-2">&amp;</span>sector_codec,
                                 sector,
                                 sector_metadata,
-                                piece_receiver_batch_size,
-                            )) {
+                                piece_memory_cache.clone(),
+                            );
+                            <span class="kw">let </span>plotted_sector = <span class="kw">match </span>plot_sector_fut.<span class="kw">await </span>{
                                 <span class="prelude-val">Ok</span>(plotted_sector) =&gt; {
-                                    <span class="macro">debug!</span>(%sector_index, <span class="string">&quot;Sector plotted&quot;</span>);
+                                    <span class="macro">debug!</span>(%sector_offset, %sector_index, <span class="string">&quot;Sector plotted&quot;</span>);
 
                                     plotted_sector
-                                }
-                                <span class="prelude-val">Err</span>(plotting::PlottingError::Cancelled) =&gt; {
-                                    <span class="kw">return</span>;
                                 }
                                 <span class="prelude-val">Err</span>(error) =&gt; <span class="prelude-val">Err</span>(PlottingError::LowLevel(error))<span class="question-mark">?</span>,
                             };
@@ -1904,26 +1912,22 @@
                                     .copy_from_slice(metadata_header.encode().as_slice());
                             }
 
-                            handlers.sector_plotted.call_simple(<span class="kw-2">&amp;</span>plotted_sector);
-
-                            <span class="comment">// TODO: Migrate this over to using `on_sector_plotted` instead
-                            // Publish pieces-by-sector if we use DSN
-                            </span>tokio::spawn({
-                                <span class="kw">let </span>piece_publisher = piece_publisher.clone();
-
-                                <span class="kw">async move </span>{
-                                    <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = piece_publisher
-                                        .publish_pieces(plotted_sector.piece_indexes, piece_publisher_batch_size)
-                                        .<span class="kw">await
-                                    </span>{
-                                        <span class="macro">warn!</span>(%sector_index, %error, <span class="string">&quot;Failed to publish pieces to DSN&quot;</span>);
-                                    }
-                                }
-                            });
+                            handlers.sector_plotted.call_simple(<span class="kw-2">&amp;</span>(
+                                sector_offset,
+                                plotted_sector,
+                                Arc::new(plotting_permit),
+                            ));
                         }
+
+                        <span class="prelude-val">Ok</span>(())
                     };
 
-                    <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = initial_plotting_result {
+                    <span class="kw">let </span>initial_plotting_result = handle.block_on(select(
+                        Box::pin(initial_plotting_fut),
+                        Box::pin(stop_receiver.recv()),
+                    ));
+
+                    <span class="kw">if let </span>Either::Left((<span class="prelude-val">Err</span>(error), <span class="kw">_</span>)) = initial_plotting_result {
                         <span class="kw">if let </span><span class="prelude-val">Some</span>(error_sender) = error_sender.lock().take() {
                             <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = error_sender.send(error) {
                                 <span class="macro">error!</span>(%error, <span class="string">&quot;Plotting failed to send error to background task&quot;</span>);
@@ -1953,23 +1957,17 @@
             mpsc::channel::&lt;SlotInfo&gt;(<span class="number">0</span>);
 
         tasks.push(Box::pin({
-            <span class="kw">let </span>shutting_down = Arc::clone(<span class="kw-2">&amp;</span>shutting_down);
-            <span class="kw">let </span>rpc_client = rpc_client.clone();
+            <span class="kw">let </span>node_client = node_client.clone();
 
             <span class="kw">async move </span>{
                 <span class="macro">info!</span>(<span class="string">&quot;Subscribing to slot info notifications&quot;</span>);
 
-                <span class="kw">let </span><span class="kw-2">mut </span>slot_info_notifications = rpc_client
+                <span class="kw">let </span><span class="kw-2">mut </span>slot_info_notifications = node_client
                     .subscribe_slot_info()
                     .<span class="kw">await
                     </span>.map_err(|error| FarmingError::FailedToSubscribeSlotInfo { error })<span class="question-mark">?</span>;
 
                 <span class="kw">while let </span><span class="prelude-val">Some</span>(slot_info) = slot_info_notifications.next().<span class="kw">await </span>{
-                    <span class="kw">if </span>shutting_down.load(Ordering::Acquire) {
-                        <span class="macro">debug!</span>(<span class="string">&quot;Instance is shutting down, interrupting slot info forwarding&quot;</span>);
-                        <span class="kw">return </span><span class="prelude-val">Ok</span>(());
-                    }
-
                     <span class="macro">debug!</span>(<span class="question-mark">?</span>slot_info, <span class="string">&quot;New slot&quot;</span>);
 
                     <span class="kw">let </span>slot = slot_info.slot_number;
@@ -1986,35 +1984,28 @@
         }));
 
         <span class="kw">let </span>farming_join_handle = thread::Builder::new()
-            .name(<span class="macro">format!</span>(<span class="string">&quot;f-{single_disk_plot_id}&quot;</span>))
+            .name(<span class="macro">format!</span>(<span class="string">&quot;farming-{disk_farm_index}&quot;</span>))
             .spawn({
                 <span class="kw">let </span>handle = handle.clone();
                 <span class="kw">let </span>handlers = Arc::clone(<span class="kw-2">&amp;</span>handlers);
                 <span class="kw">let </span>metadata_header = Arc::clone(<span class="kw-2">&amp;</span>metadata_header);
                 <span class="kw">let </span><span class="kw-2">mut </span>start_receiver = start_sender.subscribe();
-                <span class="kw">let </span>shutting_down = Arc::clone(<span class="kw-2">&amp;</span>shutting_down);
+                <span class="kw">let </span><span class="kw-2">mut </span>stop_receiver = stop_sender.subscribe();
                 <span class="kw">let </span>identity = identity.clone();
-                <span class="kw">let </span>rpc_client = rpc_client.clone();
+                <span class="kw">let </span>node_client = node_client.clone();
+                <span class="kw">let </span>span = span.clone();
 
                 <span class="kw">move </span>|| {
                     <span class="kw">let </span>_tokio_handle_guard = handle.enter();
-                    <span class="kw">let </span>span = <span class="macro">info_span!</span>(<span class="string">&quot;single_disk_plot&quot;</span>, %single_disk_plot_id);
                     <span class="kw">let </span>_span_guard = span.enter();
 
-                    <span class="kw">if </span>handle.block_on(start_receiver.recv()).is_err() {
-                        <span class="comment">// Dropped before starting
-                        </span><span class="kw">return</span>;
-                    }
+                    <span class="kw">let </span>farming_fut = <span class="kw">async move </span>{
+                        <span class="kw">if </span>start_receiver.recv().<span class="kw">await</span>.is_err() {
+                            <span class="comment">// Dropped before starting
+                            </span><span class="kw">return </span><span class="prelude-val">Ok</span>(());
+                        }
 
-                    <span class="kw">let </span>farming_result = <span class="kw">try </span>{
-                        <span class="kw">while let </span><span class="prelude-val">Some</span>(slot_info) =
-                            handle.block_on(slot_info_forwarder_receiver.next())
-                        {
-                            <span class="kw">if </span>shutting_down.load(Ordering::Acquire) {
-                                <span class="macro">debug!</span>(<span class="string">&quot;Instance is shutting down, interrupting farming&quot;</span>);
-                                <span class="kw">return</span>;
-                            }
-
+                        <span class="kw">while let </span><span class="prelude-val">Some</span>(slot_info) = slot_info_forwarder_receiver.next().<span class="kw">await </span>{
                             <span class="kw">let </span>slot = slot_info.slot_number;
                             <span class="kw">let </span>sector_count = metadata_header.lock().sector_count;
 
@@ -2045,7 +2036,6 @@
                                     .advise(memmap2::Advice::Random)
                                     .map_err(FarmingError::Io)<span class="question-mark">?</span>;
                             }
-                            <span class="kw">let </span>shutting_down = Arc::clone(<span class="kw-2">&amp;</span>shutting_down);
 
                             <span class="kw">let </span><span class="kw-2">mut </span>solutions = Vec::&lt;Solution&lt;PublicKey, PublicKey&gt;&gt;::new();
 
@@ -2057,14 +2047,6 @@
                                     (sector_index <span class="kw">as </span>u64 + first_sector_index, sector, metadata)
                                 })
                             {
-                                <span class="kw">if </span>shutting_down.load(Ordering::Acquire) {
-                                    <span class="macro">debug!</span>(
-                                        %sector_index,
-                                        <span class="string">&quot;Instance is shutting down, interrupting plotting&quot;
-                                    </span>);
-                                    <span class="kw">return</span>;
-                                }
-
                                 <span class="macro">trace!</span>(%slot, %sector_index, <span class="string">&quot;Auditing sector&quot;</span>);
 
                                 <span class="kw">let </span>maybe_eligible_sector = audit_sector(
@@ -2083,7 +2065,6 @@
                                     .try_into_solutions(
                                         <span class="kw-2">&amp;</span>identity,
                                         reward_address,
-                                        <span class="kw-2">&amp;</span>farmer_app_info.protocol_info,
                                         <span class="kw-2">&amp;</span>sector_codec,
                                         sector,
                                         sector_metadata,
@@ -2117,15 +2098,23 @@
                                 solutions,
                             };
                             handlers.solution.call_simple(<span class="kw-2">&amp;</span>response);
-                            handle
-                                .block_on(rpc_client.submit_solution_response(response))
-                                .map_err(|error| FarmingError::FailedToSubmitSolutionsResponse {
+                            node_client
+                                .submit_solution_response(response)
+                                .<span class="kw">await
+                                </span>.map_err(|error| FarmingError::FailedToSubmitSolutionsResponse {
                                     error,
                                 })<span class="question-mark">?</span>;
                         }
+
+                        <span class="prelude-val">Ok</span>(())
                     };
 
-                    <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = farming_result {
+                    <span class="kw">let </span>farming_result = handle.block_on(select(
+                        Box::pin(farming_fut),
+                        Box::pin(stop_receiver.recv()),
+                    ));
+
+                    <span class="kw">if let </span>Either::Left((<span class="prelude-val">Err</span>(error), <span class="kw">_</span>)) = farming_result {
                         <span class="kw">if let </span><span class="prelude-val">Some</span>(error_sender) = error_sender.lock().take() {
                             <span class="kw">if let </span><span class="prelude-val">Err</span>(error) = error_sender.send(error) {
                                 <span class="macro">error!</span>(%error, <span class="string">&quot;Farming failed to send error to background task&quot;</span>);
@@ -2138,55 +2127,52 @@
         <span class="kw">let </span>(piece_reader, <span class="kw-2">mut </span>read_piece_receiver) = PieceReader::new();
 
         <span class="kw">let </span>reading_join_handle = thread::Builder::new()
-            .name(<span class="macro">format!</span>(<span class="string">&quot;r-{single_disk_plot_id}&quot;</span>))
+            .name(<span class="macro">format!</span>(<span class="string">&quot;reading-{disk_farm_index}&quot;</span>))
             .spawn({
                 <span class="kw">let </span>metadata_header = Arc::clone(<span class="kw-2">&amp;</span>metadata_header);
-                <span class="kw">let </span>shutting_down = Arc::clone(<span class="kw-2">&amp;</span>shutting_down);
+                <span class="kw">let </span><span class="kw-2">mut </span>stop_receiver = stop_sender.subscribe();
+                <span class="kw">let </span>span = span.clone();
 
                 <span class="kw">move </span>|| {
                     <span class="kw">let </span>_tokio_handle_guard = handle.enter();
-                    <span class="kw">let </span>span = <span class="macro">info_span!</span>(<span class="string">&quot;single_disk_plot&quot;</span>, %single_disk_plot_id);
                     <span class="kw">let </span>_span_guard = span.enter();
 
-                    <span class="kw">while let </span><span class="prelude-val">Some</span>(read_piece_request) = handle.block_on(read_piece_receiver.next())
-                    {
-                        <span class="kw">let </span>ReadPieceRequest {
-                            sector_index,
-                            piece_offset,
-                            response_sender,
-                        } = read_piece_request;
+                    <span class="kw">let </span>reading_fut = <span class="kw">async move </span>{
+                        <span class="kw">while let </span><span class="prelude-val">Some</span>(read_piece_request) = read_piece_receiver.next().<span class="kw">await </span>{
+                            <span class="kw">let </span>ReadPieceRequest {
+                                sector_index,
+                                piece_offset,
+                                response_sender,
+                            } = read_piece_request;
 
-                        <span class="kw">if </span>shutting_down.load(Ordering::Acquire) {
-                            <span class="macro">debug!</span>(
-                                %sector_index,
-                                %piece_offset,
-                                <span class="string">&quot;Instance is shutting down, interrupting piece reading&quot;
-                            </span>);
-                            <span class="kw">return</span>;
+                            <span class="kw">if </span>response_sender.is_canceled() {
+                                <span class="kw">continue</span>;
+                            }
+
+                            <span class="kw">let </span>maybe_piece = read_piece(
+                                sector_index,
+                                piece_offset,
+                                metadata_header.lock().sector_count,
+                                first_sector_index,
+                                <span class="kw-2">&amp;</span>sector_codec,
+                                <span class="kw-2">&amp;</span>global_plot_mmap,
+                            );
+
+                            <span class="comment">// Doesn&#39;t matter if receiver still cares about it
+                            </span><span class="kw">let _ </span>= response_sender.send(maybe_piece);
                         }
+                    };
 
-                        <span class="kw">if </span>response_sender.is_canceled() {
-                            <span class="kw">continue</span>;
-                        }
-
-                        <span class="kw">let </span>maybe_piece = read_piece(
-                            sector_index,
-                            piece_offset,
-                            metadata_header.lock().sector_count,
-                            first_sector_index,
-                            <span class="kw-2">&amp;</span>sector_codec,
-                            <span class="kw-2">&amp;</span>global_plot_mmap,
-                        );
-
-                        <span class="comment">// Doesn&#39;t matter if receiver still cares about it
-                        </span><span class="kw">let _ </span>= response_sender.send(maybe_piece);
-                    }
+                    handle.block_on(select(
+                        Box::pin(reading_fut),
+                        Box::pin(stop_receiver.recv()),
+                    ));
                 }
             })<span class="question-mark">?</span>;
 
         tasks.push(Box::pin(<span class="kw">async move </span>{
             <span class="comment">// TODO: Error handling here
-            </span>reward_signing(rpc_client, identity).<span class="kw">await</span>.unwrap().<span class="kw">await</span>;
+            </span>reward_signing(node_client, identity).<span class="kw">await</span>.unwrap().<span class="kw">await</span>;
 
             <span class="prelude-val">Ok</span>(())
         }));
@@ -2195,7 +2181,7 @@
             single_disk_plot_info,
             sector_metadata_mmap: global_sector_metadata_mmap,
             metadata_header,
-            span: Span::current(),
+            span,
             tasks,
             handlers,
             piece_reader,
@@ -2203,7 +2189,7 @@
             _farming_join_handle: JoinOnDrop::new(farming_join_handle),
             _reading_join_handle: JoinOnDrop::new(reading_join_handle),
             start_sender: <span class="prelude-val">Some</span>(start_sender),
-            shutting_down,
+            stop_sender: <span class="prelude-val">Some</span>(stop_sender),
         };
 
         <span class="prelude-val">Ok</span>(farm)
@@ -2246,7 +2232,6 @@
         <span class="kw">let </span>sector_count = <span class="self">self</span>.metadata_header.lock().sector_count;
 
         (first_sector_index..)
-            .into_iter()
             .zip(
                 <span class="self">self</span>.sector_metadata_mmap
                     .chunks_exact(SectorMetadata::encoded_size()),
@@ -2254,15 +2239,12 @@
             .take(sector_count <span class="kw">as </span>usize)
             .map(<span class="kw">move </span>|(sector_index, <span class="kw-2">mut </span>sector_metadata)| {
                 <span class="kw">let </span>sector_metadata = SectorMetadata::decode(<span class="kw-2">&amp;mut </span>sector_metadata)<span class="question-mark">?</span>;
-                <span class="kw">let </span>sector_id = SectorId::new(public_key, sector_index);
+                <span class="kw">let </span>sector_id = LegacySectorId::new(public_key, sector_index);
 
-                <span class="kw">let </span>piece_indexes = (<span class="number">0u64</span>..)
+                <span class="kw">let </span>piece_indexes = (PieceIndex::ZERO..)
                     .take(PIECES_IN_SECTOR <span class="kw">as </span>usize)
                     .map(|piece_offset| {
-                        sector_id.derive_piece_index(
-                            piece_offset <span class="kw">as </span>PieceIndex,
-                            sector_metadata.total_pieces,
-                        )
+                        sector_id.derive_piece_index(piece_offset, sector_metadata.total_pieces)
                     })
                     .collect();
 
@@ -2281,7 +2263,13 @@
     }
 
     <span class="doccomment">/// Subscribe to sector plotting notification
-    </span><span class="kw">pub fn </span>on_sector_plotted(<span class="kw-2">&amp;</span><span class="self">self</span>, callback: HandlerFn&lt;PlottedSector&gt;) -&gt; HandlerId {
+    ///
+    /// Plotting permit is given such that it can be dropped later by the implementation is
+    /// throttling of the plotting process is desired.
+    </span><span class="kw">pub fn </span>on_sector_plotted(
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        callback: HandlerFn&lt;(usize, PlottedSector, Arc&lt;OwnedSemaphorePermit&gt;)&gt;,
+    ) -&gt; HandlerId {
         <span class="self">self</span>.handlers.sector_plotted.add(callback)
     }
 
@@ -2298,10 +2286,6 @@
         }
 
         <span class="kw">while let </span><span class="prelude-val">Some</span>(result) = <span class="self">self</span>.tasks.next().instrument(<span class="self">self</span>.span.clone()).<span class="kw">await </span>{
-            <span class="kw">if </span>result.is_err() {
-                <span class="comment">// Nothing left to do after error
-                </span><span class="self">self</span>.shutting_down.store(<span class="bool-val">true</span>, Ordering::SeqCst);
-            }
             result<span class="question-mark">?</span>;
         }
 
@@ -2348,5 +2332,4 @@
         fs::remove_file(single_disk_plot_info_path)
     }
 }
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="subspace_farmer" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</code></pre></div></section></main></body></html>

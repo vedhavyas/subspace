@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `domains/client/domain-executor/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../domain_client_executor/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `domains/client/domain-executor/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="domain_client_executor" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../domain_client_executor/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -215,6 +215,40 @@
 <a href="#215" id="215">215</a>
 <a href="#216" id="216">216</a>
 <a href="#217" id="217">217</a>
+<a href="#218" id="218">218</a>
+<a href="#219" id="219">219</a>
+<a href="#220" id="220">220</a>
+<a href="#221" id="221">221</a>
+<a href="#222" id="222">222</a>
+<a href="#223" id="223">223</a>
+<a href="#224" id="224">224</a>
+<a href="#225" id="225">225</a>
+<a href="#226" id="226">226</a>
+<a href="#227" id="227">227</a>
+<a href="#228" id="228">228</a>
+<a href="#229" id="229">229</a>
+<a href="#230" id="230">230</a>
+<a href="#231" id="231">231</a>
+<a href="#232" id="232">232</a>
+<a href="#233" id="233">233</a>
+<a href="#234" id="234">234</a>
+<a href="#235" id="235">235</a>
+<a href="#236" id="236">236</a>
+<a href="#237" id="237">237</a>
+<a href="#238" id="238">238</a>
+<a href="#239" id="239">239</a>
+<a href="#240" id="240">240</a>
+<a href="#241" id="241">241</a>
+<a href="#242" id="242">242</a>
+<a href="#243" id="243">243</a>
+<a href="#244" id="244">244</a>
+<a href="#245" id="245">245</a>
+<a href="#246" id="246">246</a>
+<a href="#247" id="247">247</a>
+<a href="#248" id="248">248</a>
+<a href="#249" id="249">249</a>
+<a href="#250" id="250">250</a>
+<a href="#251" id="251">251</a>
 </pre><pre class="rust"><code><span class="comment">// Copyright 2019-2021 Parity Technologies (UK) Ltd.
 // This file is part of Cumulus.
 
@@ -231,56 +265,75 @@
 // You should have received a copy of the GNU General Public License
 // along with Cumulus.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 
-</span><span class="doccomment">//! # Subspace Executor
+</span><span class="doccomment">//! # Domain Executor
 //!
-//! Executors, a separate class of nodes in addition to the consensus nodes (farmers) in Subspace,
-//! are designed to reduce the burden of maintaining the chain state for farmers by decoupling the
-//! consensus and computation. As an execution layer, executor chain itself does no rely on any
-//! typical blockchain consensus like PoW for producing blocks, the block production of executor
-//! chain is totally driven by the consensus layer which are collectively maintained by Subspace
-//! farmers. Please refer to the white paper [Computation section] for more in-depth description
-//! and analysis.
+//! ## Domains
 //!
-//! Specifically, executors are responsible for producing a [`SignedBundle`] on each slot from
-//! the primary chain and producing an [`ExecutionReceipt`] on each primary block.
+//! Domains, the enshrined rollups solution of Subspace, is a configurable execution
+//! framework allowing for the simple, secure and low-cost deployment of application
+//! specific blockchain called domain.
 //!
-//! On each new primary chain slot, executors will collect a set of extrinsics from the transaction
-//! pool which are verified to be able to cover the transaction fee, and then use these extrinsics
-//! to create a [`SignedBundle`], submitting it to the primary chain. The submitted bundles are mere
-//! blob from the point of primary chain.
+//! There are three types of domains: system domain, core domain and open domain.
 //!
-//! On each imported primary block, executors will extract all the bundles from the primary block and
-//! convert the bundles to a list of extrinsics, construct a custom [`BlockBuilder`] to build a secondary
-//! block. The execution trace of all the extrinsics and hooks like
-//! `initialize_block`/`finalize_block` will be recorded during the block execution. Once the
-//! secondary block has been imported successfully, an executor that wins the election for producing
-//! an execution receipt will publish the receipt over the executors network.
+//! - System domain: responsible for securing and managing all the non-system domains
+//! by maintaining the receipts of other domains and handling the potential execution
+//! disputes using the fraud-proof mechanism. The system domain itself is secured by the
+//! consensus chain.
+//! - Core domain: developed and audited by Subspace team, providing some important
+//! system-wide features, e.g., the payments, contracts and messages.
+//! - Open domain: similar to the smart contract in Ethereum which reflects application
+//! specific business logic and can be created by anyone with enough security deposits.
 //!
-//! The execution receipt of each block contains all the intermediate state roots during the block
+//! All kinds of domains form the Subspace execution layer. The domains do not rely on
+//! any typical blockchain consensus like PoW for producing blocks, the block production
+//! of each domain is totally driven by the consensus chain which are collectively
+//! maintained by Subspace farmers. Please refer to the white paper [Computation section]
+//! for more in-depth description and analysis.
+//!
+//! ## Executors
+//!
+//! In Subspace, the farmers offering the storage resources are responsible for maintaining
+//! the consensus layer, executors are a separate class of contributors in the system focusing
+//! on the execution layer, they provide the necessary computational resources to maintain the
+//! blockchain state by running domains. Some deposits as the stake are required to be an executor.
+//! Every executor must run the system domain, but they can opt-in to run one or multiple
+//! non-system domains by partially allocating their executor stake on the domain.
+//!
+//! Specifically, executors have the responsibity of producing a [`SignedBundle`] which contains a
+//! number of [`ExecutionReceipt`]s on each slot notified from the consensus chain. The executors
+//! are primarily driven by two events from the consensus chain.
+//!
+//! - On each new slot, executors will attempt to solve a domain-specific bundle election
+//! challenge derived from a global randomness provided by the consensus chain. Upon finding
+//! a solution to the challenge, they will start producing a bundle: they will collect a set
+//! of extrinsics from the transaction pool which are verified to be able to cover the transaction
+//! fee. With these colltected extrinsics, the bundle election solution and proper receipts, a
+//! [`SignedBundle`] can be constructed and then be submitted to the consensus chain. The transactions
+//! included in each bundle are uninterpretable blob from the consensus chain&#39;s persepective.
+//!
+//! - On each imported primary block, executors will extract all the needed bundles from it
+//! and convert the bundles to a list of extrinsics, construct a custom [`BlockBuilder`] to
+//! build a domain block. The execution trace of all the extrinsics and hooks like
+//! `initialize_block`/`finalize_block` will be recorded during the domain block execution.
+//! Once the domain block is imported successfully, the [`ExecutionReceipt`] of this block
+//! will be generated and stored locally.
+//!
+//! The receipt of each domain block contains all the intermediate state roots during the block
 //! execution, which will be gossiped in the executor network. All executors whether running as an
 //! authority or a full node will compute each block and generate an execution receipt independently,
 //! once the execution receipt received from the network does not match the one produced locally,
-//! a [`FraudProof`] will be generated and reported to the primary chain accordingly.
-//!
-//! ## Notes
-//!
-//! Currently, the following terms are interexchangeable in the executor context:
-//!
-//! - Farmer, consensus node.
-//! - Executor, execution/compute node.
-//! - Primary chain, consensus layer.
-//! - Secondary chain, execution layer.
+//! a [`FraudProof`] will be generated and reported to the consensus chain accordingly.
 //!
 //! [Computation section]: https://subspace.network/news/subspace-network-whitepaper
 //! [`BlockBuilder`]: ../domain_block_builder/struct.BlockBuilder.html
 //! [`FraudProof`]: ../sp_domains/struct.FraudProof.html
 
-</span><span class="attr">#![feature(drain_filter)]
+</span><span class="attr">#![feature(array_windows)]
+#![feature(drain_filter)]
 
 </span><span class="kw">mod </span>aux_schema;
 <span class="kw">mod </span>bundle_election_solver;
 <span class="kw">mod </span>core_bundle_processor;
-<span class="kw">mod </span>core_bundle_producer;
 <span class="kw">mod </span>core_domain_worker;
 <span class="kw">mod </span>core_executor;
 <span class="kw">mod </span>core_gossip_message_validator;
@@ -290,9 +343,8 @@
 <span class="kw">mod </span>domain_worker;
 <span class="kw">mod </span>fraud_proof;
 <span class="kw">mod </span>gossip_message_validator;
-<span class="kw">mod </span>merkle_tree;
+<span class="kw">mod </span>parent_chain;
 <span class="kw">mod </span>system_bundle_processor;
-<span class="kw">mod </span>system_bundle_producer;
 <span class="kw">mod </span>system_domain_worker;
 <span class="kw">mod </span>system_executor;
 <span class="kw">mod </span>system_gossip_message_validator;
@@ -302,25 +354,25 @@
 
 <span class="kw">pub use </span><span class="self">self</span>::core_executor::Executor <span class="kw">as </span>CoreExecutor;
 <span class="kw">pub use </span><span class="self">self</span>::core_gossip_message_validator::CoreGossipMessageValidator;
+<span class="kw">pub use </span><span class="self">self</span>::parent_chain::{CoreDomainParentChain, SystemDomainParentChain};
 <span class="kw">pub use </span><span class="self">self</span>::system_executor::Executor <span class="kw">as </span>SystemExecutor;
 <span class="kw">pub use </span><span class="self">self</span>::system_gossip_message_validator::SystemGossipMessageValidator;
 <span class="kw">use </span><span class="kw">crate</span>::utils::BlockInfo;
 <span class="kw">use </span>futures::channel::mpsc;
 <span class="kw">use </span>futures::Stream;
-<span class="kw">use </span>sc_consensus::ForkChoiceStrategy;
-<span class="kw">use </span>sc_network::NetworkService;
+<span class="kw">use </span>sc_client_api::BlockImportNotification;
 <span class="kw">use </span>sc_utils::mpsc::TracingUnboundedSender;
 <span class="kw">use </span>sp_api::ProvideRuntimeApi;
 <span class="kw">use </span>sp_blockchain::HeaderBackend;
-<span class="kw">use </span>sp_consensus::SelectChain;
+<span class="kw">use </span>sp_consensus::{SelectChain, SyncOracle};
 <span class="kw">use </span>sp_consensus_slots::Slot;
 <span class="kw">use </span>sp_core::traits::SpawnNamed;
 <span class="kw">use </span>sp_domains::{ExecutionReceipt, SignedBundle};
-<span class="kw">use </span>sp_keystore::SyncCryptoStorePtr;
-<span class="kw">use </span>sp_runtime::generic::BlockId;
+<span class="kw">use </span>sp_keystore::KeystorePtr;
 <span class="kw">use </span>sp_runtime::traits::{
     Block <span class="kw">as </span>BlockT, HashFor, Header <span class="kw">as </span>HeaderT, NumberFor, One, Saturating, Zero,
 };
+<span class="kw">use </span>std::marker::PhantomData;
 <span class="kw">use </span>std::sync::Arc;
 <span class="kw">use </span>subspace_core_primitives::Blake2b256Hash;
 
@@ -341,6 +393,24 @@
     &gt;,
 &gt;;
 
+<span class="doccomment">/// Notification streams from the primary chain driving the executor.
+</span><span class="kw">pub struct </span>ExecutorStreams&lt;PBlock, IBNS, CIBNS, NSNS&gt; {
+    <span class="doccomment">/// Pause the primary block import when the primary chain client
+    /// runs much faster than the domain client.
+    </span><span class="kw">pub </span>primary_block_import_throttling_buffer_size: u32,
+    <span class="doccomment">/// Notification about to be imported.
+    ///
+    /// Fired before the completion of entire block import pipeline.
+    </span><span class="kw">pub </span>block_importing_notification_stream: IBNS,
+    <span class="doccomment">/// Primary block import notification from the client.
+    ///
+    /// Fired after the completion of entire block import pipeline.
+    </span><span class="kw">pub </span>imported_block_notification_stream: CIBNS,
+    <span class="doccomment">/// New slot arrives.
+    </span><span class="kw">pub </span>new_slot_notification_stream: NSNS,
+    <span class="kw">pub </span>_phantom: PhantomData&lt;PBlock&gt;,
+}
+
 <span class="kw">pub struct </span>EssentialExecutorParams&lt;
     Block,
     PBlock,
@@ -350,26 +420,26 @@
     Backend,
     E,
     IBNS,
+    CIBNS,
     NSNS,
 &gt; <span class="kw">where
     </span>Block: BlockT,
     PBlock: BlockT,
-    IBNS: Stream&lt;Item = (NumberFor&lt;PBlock&gt;, ForkChoiceStrategy, mpsc::Sender&lt;()&gt;)&gt; + Send + <span class="lifetime">&#39;static</span>,
-    NSNS: Stream&lt;Item = (Slot, Blake2b256Hash)&gt; + Send + <span class="lifetime">&#39;static</span>,
+    IBNS: Stream&lt;Item = (NumberFor&lt;PBlock&gt;, mpsc::Sender&lt;()&gt;)&gt; + Send + <span class="lifetime">&#39;static</span>,
+    CIBNS: Stream&lt;Item = BlockImportNotification&lt;PBlock&gt;&gt; + Send + <span class="lifetime">&#39;static</span>,
+    NSNS: Stream&lt;Item = (Slot, Blake2b256Hash, <span class="prelude-ty">Option</span>&lt;mpsc::Sender&lt;()&gt;&gt;)&gt; + Send + <span class="lifetime">&#39;static</span>,
 {
     <span class="kw">pub </span>primary_chain_client: Arc&lt;PClient&gt;,
-    <span class="kw">pub </span>primary_network: Arc&lt;NetworkService&lt;PBlock, PBlock::Hash&gt;&gt;,
+    <span class="kw">pub </span>primary_network_sync_oracle: Arc&lt;<span class="kw">dyn </span>SyncOracle + Send + Sync&gt;,
     <span class="kw">pub </span>client: Arc&lt;Client&gt;,
     <span class="kw">pub </span>transaction_pool: Arc&lt;TransactionPool&gt;,
     <span class="kw">pub </span>backend: Arc&lt;Backend&gt;,
     <span class="kw">pub </span>code_executor: Arc&lt;E&gt;,
     <span class="kw">pub </span>is_authority: bool,
-    <span class="kw">pub </span>keystore: SyncCryptoStorePtr,
+    <span class="kw">pub </span>keystore: KeystorePtr,
     <span class="kw">pub </span>spawner: Box&lt;<span class="kw">dyn </span>SpawnNamed + Send + Sync&gt;,
     <span class="kw">pub </span>bundle_sender: Arc&lt;BundleSender&lt;Block, PBlock&gt;&gt;,
-    <span class="kw">pub </span>block_import_throttling_buffer_size: u32,
-    <span class="kw">pub </span>imported_block_notification_stream: IBNS,
-    <span class="kw">pub </span>new_slot_notification_stream: NSNS,
+    <span class="kw">pub </span>executor_streams: ExecutorStreams&lt;PBlock, IBNS, CIBNS, NSNS&gt;,
 }
 
 <span class="doccomment">/// Returns the active leaves the overseer should start with.
@@ -406,13 +476,12 @@
                 <span class="kw">return </span><span class="prelude-val">None</span>;
             };
 
-            <span class="kw">let </span>parent_hash = <span class="kw-2">*</span>client.header(BlockId::Hash(hash)).ok()<span class="question-mark">??</span>.parent_hash();
+            <span class="kw">let </span>parent_hash = <span class="kw-2">*</span>client.header(hash).ok()<span class="question-mark">??</span>.parent_hash();
 
             <span class="prelude-val">Some</span>(BlockInfo {
                 hash,
                 parent_hash,
                 number,
-                fork_choice: ForkChoiceStrategy::LongestChain,
             })
         })
         .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;();
@@ -424,7 +493,6 @@
         hash: best_block.hash(),
         parent_hash: <span class="kw-2">*</span>best_block.parent_hash(),
         number: <span class="kw-2">*</span>best_block.number(),
-        fork_choice: ForkChoiceStrategy::LongestChain,
     });
 
     <span class="doccomment">/// The maximum number of active leaves we forward to the [`Overseer`] on startup.
@@ -432,5 +500,4 @@
 
     <span class="prelude-val">Ok</span>(leaves.into_iter().rev().take(MAX_ACTIVE_LEAVES).collect())
 }
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="domain_client_executor" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</code></pre></div></section></main></body></html>

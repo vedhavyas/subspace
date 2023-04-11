@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"struct":[["ExecutionProver","Creates storage proof for verifying an execution without owning the whole state."],["ProofVerifier","Fraud proof verifier."]],"trait":[["VerifyFraudProof","Verify fraud proof."]]};
+window.SIDEBAR_ITEMS = {"fn":["validate_fraud_proof_in_tx_pool"],"mod":["invalid_state_transition_proof"],"struct":["ProofVerifier"],"trait":["VerifyFraudProof"]};

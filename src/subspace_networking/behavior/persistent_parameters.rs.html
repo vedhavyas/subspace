@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/subspace-networking/src/behavior/persistent_parameters.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>persistent_parameters.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../../subspace_networking/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/subspace-networking/src/behavior/persistent_parameters.rs`."><title>persistent_parameters.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="subspace_networking" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../../source-files.js"></script><script defer src="../../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../../subspace_networking/index.html"><img class="rust-logo" src="../../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -423,6 +423,33 @@
 <a href="#423" id="423">423</a>
 <a href="#424" id="424">424</a>
 <a href="#425" id="425">425</a>
+<a href="#426" id="426">426</a>
+<a href="#427" id="427">427</a>
+<a href="#428" id="428">428</a>
+<a href="#429" id="429">429</a>
+<a href="#430" id="430">430</a>
+<a href="#431" id="431">431</a>
+<a href="#432" id="432">432</a>
+<a href="#433" id="433">433</a>
+<a href="#434" id="434">434</a>
+<a href="#435" id="435">435</a>
+<a href="#436" id="436">436</a>
+<a href="#437" id="437">437</a>
+<a href="#438" id="438">438</a>
+<a href="#439" id="439">439</a>
+<a href="#440" id="440">440</a>
+<a href="#441" id="441">441</a>
+<a href="#442" id="442">442</a>
+<a href="#443" id="443">443</a>
+<a href="#444" id="444">444</a>
+<a href="#445" id="445">445</a>
+<a href="#446" id="446">446</a>
+<a href="#447" id="447">447</a>
+<a href="#448" id="448">448</a>
+<a href="#449" id="449">449</a>
+<a href="#450" id="450">450</a>
+<a href="#451" id="451">451</a>
+<a href="#452" id="452">452</a>
 </pre><pre class="rust"><code><span class="kw">use </span><span class="kw">crate</span>::utils::{convert_multiaddresses, CollectionBatcher, PeerAddress};
 <span class="kw">use </span>async_trait::async_trait;
 <span class="kw">use </span>chrono::{DateTime, Utc};
@@ -444,6 +471,8 @@
 <span class="kw">use </span>thiserror::Error;
 <span class="kw">use </span>tokio::time::{sleep, Sleep};
 <span class="kw">use </span>tracing::{debug, trace};
+
+<span class="kw">pub type </span>ParityDbError = parity_db::Error;
 
 <span class="comment">// Defines optional time for address dial failure
 </span><span class="kw">type </span>FailureTime = <span class="prelude-ty">Option</span>&lt;DateTime&lt;Utc&gt;&gt;;
@@ -468,10 +497,16 @@
     <span class="doccomment">/// Unregisters associated addresses for peer ID.
     </span><span class="kw">async fn </span>remove_known_peer_addresses(<span class="kw-2">&amp;mut </span><span class="self">self</span>, peer_id: PeerId, addresses: Vec&lt;Multiaddr&gt;);
 
+    <span class="doccomment">/// Unregisters associated addresses for peer ID.
+    </span><span class="kw">async fn </span>remove_all_known_peer_addresses(<span class="kw-2">&amp;mut </span><span class="self">self</span>, peer_id: PeerId);
+
     <span class="doccomment">/// Returns a batch of the combined collection of known addresses from networking parameters DB
     /// and boostrap addresses from networking parameters initialization.
     /// It removes p2p-protocol suffix.
     </span><span class="kw">async fn </span>next_known_addresses_batch(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Vec&lt;PeerAddress&gt;;
+
+    <span class="doccomment">/// Reset the batching process to the initial state.
+    </span><span class="kw">fn </span>start_over_address_batching(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {}
 
     <span class="doccomment">/// Drive async work in the persistence provider
     </span><span class="kw">async fn </span>run(<span class="kw-2">&amp;mut </span><span class="self">self</span>);
@@ -512,7 +547,9 @@
 </span><span class="kw">impl </span>NetworkingParametersRegistry <span class="kw">for </span>BootstrappedNetworkingParameters {
     <span class="kw">async fn </span>add_known_peer(<span class="kw-2">&amp;mut </span><span class="self">self</span>, <span class="kw">_</span>: PeerId, <span class="kw">_</span>: Vec&lt;Multiaddr&gt;) {}
 
-    <span class="kw">async fn </span>remove_known_peer_addresses(<span class="kw-2">&amp;mut </span><span class="self">self</span>, <span class="kw">_</span>: PeerId, <span class="kw">_</span>: Vec&lt;Multiaddr&gt;) {}
+    <span class="kw">async fn </span>remove_known_peer_addresses(<span class="kw-2">&amp;mut </span><span class="self">self</span>, _peer_id: PeerId, _addresses: Vec&lt;Multiaddr&gt;) {}
+
+    <span class="kw">async fn </span>remove_all_known_peer_addresses(<span class="kw-2">&amp;mut </span><span class="self">self</span>, _peer_id: PeerId) {}
 
     <span class="kw">async fn </span>next_known_addresses_batch(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Vec&lt;PeerAddress&gt; {
         <span class="self">self</span>.bootstrap_addresses()
@@ -579,7 +616,7 @@
                     .map(|data| data.to_cache());
 
                 <span class="kw">if </span>result.is_ok() {
-                    <span class="macro">trace!</span>(<span class="string">&quot;Networking parameters loaded from DB&quot;</span>);
+                    <span class="macro">debug!</span>(<span class="string">&quot;Networking parameters loaded from DB&quot;</span>);
                 }
 
                 result
@@ -656,7 +693,12 @@
 <span class="attr">#[async_trait]
 </span><span class="kw">impl </span>NetworkingParametersRegistry <span class="kw">for </span>NetworkingParametersManager {
     <span class="kw">async fn </span>add_known_peer(<span class="kw-2">&amp;mut </span><span class="self">self</span>, peer_id: PeerId, addresses: Vec&lt;Multiaddr&gt;) {
-        <span class="macro">trace!</span>(%peer_id, <span class="string">&quot;Add new peer addresses to the networking parameters registry: {:?}&quot;</span>, addresses);
+        <span class="macro">debug!</span>(
+            %peer_id,
+            addr_num=addresses.len(),
+            <span class="string">&quot;Add new peer addresses to the networking parameters registry: {:?}&quot;</span>,
+            addresses
+        );
 
         addresses
             .iter()
@@ -698,6 +740,14 @@
         <span class="self">self</span>.cache_need_saving = <span class="bool-val">true</span>;
     }
 
+    <span class="kw">async fn </span>remove_all_known_peer_addresses(<span class="kw-2">&amp;mut </span><span class="self">self</span>, peer_id: PeerId) {
+        <span class="macro">trace!</span>(%peer_id, <span class="string">&quot;Remove all peer addresses from the networking parameters registry&quot;</span>);
+
+        <span class="self">self</span>.known_peers.pop(<span class="kw-2">&amp;</span>peer_id);
+
+        <span class="self">self</span>.cache_need_saving = <span class="bool-val">true</span>;
+    }
+
     <span class="kw">async fn </span>next_known_addresses_batch(<span class="kw-2">&amp;mut </span><span class="self">self</span>) -&gt; Vec&lt;PeerAddress&gt; {
         <span class="comment">// We take cached known addresses and combine them with manually provided bootstrap addresses.
         </span><span class="kw">let </span>combined_addresses = <span class="self">self
@@ -713,6 +763,10 @@
         );
 
         <span class="self">self</span>.collection_batcher.next_batch(combined_addresses)
+    }
+
+    <span class="kw">fn </span>start_over_address_batching(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
+        <span class="self">self</span>.collection_batcher.reset();
     }
 
     <span class="kw">async fn </span>run(<span class="kw-2">&amp;mut </span><span class="self">self</span>) {
@@ -848,5 +902,4 @@
             }
         });
 }
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="subspace_networking" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</code></pre></div></section></main></body></html>

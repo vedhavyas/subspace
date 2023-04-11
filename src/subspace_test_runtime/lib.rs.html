@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `test/subspace-test-runtime/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../subspace_test_runtime/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `test/subspace-test-runtime/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="subspace_test_runtime" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../subspace_test_runtime/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -1207,6 +1207,75 @@
 <a href="#1207" id="1207">1207</a>
 <a href="#1208" id="1208">1208</a>
 <a href="#1209" id="1209">1209</a>
+<a href="#1210" id="1210">1210</a>
+<a href="#1211" id="1211">1211</a>
+<a href="#1212" id="1212">1212</a>
+<a href="#1213" id="1213">1213</a>
+<a href="#1214" id="1214">1214</a>
+<a href="#1215" id="1215">1215</a>
+<a href="#1216" id="1216">1216</a>
+<a href="#1217" id="1217">1217</a>
+<a href="#1218" id="1218">1218</a>
+<a href="#1219" id="1219">1219</a>
+<a href="#1220" id="1220">1220</a>
+<a href="#1221" id="1221">1221</a>
+<a href="#1222" id="1222">1222</a>
+<a href="#1223" id="1223">1223</a>
+<a href="#1224" id="1224">1224</a>
+<a href="#1225" id="1225">1225</a>
+<a href="#1226" id="1226">1226</a>
+<a href="#1227" id="1227">1227</a>
+<a href="#1228" id="1228">1228</a>
+<a href="#1229" id="1229">1229</a>
+<a href="#1230" id="1230">1230</a>
+<a href="#1231" id="1231">1231</a>
+<a href="#1232" id="1232">1232</a>
+<a href="#1233" id="1233">1233</a>
+<a href="#1234" id="1234">1234</a>
+<a href="#1235" id="1235">1235</a>
+<a href="#1236" id="1236">1236</a>
+<a href="#1237" id="1237">1237</a>
+<a href="#1238" id="1238">1238</a>
+<a href="#1239" id="1239">1239</a>
+<a href="#1240" id="1240">1240</a>
+<a href="#1241" id="1241">1241</a>
+<a href="#1242" id="1242">1242</a>
+<a href="#1243" id="1243">1243</a>
+<a href="#1244" id="1244">1244</a>
+<a href="#1245" id="1245">1245</a>
+<a href="#1246" id="1246">1246</a>
+<a href="#1247" id="1247">1247</a>
+<a href="#1248" id="1248">1248</a>
+<a href="#1249" id="1249">1249</a>
+<a href="#1250" id="1250">1250</a>
+<a href="#1251" id="1251">1251</a>
+<a href="#1252" id="1252">1252</a>
+<a href="#1253" id="1253">1253</a>
+<a href="#1254" id="1254">1254</a>
+<a href="#1255" id="1255">1255</a>
+<a href="#1256" id="1256">1256</a>
+<a href="#1257" id="1257">1257</a>
+<a href="#1258" id="1258">1258</a>
+<a href="#1259" id="1259">1259</a>
+<a href="#1260" id="1260">1260</a>
+<a href="#1261" id="1261">1261</a>
+<a href="#1262" id="1262">1262</a>
+<a href="#1263" id="1263">1263</a>
+<a href="#1264" id="1264">1264</a>
+<a href="#1265" id="1265">1265</a>
+<a href="#1266" id="1266">1266</a>
+<a href="#1267" id="1267">1267</a>
+<a href="#1268" id="1268">1268</a>
+<a href="#1269" id="1269">1269</a>
+<a href="#1270" id="1270">1270</a>
+<a href="#1271" id="1271">1271</a>
+<a href="#1272" id="1272">1272</a>
+<a href="#1273" id="1273">1273</a>
+<a href="#1274" id="1274">1274</a>
+<a href="#1275" id="1275">1275</a>
+<a href="#1276" id="1276">1276</a>
+<a href="#1277" id="1277">1277</a>
+<a href="#1278" id="1278">1278</a>
 </pre><pre class="rust"><code><span class="comment">// Copyright (C) 2021 Subspace Labs, Inc.
 // SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -1228,8 +1297,8 @@
 </span><span class="comment">// `construct_runtime!` does a lot of recursion and requires us to increase the limit to 256.
 </span><span class="attr">#![recursion_limit = <span class="string">&quot;256&quot;</span>]
 
-</span><span class="comment">// Make execution WASM runtime available.
-</span><span class="macro">include!</span>(<span class="macro">concat!</span>(<span class="macro">env!</span>(<span class="string">&quot;OUT_DIR&quot;</span>), <span class="string">&quot;/execution_wasm_bundle.rs&quot;</span>));
+</span><span class="comment">// Make `domain-test-runtime` WASM runtime available.
+</span><span class="macro">include!</span>(<span class="macro">concat!</span>(<span class="macro">env!</span>(<span class="string">&quot;OUT_DIR&quot;</span>), <span class="string">&quot;/test_domain_wasm_bundle.rs&quot;</span>));
 
 <span class="comment">// Make the WASM binary available.
 </span><span class="attr">#[cfg(feature = <span class="string">&quot;std&quot;</span>)]
@@ -1242,8 +1311,8 @@
     ConstU128, ConstU16, ConstU32, ConstU64, ConstU8, Currency, ExistenceRequirement, Get,
     Imbalance, WithdrawReasons,
 };
-<span class="kw">use </span>frame_support::weights::constants::{RocksDbWeight, WEIGHT_PER_SECOND};
-<span class="kw">use </span>frame_support::weights::{ConstantMultiplier, IdentityFee};
+<span class="kw">use </span>frame_support::weights::constants::{RocksDbWeight, WEIGHT_REF_TIME_PER_SECOND};
+<span class="kw">use </span>frame_support::weights::{ConstantMultiplier, IdentityFee, Weight};
 <span class="kw">use </span>frame_support::{construct_runtime, parameter_types};
 <span class="kw">use </span>frame_system::limits::{BlockLength, BlockWeights};
 <span class="kw">use </span>frame_system::EnsureNever;
@@ -1258,8 +1327,8 @@
     SolutionRanges, Vote,
 };
 <span class="kw">use </span>sp_core::crypto::{ByteArray, KeyTypeId};
-<span class="kw">use </span>sp_core::{Hasher, OpaqueMetadata};
-<span class="kw">use </span>sp_domains::fraud_proof::{BundleEquivocationProof, FraudProof, InvalidTransactionProof};
+<span class="kw">use </span>sp_core::{Hasher, OpaqueMetadata, H256};
+<span class="kw">use </span>sp_domains::fraud_proof::FraudProof;
 <span class="kw">use </span>sp_domains::transaction::PreValidationObject;
 <span class="kw">use </span>sp_domains::{DomainId, ExecutionReceipt, SignedOpaqueBundle};
 <span class="kw">use </span>sp_runtime::traits::{
@@ -1280,10 +1349,10 @@
 <span class="kw">use </span>sp_version::RuntimeVersion;
 <span class="kw">use </span>subspace_core_primitives::objects::{BlockObject, BlockObjectMapping};
 <span class="kw">use </span>subspace_core_primitives::{
-    PublicKey, Randomness, RecordsRoot, RootBlock, SegmentIndex, SolutionRange, PIECE_SIZE,
+    Piece, PublicKey, Randomness, SegmentCommitment, SegmentHeader, SegmentIndex, SolutionRange,
 };
 <span class="kw">use </span>subspace_runtime_primitives::{
-    opaque, AccountId, Balance, BlockNumber, Hash, Index, Moment, Signature, CONFIRMATION_DEPTH_K,
+    opaque, AccountId, Balance, BlockNumber, Hash, Index, Moment, Signature,
     MIN_REPLICATION_FACTOR, STORAGE_FEES_ESCROW_BLOCK_REWARD, STORAGE_FEES_ESCROW_BLOCK_TAX,
 };
 <span class="kw">use </span>subspace_verification::derive_randomness;
@@ -1348,7 +1417,7 @@
 
 <span class="comment">// NOTE: Currently it is not possible to change the slot duration after the chain has started.
 //       Attempting to do so will brick block production.
-</span><span class="kw">const </span>SLOT_DURATION: u64 = <span class="number">2000</span>;
+</span><span class="kw">pub const </span>SLOT_DURATION: u64 = <span class="number">2000</span>;
 
 <span class="doccomment">/// 1 in 6 slots (on average, not counting collisions) will have a block.
 /// Must match ratio between block and slot duration in constants above.
@@ -1377,7 +1446,7 @@
     <span class="kw">pub const </span>Version: RuntimeVersion = VERSION;
     <span class="kw">pub const </span>BlockHashCount: BlockNumber = <span class="number">2400</span>;
     <span class="doccomment">/// We allow for 2 seconds of compute with a 6 second average block time.
-    </span><span class="kw">pub </span>SubspaceBlockWeights: BlockWeights = BlockWeights::with_sensible_defaults(WEIGHT_PER_SECOND.saturating_mul(<span class="number">2</span>).set_proof_size(u64::MAX), NORMAL_DISPATCH_RATIO);
+    </span><span class="kw">pub </span>SubspaceBlockWeights: BlockWeights = BlockWeights::with_sensible_defaults(Weight::from_parts(WEIGHT_REF_TIME_PER_SECOND.saturating_mul(<span class="number">2</span>), u64::MAX), NORMAL_DISPATCH_RATIO);
     <span class="doccomment">/// We allow for 3.75 MiB for `Normal` extrinsic with 5 MiB maximum block length.
     </span><span class="kw">pub </span>SubspaceBlockLength: BlockLength = BlockLength::max_with_normal_ratio(MAX_BLOCK_LENGTH, NORMAL_DISPATCH_RATIO);
 }
@@ -1443,7 +1512,7 @@
     <span class="kw">pub const </span>ExpectedBlockTime: Moment = MILLISECS_PER_BLOCK;
     <span class="kw">pub const </span>ShouldAdjustSolutionRange: bool = <span class="bool-val">false</span>;
     <span class="kw">pub const </span>ExpectedVotesPerBlock: u32 = <span class="number">9</span>;
-    <span class="kw">pub const </span>ConfirmationDepthK: u32 = CONFIRMATION_DEPTH_K;
+    <span class="kw">pub const </span>ConfirmationDepthK: u32 = <span class="number">100</span>;
 }
 
 <span class="kw">impl </span>pallet_subspace::Config <span class="kw">for </span>Runtime {
@@ -1488,6 +1557,10 @@
     </span><span class="kw">type </span>ExistentialDeposit = ConstU128&lt;{ <span class="number">500 </span>* SHANNON }&gt;;
     <span class="kw">type </span>AccountStore = System;
     <span class="kw">type </span>WeightInfo = pallet_balances::weights::SubstrateWeight&lt;Runtime&gt;;
+    <span class="kw">type </span>FreezeIdentifier = ();
+    <span class="kw">type </span>MaxFreezes = ();
+    <span class="kw">type </span>HoldIdentifier = ();
+    <span class="kw">type </span>MaxHolds = ();
 }
 
 <span class="macro">parameter_types! </span>{
@@ -1507,12 +1580,10 @@
 
 <span class="kw">impl </span>Get&lt;u128&gt; <span class="kw">for </span>TotalSpacePledged {
     <span class="kw">fn </span>get() -&gt; u128 {
-        <span class="kw">let </span>piece_size = u128::try_from(PIECE_SIZE)
-            .expect(<span class="string">&quot;Piece size is definitely small enough to fit into u128; qed&quot;</span>);
         <span class="comment">// Operations reordered to avoid data loss, but essentially are:
         // u64::MAX * SlotProbability / (solution_range / PIECE_SIZE)
         </span>u128::from(u64::MAX)
-            .saturating_mul(piece_size)
+            .saturating_mul(Piece::SIZE <span class="kw">as </span>u128)
             .saturating_mul(u128::from(SlotProbability::get().<span class="number">0</span>))
             / u128::from(Subspace::solution_ranges().current)
             / u128::from(SlotProbability::get().<span class="number">1</span>)
@@ -1682,10 +1753,14 @@
 
 <span class="kw">impl </span>pallet_domains::Config <span class="kw">for </span>Runtime {
     <span class="kw">type </span>RuntimeEvent = RuntimeEvent;
-    <span class="kw">type </span>DomainHash = domain_runtime_primitives::Hash;
-    <span class="kw">type </span>ReceiptsPruningDepth = ReceiptsPruningDepth;
-    <span class="kw">type </span>MaximumReceiptDrift = MaximumReceiptDrift;
     <span class="kw">type </span>ConfirmationDepthK = ConfirmationDepthK;
+}
+
+<span class="kw">impl </span>pallet_receipts::Config <span class="kw">for </span>Runtime {
+    <span class="kw">type </span>RuntimeEvent = RuntimeEvent;
+    <span class="kw">type </span>DomainHash = domain_runtime_primitives::Hash;
+    <span class="kw">type </span>MaximumReceiptDrift = MaximumReceiptDrift;
+    <span class="kw">type </span>ReceiptsPruningDepth = ReceiptsPruningDepth;
 }
 
 <span class="macro">parameter_types! </span>{
@@ -1705,6 +1780,7 @@
 
 <span class="doccomment">/// Polkadot-like chain.
 </span><span class="kw">struct </span>PolkadotLike;
+
 <span class="kw">impl </span>Chain <span class="kw">for </span>PolkadotLike {
     <span class="kw">type </span>BlockNumber = u32;
     <span class="kw">type </span>Hash = &lt;BlakeTwo256 <span class="kw">as </span>Hasher&gt;::Out;
@@ -1714,6 +1790,7 @@
 
 <span class="doccomment">/// Type used to represent a FeedId or ChainId
 </span><span class="kw">pub type </span>FeedId = u64;
+
 <span class="kw">pub struct </span>GrandpaValidator&lt;C&gt;(PhantomData&lt;C&gt;);
 
 <span class="kw">impl</span>&lt;C: Chain&gt; FeedProcessor&lt;FeedId&gt; <span class="kw">for </span>GrandpaValidator&lt;C&gt; {
@@ -1807,6 +1884,7 @@
         Feeds: pallet_feeds = <span class="number">6</span>,
         GrandpaFinalityVerifier: pallet_grandpa_finality_verifier = <span class="number">13</span>,
         ObjectStore: pallet_object_store = <span class="number">10</span>,
+        Receipts: pallet_receipts = <span class="number">14</span>,
         Domains: pallet_domains = <span class="number">11</span>,
 
         Vesting: orml_vesting = <span class="number">7</span>,
@@ -1847,10 +1925,10 @@
 <span class="doccomment">/// The payload being signed in transactions.
 </span><span class="kw">pub type </span>SignedPayload = generic::SignedPayload&lt;RuntimeCall, SignedExtra&gt;;
 
-<span class="kw">fn </span>extract_root_blocks(ext: <span class="kw-2">&amp;</span>UncheckedExtrinsic) -&gt; <span class="prelude-ty">Option</span>&lt;Vec&lt;RootBlock&gt;&gt; {
+<span class="kw">fn </span>extract_segment_headers(ext: <span class="kw-2">&amp;</span>UncheckedExtrinsic) -&gt; <span class="prelude-ty">Option</span>&lt;Vec&lt;SegmentHeader&gt;&gt; {
     <span class="kw">match </span><span class="kw-2">&amp;</span>ext.function {
-        RuntimeCall::Subspace(pallet_subspace::Call::store_root_blocks { root_blocks }) =&gt; {
-            <span class="prelude-val">Some</span>(root_blocks.clone())
+        RuntimeCall::Subspace(pallet_subspace::Call::store_segment_headers { segment_headers }) =&gt; {
+            <span class="prelude-val">Some</span>(segment_headers.clone())
         }
         <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
     }
@@ -1945,6 +2023,15 @@
         pallet_utility::Call::dispatch_as { as_origin, call } =&gt; {
             base_offset += as_origin.encoded_size() <span class="kw">as </span>u32;
 
+            extract_call_block_object_mapping(
+                base_offset,
+                objects,
+                call.as_ref(),
+                recursion_depth_left,
+                successful_calls,
+            );
+        }
+        pallet_utility::Call::with_weight { call, .. } =&gt; {
             extract_call_block_object_mapping(
                 base_offset,
                 objects,
@@ -2069,6 +2156,17 @@
         .collect()
 }
 
+<span class="kw">fn </span>extract_stored_bundle_hashes() -&gt; Vec&lt;H256&gt; {
+    System::read_events_no_consensus()
+        .filter_map(|e| <span class="kw">match </span>e.event {
+            RuntimeEvent::Domains(pallet_domains::Event::BundleStored { bundle_hash, .. }) =&gt; {
+                <span class="prelude-val">Some</span>(bundle_hash)
+            }
+            <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
+        })
+        .collect::&lt;Vec&lt;<span class="kw">_</span>&gt;&gt;()
+}
+
 <span class="kw">fn </span>extract_receipts(
     extrinsics: Vec&lt;UncheckedExtrinsic&gt;,
     domain_id: DomainId,
@@ -2087,17 +2185,19 @@
         .collect()
 }
 
-<span class="kw">fn </span>extract_fraud_proofs(extrinsics: Vec&lt;UncheckedExtrinsic&gt;) -&gt; Vec&lt;FraudProof&gt; {
+<span class="kw">fn </span>extract_fraud_proofs(
+    extrinsics: Vec&lt;UncheckedExtrinsic&gt;,
+    domain_id: DomainId,
+) -&gt; Vec&lt;FraudProof&lt;NumberFor&lt;Block&gt;, Hash&gt;&gt; {
     extrinsics
         .into_iter()
-        .filter_map(|uxt| {
-            <span class="kw">if let </span>RuntimeCall::Domains(pallet_domains::Call::submit_fraud_proof { fraud_proof }) =
-                uxt.function
+        .filter_map(|uxt| <span class="kw">match </span>uxt.function {
+            RuntimeCall::Domains(pallet_domains::Call::submit_fraud_proof { fraud_proof })
+                <span class="kw">if </span>fraud_proof.domain_id() == domain_id =&gt;
             {
                 <span class="prelude-val">Some</span>(fraud_proof)
-            } <span class="kw">else </span>{
-                <span class="prelude-val">None
-            </span>}
+            }
+            <span class="kw">_ </span>=&gt; <span class="prelude-val">None</span>,
         })
         .collect()
 }
@@ -2111,7 +2211,7 @@
         }
         RuntimeCall::Domains(pallet_domains::Call::submit_bundle {
             signed_opaque_bundle,
-        }) =&gt; PreValidationObject::Receipts(signed_opaque_bundle.bundle.receipts),
+        }) =&gt; PreValidationObject::Bundle(signed_opaque_bundle),
         <span class="kw">_ </span>=&gt; PreValidationObject::Null,
     }
 }
@@ -2186,6 +2286,14 @@
     <span class="kw">impl </span>sp_api::Metadata&lt;Block&gt; <span class="kw">for </span>Runtime {
         <span class="kw">fn </span>metadata() -&gt; OpaqueMetadata {
             OpaqueMetadata::new(Runtime::metadata().into())
+        }
+
+        <span class="kw">fn </span>metadata_at_version(version: u32) -&gt; <span class="prelude-ty">Option</span>&lt;OpaqueMetadata&gt; {
+            Runtime::metadata_at_version(version)
+        }
+
+        <span class="kw">fn </span>metadata_versions() -&gt; sp_std::vec::Vec&lt;u32&gt; {
+            Runtime::metadata_versions()
         }
     }
 
@@ -2287,12 +2395,12 @@
             </span>Subspace::is_in_block_list(farmer_public_key)
         }
 
-        <span class="kw">fn </span>records_root(segment_index: SegmentIndex) -&gt; <span class="prelude-ty">Option</span>&lt;RecordsRoot&gt; {
-            Subspace::records_root(segment_index)
+        <span class="kw">fn </span>segment_commitment(segment_index: SegmentIndex) -&gt; <span class="prelude-ty">Option</span>&lt;SegmentCommitment&gt; {
+            Subspace::segment_commitment(segment_index)
         }
 
-        <span class="kw">fn </span>extract_root_blocks(ext: <span class="kw-2">&amp;</span>&lt;Block <span class="kw">as </span>BlockT&gt;::Extrinsic) -&gt; <span class="prelude-ty">Option</span>&lt;Vec&lt;RootBlock&gt;&gt; {
-            extract_root_blocks(ext)
+        <span class="kw">fn </span>extract_segment_headers(ext: <span class="kw-2">&amp;</span>&lt;Block <span class="kw">as </span>BlockT&gt;::Extrinsic) -&gt; <span class="prelude-ty">Option</span>&lt;Vec&lt;SegmentHeader &gt;&gt; {
+            extract_segment_headers(ext)
         }
 
         <span class="kw">fn </span>root_plot_public_key() -&gt; <span class="prelude-ty">Option</span>&lt;FarmerPublicKey&gt; {
@@ -2308,31 +2416,41 @@
         }
     }
 
+    <span class="kw">impl </span>sp_receipts::ReceiptsApi&lt;Block, domain_runtime_primitives::Hash&gt; <span class="kw">for </span>Runtime {
+        <span class="kw">fn </span>execution_trace(domain_id: DomainId, receipt_hash: H256) -&gt; Vec&lt;domain_runtime_primitives::Hash&gt; {
+            Receipts::receipts(domain_id, receipt_hash).map(|receipt| receipt.trace).unwrap_or_default()
+        }
+
+        <span class="kw">fn </span>state_root(
+            domain_id: DomainId,
+            domain_block_number: NumberFor&lt;Block&gt;,
+            domain_block_hash: Hash,
+        ) -&gt; <span class="prelude-ty">Option</span>&lt;domain_runtime_primitives::Hash&gt; {
+            Receipts::state_root((domain_id, domain_block_number, domain_block_hash))
+        }
+
+        <span class="kw">fn </span>primary_hash(domain_id: DomainId, domain_block_number: BlockNumber) -&gt; <span class="prelude-ty">Option</span>&lt;Hash&gt; {
+            Receipts::primary_hash(domain_id, domain_block_number)
+        }
+    }
+
     <span class="kw">impl </span>sp_domains::transaction::PreValidationObjectApi&lt;Block, domain_runtime_primitives::Hash&gt; <span class="kw">for </span>Runtime {
-        <span class="kw">fn </span>extract_pre_validation_object(extrinsic: &lt;Block <span class="kw">as </span>BlockT&gt;::Extrinsic)-&gt; sp_domains::transaction::PreValidationObject&lt;Block, domain_runtime_primitives::Hash&gt; {
+        <span class="kw">fn </span>extract_pre_validation_object(
+            extrinsic: &lt;Block <span class="kw">as </span>BlockT&gt;::Extrinsic,
+        )-&gt; sp_domains::transaction::PreValidationObject&lt;Block, domain_runtime_primitives::Hash&gt; {
             extract_pre_validation_object(extrinsic)
         }
     }
 
     <span class="kw">impl </span>sp_domains::ExecutorApi&lt;Block, domain_runtime_primitives::Hash&gt; <span class="kw">for </span>Runtime {
-        <span class="kw">fn </span>submit_bundle_unsigned(opaque_bundle: SignedOpaqueBundle&lt;NumberFor&lt;Block&gt;, &lt;Block <span class="kw">as </span>BlockT&gt;::Hash, domain_runtime_primitives::Hash&gt;) {
+        <span class="kw">fn </span>submit_bundle_unsigned(
+            opaque_bundle: SignedOpaqueBundle&lt;NumberFor&lt;Block&gt;, &lt;Block <span class="kw">as </span>BlockT&gt;::Hash, domain_runtime_primitives::Hash&gt;,
+        ) {
             Domains::submit_bundle_unsigned(opaque_bundle)
         }
 
-        <span class="kw">fn </span>submit_fraud_proof_unsigned(fraud_proof: FraudProof) {
+        <span class="kw">fn </span>submit_fraud_proof_unsigned(fraud_proof: FraudProof&lt;NumberFor&lt;Block&gt;, &lt;Block <span class="kw">as </span>BlockT&gt;::Hash&gt;) {
             Domains::submit_fraud_proof_unsigned(fraud_proof)
-        }
-
-        <span class="kw">fn </span>submit_bundle_equivocation_proof_unsigned(
-            bundle_equivocation_proof: BundleEquivocationProof&lt;&lt;Block <span class="kw">as </span>BlockT&gt;::Hash&gt;,
-        ) {
-            Domains::submit_bundle_equivocation_proof_unsigned(bundle_equivocation_proof)
-        }
-
-        <span class="kw">fn </span>submit_invalid_transaction_proof_unsigned(
-            invalid_transaction_proof: InvalidTransactionProof,
-        ) {
-            Domains::submit_invalid_transaction_proof_unsigned(invalid_transaction_proof)
         }
 
         <span class="kw">fn </span>extract_system_bundles(
@@ -2351,6 +2469,10 @@
             extract_core_bundles(extrinsics, domain_id)
         }
 
+        <span class="kw">fn </span>extract_stored_bundle_hashes() -&gt; Vec&lt;H256&gt; {
+            extract_stored_bundle_hashes()
+        }
+
         <span class="kw">fn </span>extract_receipts(
             extrinsics: Vec&lt;&lt;Block <span class="kw">as </span>BlockT&gt;::Extrinsic&gt;,
             domain_id: DomainId,
@@ -2358,16 +2480,19 @@
             extract_receipts(extrinsics, domain_id)
         }
 
-        <span class="kw">fn </span>extract_fraud_proofs(extrinsics: Vec&lt;&lt;Block <span class="kw">as </span>BlockT&gt;::Extrinsic&gt;) -&gt; Vec&lt;FraudProof&gt; {
-            extract_fraud_proofs(extrinsics)
+        <span class="kw">fn </span>extract_fraud_proofs(
+            extrinsics: Vec&lt;&lt;Block <span class="kw">as </span>BlockT&gt;::Extrinsic&gt;,
+            domain_id: DomainId,
+        ) -&gt; Vec&lt;FraudProof&lt;NumberFor&lt;Block&gt;, &lt;Block <span class="kw">as </span>BlockT&gt;::Hash&gt;&gt; {
+            extract_fraud_proofs(extrinsics, domain_id)
         }
 
         <span class="kw">fn </span>extrinsics_shuffling_seed(header: &lt;Block <span class="kw">as </span>BlockT&gt;::Header) -&gt; Randomness {
             extrinsics_shuffling_seed::&lt;Block&gt;(header)
         }
 
-        <span class="kw">fn </span>execution_wasm_bundle() -&gt; Cow&lt;<span class="lifetime">&#39;static</span>, [u8]&gt; {
-            EXECUTION_WASM_BUNDLE.into()
+        <span class="kw">fn </span>system_domain_wasm_bundle() -&gt; Cow&lt;<span class="lifetime">&#39;static</span>, [u8]&gt; {
+            TEST_DOMAIN_WASM_BUNDLE.into()
         }
 
         <span class="kw">fn </span>head_receipt_number() -&gt; NumberFor&lt;Block&gt; {
@@ -2380,6 +2505,13 @@
 
         <span class="kw">fn </span>maximum_receipt_drift() -&gt; NumberFor&lt;Block&gt; {
             MaximumReceiptDrift::get()
+        }
+
+        <span class="kw">fn </span>system_domain_state_root_at(
+            number: NumberFor&lt;Block&gt;,
+            domain_hash: domain_runtime_primitives::Hash
+        ) -&gt; <span class="prelude-ty">Option</span>&lt;domain_runtime_primitives::Hash&gt;{
+            Receipts::domain_state_root_at(DomainId::SYSTEM, number, domain_hash)
         }
     }
 
@@ -2414,7 +2546,12 @@
         ) -&gt; pallet_transaction_payment::FeeDetails&lt;Balance&gt; {
             TransactionPayment::query_fee_details(uxt, len)
         }
+        <span class="kw">fn </span>query_weight_to_fee(weight: Weight) -&gt; Balance {
+            TransactionPayment::weight_to_fee(weight)
+        }
+        <span class="kw">fn </span>query_length_to_fee(length: u32) -&gt; Balance {
+            TransactionPayment::length_to_fee(length)
+        }
     }
 }
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="subspace_test_runtime" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</code></pre></div></section></main></body></html>

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":["is_proof_valid"],"struct":["Quality","Table"]};

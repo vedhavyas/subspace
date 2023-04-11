@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/pallet-domains/src/lib.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-1f7d512b176f0f72.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-124a1ca42af929b6.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-3dd8914bdd6e2ce5.css" id="mainThemeStyle"><link rel="stylesheet" id="themeStyle" href="../../static.files/light-1469fca9efc07bcb.css"><link rel="stylesheet" disabled href="../../static.files/dark-e9b7e5d8ba0dc980.css"><link rel="stylesheet" disabled href="../../static.files/ayu-0c1cf144240c9f40.css"><script id="default-settings" ></script><script src="../../static.files/storage-d43fa987303ecbbb.js"></script><script defer src="../../static.files/source-script-5cf2e01a42cc9858.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-799a64abec831f72.js"></script><noscript><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><div class="width-limiter"><nav class="sub"><a class="sub-logo-container" href="../../pallet_domains/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-5ec35bf9ca753509.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `crates/pallet-domains/src/lib.rs`."><title>lib.rs - source</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Regular-46f98efaafac5295.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Regular-018c141bf0843ffd.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/FiraSans-Medium-8f9a781e4970d388.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Regular-562dcc5011b6de7d.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceSerif4-Bold-a2c9cd1067f8b328.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../../static.files/SourceCodePro-Semibold-d899c5a5c4aeb14a.ttf.woff2"><link rel="stylesheet" href="../../static.files/normalize-76eba96aa4d2e634.css"><link rel="stylesheet" href="../../static.files/rustdoc-fbd14db5c88ed452.css" id="mainThemeStyle"><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="pallet_domains" data-themes="" data-resource-suffix="" data-rustdoc-version="1.70.0-nightly (0599b6b93 2023-04-01)" data-search-js="search-bc5a112813b5d712.js" data-settings-js="settings-f0c5c39777a9a2f6.js" data-settings-css="settings-0bcba95ff279c1db.css" data-theme-light-css="light-db279b6232be9c13.css" data-theme-dark-css="dark-cf923f49f397b216.css" data-theme-ayu-css="ayu-be46fdc453a55015.css" ></div><script src="../../static.files/storage-d4a1a279bad1a0c0.js"></script><script defer src="../../static.files/source-script-1b95b7cca98b26e5.js"></script><script defer src="../../source-files.js"></script><script defer src="../../static.files/main-8e6affb8c73a5ff1.js"></script><noscript><link rel="stylesheet" media="(prefers-color-scheme:light)" href="../../static.files/light-db279b6232be9c13.css"><link rel="stylesheet" media="(prefers-color-scheme:dark)" href="../../static.files/dark-cf923f49f397b216.css"><link rel="stylesheet" href="../../static.files/noscript-13285aec31fa243e.css"></noscript><link rel="alternate icon" type="image/png" href="../../static.files/favicon-16x16-8b506e7a72182f1c.png"><link rel="alternate icon" type="image/png" href="../../static.files/favicon-32x32-422f7d1d52889060.png"><link rel="icon" type="image/svg+xml" href="../../static.files/favicon-2c020d218678b618.svg"></head><body class="rustdoc source"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"></nav><main><nav class="sub"><a class="sub-logo-container" href="../../pallet_domains/index.html"><img class="rust-logo" src="../../static.files/rust-logo-151179464ae7ed46.svg" alt="logo"></a><form class="search-form"><span></span><input class="search-input" name="search" aria-label="Run search in the documentation" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../../static.files/wheel-7b819b6101059cd0.svg"></a></div></form></nav><section id="main-content" class="content"><div class="example-wrap"><pre class="src-line-numbers"><a href="#1" id="1">1</a>
 <a href="#2" id="2">2</a>
 <a href="#3" id="3">3</a>
 <a href="#4" id="4">4</a>
@@ -757,134 +757,6 @@
 <a href="#757" id="757">757</a>
 <a href="#758" id="758">758</a>
 <a href="#759" id="759">759</a>
-<a href="#760" id="760">760</a>
-<a href="#761" id="761">761</a>
-<a href="#762" id="762">762</a>
-<a href="#763" id="763">763</a>
-<a href="#764" id="764">764</a>
-<a href="#765" id="765">765</a>
-<a href="#766" id="766">766</a>
-<a href="#767" id="767">767</a>
-<a href="#768" id="768">768</a>
-<a href="#769" id="769">769</a>
-<a href="#770" id="770">770</a>
-<a href="#771" id="771">771</a>
-<a href="#772" id="772">772</a>
-<a href="#773" id="773">773</a>
-<a href="#774" id="774">774</a>
-<a href="#775" id="775">775</a>
-<a href="#776" id="776">776</a>
-<a href="#777" id="777">777</a>
-<a href="#778" id="778">778</a>
-<a href="#779" id="779">779</a>
-<a href="#780" id="780">780</a>
-<a href="#781" id="781">781</a>
-<a href="#782" id="782">782</a>
-<a href="#783" id="783">783</a>
-<a href="#784" id="784">784</a>
-<a href="#785" id="785">785</a>
-<a href="#786" id="786">786</a>
-<a href="#787" id="787">787</a>
-<a href="#788" id="788">788</a>
-<a href="#789" id="789">789</a>
-<a href="#790" id="790">790</a>
-<a href="#791" id="791">791</a>
-<a href="#792" id="792">792</a>
-<a href="#793" id="793">793</a>
-<a href="#794" id="794">794</a>
-<a href="#795" id="795">795</a>
-<a href="#796" id="796">796</a>
-<a href="#797" id="797">797</a>
-<a href="#798" id="798">798</a>
-<a href="#799" id="799">799</a>
-<a href="#800" id="800">800</a>
-<a href="#801" id="801">801</a>
-<a href="#802" id="802">802</a>
-<a href="#803" id="803">803</a>
-<a href="#804" id="804">804</a>
-<a href="#805" id="805">805</a>
-<a href="#806" id="806">806</a>
-<a href="#807" id="807">807</a>
-<a href="#808" id="808">808</a>
-<a href="#809" id="809">809</a>
-<a href="#810" id="810">810</a>
-<a href="#811" id="811">811</a>
-<a href="#812" id="812">812</a>
-<a href="#813" id="813">813</a>
-<a href="#814" id="814">814</a>
-<a href="#815" id="815">815</a>
-<a href="#816" id="816">816</a>
-<a href="#817" id="817">817</a>
-<a href="#818" id="818">818</a>
-<a href="#819" id="819">819</a>
-<a href="#820" id="820">820</a>
-<a href="#821" id="821">821</a>
-<a href="#822" id="822">822</a>
-<a href="#823" id="823">823</a>
-<a href="#824" id="824">824</a>
-<a href="#825" id="825">825</a>
-<a href="#826" id="826">826</a>
-<a href="#827" id="827">827</a>
-<a href="#828" id="828">828</a>
-<a href="#829" id="829">829</a>
-<a href="#830" id="830">830</a>
-<a href="#831" id="831">831</a>
-<a href="#832" id="832">832</a>
-<a href="#833" id="833">833</a>
-<a href="#834" id="834">834</a>
-<a href="#835" id="835">835</a>
-<a href="#836" id="836">836</a>
-<a href="#837" id="837">837</a>
-<a href="#838" id="838">838</a>
-<a href="#839" id="839">839</a>
-<a href="#840" id="840">840</a>
-<a href="#841" id="841">841</a>
-<a href="#842" id="842">842</a>
-<a href="#843" id="843">843</a>
-<a href="#844" id="844">844</a>
-<a href="#845" id="845">845</a>
-<a href="#846" id="846">846</a>
-<a href="#847" id="847">847</a>
-<a href="#848" id="848">848</a>
-<a href="#849" id="849">849</a>
-<a href="#850" id="850">850</a>
-<a href="#851" id="851">851</a>
-<a href="#852" id="852">852</a>
-<a href="#853" id="853">853</a>
-<a href="#854" id="854">854</a>
-<a href="#855" id="855">855</a>
-<a href="#856" id="856">856</a>
-<a href="#857" id="857">857</a>
-<a href="#858" id="858">858</a>
-<a href="#859" id="859">859</a>
-<a href="#860" id="860">860</a>
-<a href="#861" id="861">861</a>
-<a href="#862" id="862">862</a>
-<a href="#863" id="863">863</a>
-<a href="#864" id="864">864</a>
-<a href="#865" id="865">865</a>
-<a href="#866" id="866">866</a>
-<a href="#867" id="867">867</a>
-<a href="#868" id="868">868</a>
-<a href="#869" id="869">869</a>
-<a href="#870" id="870">870</a>
-<a href="#871" id="871">871</a>
-<a href="#872" id="872">872</a>
-<a href="#873" id="873">873</a>
-<a href="#874" id="874">874</a>
-<a href="#875" id="875">875</a>
-<a href="#876" id="876">876</a>
-<a href="#877" id="877">877</a>
-<a href="#878" id="878">878</a>
-<a href="#879" id="879">879</a>
-<a href="#880" id="880">880</a>
-<a href="#881" id="881">881</a>
-<a href="#882" id="882">882</a>
-<a href="#883" id="883">883</a>
-<a href="#884" id="884">884</a>
-<a href="#885" id="885">885</a>
-<a href="#886" id="886">886</a>
-<a href="#887" id="887">887</a>
 </pre><pre class="rust"><code><span class="comment">// Copyright (C) 2021 Subspace Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
@@ -903,83 +775,51 @@
 </span><span class="doccomment">//! Pallet Domains
 
 </span><span class="attr">#![cfg_attr(not(feature = <span class="string">&quot;std&quot;</span>), no_std)]
-#![feature(is_sorted)]
+#![feature(array_windows)]
 
 #[cfg(test)]
 </span><span class="kw">mod </span>tests;
 
 <span class="kw">use </span>codec::{Decode, Encode};
-<span class="kw">use </span>frame_support::ensure;
 <span class="kw">use </span>frame_support::traits::Get;
 <span class="kw">use </span>frame_system::offchain::SubmitTransaction;
 <span class="kw">pub use </span>pallet::<span class="kw-2">*</span>;
 <span class="kw">use </span>sp_core::H256;
 <span class="kw">use </span>sp_domains::bundle_election::{verify_system_bundle_solution, verify_vrf_proof};
 <span class="kw">use </span>sp_domains::fraud_proof::{BundleEquivocationProof, FraudProof, InvalidTransactionProof};
+<span class="kw">use </span>sp_domains::merkle_tree::Witness;
 <span class="kw">use </span>sp_domains::transaction::InvalidTransactionCode;
-<span class="kw">use </span>sp_domains::{DomainId, ExecutionReceipt, ProofOfElection, SignedOpaqueBundle};
-<span class="kw">use </span>sp_runtime::traits::{BlockNumberProvider, CheckedSub, One, Saturating, Zero};
+<span class="kw">use </span>sp_domains::{BundleSolution, DomainId, ExecutionReceipt, ProofOfElection, SignedOpaqueBundle};
+<span class="kw">use </span>sp_runtime::traits::{BlockNumberProvider, CheckedSub, One, Zero};
 <span class="kw">use </span>sp_runtime::transaction_validity::TransactionValidityError;
 <span class="kw">use </span>sp_runtime::RuntimeAppPublic;
-<span class="kw">use </span>sp_std::vec::Vec;
 
 <span class="attr">#[frame_support::pallet]
 </span><span class="kw">mod </span>pallet {
     <span class="kw">use </span>frame_support::pallet_prelude::<span class="kw-2">*</span>;
     <span class="kw">use </span>frame_support::PalletError;
     <span class="kw">use </span>frame_system::pallet_prelude::<span class="kw-2">*</span>;
+    <span class="kw">use </span>pallet_receipts::{Error <span class="kw">as </span>ReceiptError, FraudProofError};
     <span class="kw">use </span>sp_core::H256;
     <span class="kw">use </span>sp_domains::fraud_proof::{BundleEquivocationProof, FraudProof, InvalidTransactionProof};
     <span class="kw">use </span>sp_domains::transaction::InvalidTransactionCode;
-    <span class="kw">use </span>sp_domains::{DomainId, ExecutionReceipt, ExecutorPublicKey, SignedOpaqueBundle};
-    <span class="kw">use </span>sp_runtime::traits::{
-        CheckEqual, MaybeDisplay, MaybeMallocSizeOf, One, SimpleBitOps, Zero,
-    };
+    <span class="kw">use </span>sp_domains::{DomainId, ExecutorPublicKey, SignedOpaqueBundle};
+    <span class="kw">use </span>sp_runtime::traits::{One, Zero};
     <span class="kw">use </span>sp_std::fmt::Debug;
 
     <span class="attr">#[pallet::config]
-    </span><span class="kw">pub trait </span>Config: frame_system::Config {
+    </span><span class="kw">pub trait </span>Config: frame_system::Config + pallet_receipts::Config {
         <span class="kw">type </span>RuntimeEvent: From&lt;Event&lt;<span class="self">Self</span>&gt;&gt; + IsType&lt;&lt;<span class="self">Self </span><span class="kw">as </span>frame_system::Config&gt;::RuntimeEvent&gt;;
-
-        <span class="doccomment">/// Domain block hash type.
-        </span><span class="kw">type </span>DomainHash: Parameter
-            + Member
-            + MaybeSerializeDeserialize
-            + Debug
-            + MaybeDisplay
-            + SimpleBitOps
-            + Ord
-            + Default
-            + Copy
-            + CheckEqual
-            + sp_std::hash::Hash
-            + AsRef&lt;[u8]&gt;
-            + AsMut&lt;[u8]&gt;
-            + MaybeMallocSizeOf
-            + MaxEncodedLen;
-
-        <span class="doccomment">/// Number of execution receipts kept in the state.
-        </span><span class="attr">#[pallet::constant]
-        </span><span class="kw">type </span>ReceiptsPruningDepth: Get&lt;<span class="self">Self</span>::BlockNumber&gt;;
-
-        <span class="doccomment">/// Maximum execution receipt drift.
-        ///
-        /// If the primary number of an execution receipt plus the maximum drift is bigger than the
-        /// best execution chain number, this receipt will be rejected as being too far in the
-        /// future.
-        </span><span class="attr">#[pallet::constant]
-        </span><span class="kw">type </span>MaximumReceiptDrift: Get&lt;<span class="self">Self</span>::BlockNumber&gt;;
 
         <span class="doccomment">/// Same with `pallet_subspace::Config::ConfirmationDepthK`.
         </span><span class="kw">type </span>ConfirmationDepthK: Get&lt;<span class="self">Self</span>::BlockNumber&gt;;
     }
 
     <span class="attr">#[pallet::pallet]
-    #[pallet::generate_store(<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">trait </span>Store)]
     #[pallet::without_storage_info]
     </span><span class="kw">pub struct </span>Pallet&lt;T&gt;(<span class="kw">_</span>);
 
-    <span class="attr">#[derive(TypeInfo, Encode, Decode, PalletError, Debug)]
+    <span class="attr">#[derive(TypeInfo, Encode, Decode, PalletError, Debug, PartialEq)]
     </span><span class="kw">pub enum </span>BundleError {
         <span class="doccomment">/// The signer of bundle is unexpected.
         </span>UnexpectedSigner,
@@ -987,8 +827,8 @@
         </span>BadSignature,
         <span class="doccomment">/// Invalid vrf proof.
         </span>BadVrfProof,
-        <span class="doccomment">/// Can not verify the state root as the receipt is not been on the primary chain.
-        </span>StateRootUnverifiable,
+        <span class="doccomment">/// State of a system domain block is missing.
+        </span>StateRootNotFound,
         <span class="doccomment">/// Invalid state root in the proof of election.
         </span>BadStateRoot,
         <span class="doccomment">/// The type of state root is not H256.
@@ -997,6 +837,10 @@
         </span>BadElectionSolution,
         <span class="doccomment">/// An invalid execution receipt found in the bundle.
         </span>Receipt(ExecutionReceiptError),
+        <span class="doccomment">/// The Bundle is created too long ago.
+        </span>StaleBundle,
+        <span class="doccomment">/// Bundle was created on an unknown primary block (probably a fork block).
+        </span>UnknownBlock,
     }
 
     <span class="kw">impl</span>&lt;T&gt; From&lt;BundleError&gt; <span class="kw">for </span>Error&lt;T&gt; {
@@ -1005,7 +849,7 @@
         }
     }
 
-    <span class="attr">#[derive(TypeInfo, Encode, Decode, PalletError, Debug)]
+    <span class="attr">#[derive(TypeInfo, Encode, Decode, PalletError, Debug, PartialEq)]
     </span><span class="kw">pub enum </span>ExecutionReceiptError {
         <span class="doccomment">/// The parent execution receipt is unknown.
         </span>MissingParent,
@@ -1015,32 +859,28 @@
         </span>UnknownBlock,
         <span class="doccomment">/// The execution receipt is too far in the future.
         </span>TooFarInFuture,
-        <span class="doccomment">/// Receipts are not in ascending order.
-        </span>Unsorted,
+        <span class="doccomment">/// Receipts are not consecutive.
+        </span>Inconsecutive,
         <span class="doccomment">/// Receipts in a bundle can not be empty.
         </span>Empty,
     }
 
-    <span class="attr">#[derive(TypeInfo, Encode, Decode, PalletError, Debug)]
-    </span><span class="kw">pub enum </span>FraudProofError {
-        <span class="doccomment">/// Fraud proof is expired as the execution receipt has been pruned.
-        </span>ExecutionReceiptPruned,
-        <span class="doccomment">/// Trying to prove an receipt from the future.
-        </span>ExecutionReceiptInFuture,
-        <span class="doccomment">/// Unexpected hash type.
-        </span>WrongHashType,
-        <span class="doccomment">/// The execution receipt points to a block unknown to the history.
-        </span>UnknownBlock,
-    }
-
-    <span class="kw">impl</span>&lt;T&gt; From&lt;FraudProofError&gt; <span class="kw">for </span>Error&lt;T&gt; {
-        <span class="kw">fn </span>from(e: FraudProofError) -&gt; <span class="self">Self </span>{
-            <span class="self">Self</span>::FraudProof(e)
+    <span class="kw">impl</span>&lt;T&gt; From&lt;ReceiptError&gt; <span class="kw">for </span>Error&lt;T&gt; {
+        <span class="kw">fn </span>from(error: ReceiptError) -&gt; <span class="self">Self </span>{
+            <span class="kw">match </span>error {
+                ReceiptError::MissingParent =&gt; {
+                    <span class="self">Self</span>::Bundle(BundleError::Receipt(ExecutionReceiptError::MissingParent))
+                }
+                ReceiptError::FraudProof(err) =&gt; <span class="self">Self</span>::FraudProof(err),
+                ReceiptError::UnavailablePrimaryBlockHash =&gt; <span class="self">Self</span>::UnavailablePrimaryBlockHash,
+            }
         }
     }
 
     <span class="attr">#[pallet::error]
     </span><span class="kw">pub enum </span>Error&lt;T&gt; {
+        <span class="doccomment">/// Can not find the block hash of given primary block number.
+        </span>UnavailablePrimaryBlockHash,
         <span class="doccomment">/// Invalid bundle.
         </span>Bundle(BundleError),
         <span class="doccomment">/// Invalid fraud proof.
@@ -1048,23 +888,14 @@
     }
 
     <span class="attr">#[pallet::event]
-    #[pallet::generate_deposit(<span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">fn </span>deposit_event)]
+    #[pallet::generate_deposit(<span class="kw">pub </span>(<span class="kw">super</span>) <span class="kw">fn </span>deposit_event)]
     </span><span class="kw">pub enum </span>Event&lt;T: Config&gt; {
-        <span class="comment">// TODO: We do not rely on this event to collect the receipts included in a block, perhaps can be removed later.
-        </span><span class="doccomment">/// A new system domain receipt was backed.
-        </span>NewSystemDomainReceipt {
-            domain_id: DomainId,
-            primary_number: T::BlockNumber,
-            primary_hash: T::Hash,
-        },
         <span class="doccomment">/// A domain bundle was included.
         </span>BundleStored {
             domain_id: DomainId,
             bundle_hash: H256,
             bundle_author: ExecutorPublicKey,
         },
-        <span class="doccomment">/// A fraud proof was processed.
-        </span>FraudProofProcessed,
         <span class="doccomment">/// A bundle equivocation proof was processed.
         </span>BundleEquivocationProofProcessed,
         <span class="doccomment">/// An invalid transaction proof was processed.
@@ -1074,7 +905,8 @@
     <span class="attr">#[pallet::call]
     </span><span class="kw">impl</span>&lt;T: Config&gt; Pallet&lt;T&gt; {
         <span class="comment">// TODO: proper weight
-        </span><span class="attr">#[pallet::weight((<span class="number">10_000</span>, Pays::No))]
+        </span><span class="attr">#[pallet::call_index(<span class="number">0</span>)]
+        #[pallet::weight((<span class="number">10_000</span>, Pays::No))]
         </span><span class="kw">pub fn </span>submit_bundle(
             origin: OriginFor&lt;T&gt;,
             signed_opaque_bundle: SignedOpaqueBundle&lt;T::BlockNumber, T::Hash, T::DomainHash&gt;,
@@ -1087,81 +919,49 @@
 
             <span class="comment">// Only process the system domain receipts.
             </span><span class="kw">if </span>domain_id.is_system() {
-                <span class="kw">let </span>oldest_receipt_number = OldestReceiptNumber::&lt;T&gt;::get();
-                <span class="kw">let </span>(<span class="kw">_</span>, <span class="kw-2">mut </span>best_number) = &lt;ReceiptHead&lt;T&gt;&gt;::get();
-
-                <span class="kw">for </span>receipt <span class="kw">in </span><span class="kw-2">&amp;</span>signed_opaque_bundle.bundle.receipts {
-                    <span class="comment">// Ignore the receipt if it has already been pruned.
-                    </span><span class="kw">if </span>receipt.primary_number &lt; oldest_receipt_number {
-                        <span class="kw">continue</span>;
-                    }
-
-                    <span class="kw">if </span>receipt.primary_number &lt;= best_number {
-                        <span class="comment">// Either increase the vote for a known receipt or add a fork receipt at this height.
-                        </span><span class="self">Self</span>::apply_non_new_best_receipt(domain_id, receipt);
-                    } <span class="kw">else if </span>receipt.primary_number == best_number + One::one() {
-                        <span class="self">Self</span>::apply_new_best_receipt(domain_id, receipt);
-                        best_number += One::one();
-                    } <span class="kw">else </span>{
-                        <span class="comment">// Reject the entire Bundle due to the missing receipt(s) between [best_number, .., receipt.primary_number].
-                        //
-                        // This should never happen as pre_dispatch_submit_bundle ensures no missing receipt.
-                        </span><span class="kw">return </span><span class="prelude-val">Err</span>(Error::&lt;T&gt;::Bundle(BundleError::Receipt(
-                            ExecutionReceiptError::MissingParent,
-                        ))
-                        .into());
-                    }
-                }
+                pallet_receipts::Pallet::&lt;T&gt;::track_receipts(
+                    domain_id,
+                    signed_opaque_bundle.bundle.receipts.as_slice(),
+                )
+                .map_err(Error::&lt;T&gt;::from)<span class="question-mark">?</span>;
             }
 
             <span class="self">Self</span>::deposit_event(Event::BundleStored {
                 domain_id,
                 bundle_hash: signed_opaque_bundle.hash(),
-                bundle_author: signed_opaque_bundle
-                    .bundle_solution
-                    .proof_of_election()
-                    .executor_public_key
-                    .clone(),
+                bundle_author: signed_opaque_bundle.into_executor_public_key(),
             });
 
             <span class="prelude-val">Ok</span>(())
         }
 
         <span class="comment">// TODO: proper weight
-        </span><span class="attr">#[pallet::weight((<span class="number">10_000</span>, Pays::No))]
-        </span><span class="kw">pub fn </span>submit_fraud_proof(origin: OriginFor&lt;T&gt;, fraud_proof: FraudProof) -&gt; DispatchResult {
+        </span><span class="attr">#[pallet::call_index(<span class="number">1</span>)]
+        #[pallet::weight((<span class="number">10_000</span>, Pays::No))]
+        </span><span class="kw">pub fn </span>submit_fraud_proof(
+            origin: OriginFor&lt;T&gt;,
+            fraud_proof: FraudProof&lt;T::BlockNumber, T::Hash&gt;,
+        ) -&gt; DispatchResult {
             ensure_none(origin)<span class="question-mark">?</span>;
 
             <span class="macro">log::trace!</span>(target: <span class="string">&quot;runtime::domains&quot;</span>, <span class="string">&quot;Processing fraud proof: {fraud_proof:?}&quot;</span>);
 
-            <span class="comment">// Revert the execution chain.
-            </span><span class="kw">let </span>(<span class="kw">_</span>, <span class="kw-2">mut </span>to_remove) = ReceiptHead::&lt;T&gt;::get();
-
-            <span class="kw">let </span>new_best_number: T::BlockNumber = fraud_proof.parent_number.into();
-            <span class="kw">let </span>new_best_hash = BlockHash::&lt;T&gt;::get(new_best_number);
-
-            ReceiptHead::&lt;T&gt;::put((new_best_hash, new_best_number));
-
-            <span class="kw">while </span>to_remove &gt; new_best_number {
-                <span class="kw">let </span>block_hash = BlockHash::&lt;T&gt;::get(to_remove);
-                <span class="kw">for </span>(receipt_hash, <span class="kw">_</span>) <span class="kw">in </span>&lt;ReceiptVotes&lt;T&gt;&gt;::drain_prefix(block_hash) {
-                    Receipts::&lt;T&gt;::remove(receipt_hash);
-                }
-                to_remove -= One::one();
+            <span class="kw">if </span>fraud_proof.domain_id().is_system() {
+                pallet_receipts::Pallet::&lt;T&gt;::process_fraud_proof(fraud_proof)
+                    .map_err(Error::&lt;T&gt;::from)<span class="question-mark">?</span>;
             }
 
             <span class="comment">// TODO: slash the executor accordingly.
 
-            </span><span class="self">Self</span>::deposit_event(Event::FraudProofProcessed);
-
-            <span class="prelude-val">Ok</span>(())
+            </span><span class="prelude-val">Ok</span>(())
         }
 
         <span class="comment">// TODO: proper weight
-        </span><span class="attr">#[pallet::weight((<span class="number">10_000</span>, Pays::No))]
+        </span><span class="attr">#[pallet::call_index(<span class="number">2</span>)]
+        #[pallet::weight((<span class="number">10_000</span>, Pays::No))]
         </span><span class="kw">pub fn </span>submit_bundle_equivocation_proof(
             origin: OriginFor&lt;T&gt;,
-            bundle_equivocation_proof: BundleEquivocationProof&lt;T::Hash&gt;,
+            bundle_equivocation_proof: BundleEquivocationProof&lt;T::BlockNumber, T::Hash&gt;,
         ) -&gt; DispatchResult {
             ensure_none(origin)<span class="question-mark">?</span>;
 
@@ -1175,7 +975,8 @@
         }
 
         <span class="comment">// TODO: proper weight
-        </span><span class="attr">#[pallet::weight((<span class="number">10_000</span>, Pays::No))]
+        </span><span class="attr">#[pallet::call_index(<span class="number">3</span>)]
+        #[pallet::weight((<span class="number">10_000</span>, Pays::No))]
         </span><span class="kw">pub fn </span>submit_invalid_transaction_proof(
             origin: OriginFor&lt;T&gt;,
             invalid_transaction_proof: InvalidTransactionProof,
@@ -1192,70 +993,25 @@
         }
     }
 
-    <span class="doccomment">/// Map of primary block number to primary block hash.
-    ///
-    /// NOTE: The oldest block hash will be pruned once the oldest receipt is pruned. However, if the
-    /// system domain stalls, i.e., no receipts are included in the primary chain for a long time,
-    /// this mapping will grow indefinitely.
-    </span><span class="attr">#[pallet::storage]
-    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">type </span>BlockHash&lt;T: Config&gt; =
-        StorageMap&lt;<span class="kw">_</span>, Twox64Concat, T::BlockNumber, T::Hash, ValueQuery&gt;;
-
-    <span class="doccomment">/// Mapping from the receipt hash to the corresponding verified execution receipt.
-    ///
-    /// The capacity of receipts stored in the state is [`Config::ReceiptsPruningDepth`], the older
-    /// ones will be pruned once the size of receipts exceeds this number.
-    </span><span class="attr">#[pallet::storage]
-    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">type </span>Receipts&lt;T: Config&gt; = StorageMap&lt;
-        <span class="kw">_</span>,
-        Twox64Concat,
-        H256,
-        ExecutionReceipt&lt;T::BlockNumber, T::Hash, T::DomainHash&gt;,
-        OptionQuery,
-    &gt;;
-
-    <span class="doccomment">/// Mapping for tracking the receipt votes.
-    ///
-    /// (primary_block_hash, receipt_hash, receipt_count)
-    </span><span class="attr">#[pallet::storage]
-    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">type </span>ReceiptVotes&lt;T: Config&gt; =
-        StorageDoubleMap&lt;<span class="kw">_</span>, Twox64Concat, T::Hash, Blake2_128Concat, H256, u32, ValueQuery&gt;;
-
-    <span class="doccomment">/// Mapping for tracking the secondary state roots.
-    ///
-    /// (secondary_block_number, secondary_block_hash, secondary_state_root)
-    </span><span class="attr">#[pallet::storage]
-    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">type </span>StateRoots&lt;T: Config&gt; = StorageDoubleMap&lt;
-        <span class="kw">_</span>,
-        Twox64Concat,
-        T::BlockNumber,
-        Blake2_128Concat,
-        T::DomainHash,
-        T::DomainHash,
-        OptionQuery,
-    &gt;;
-
-    <span class="doccomment">/// A pair of (block_hash, block_number) of the latest execution receipt.
-    </span><span class="attr">#[pallet::storage]
-    #[pallet::getter(<span class="kw">fn </span>receipt_head)]
-    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">type </span>ReceiptHead&lt;T: Config&gt; = StorageValue&lt;<span class="kw">_</span>, (T::Hash, T::BlockNumber), ValueQuery&gt;;
-
-    <span class="doccomment">/// Block number of the oldest receipt stored in the state.
-    </span><span class="attr">#[pallet::storage]
-    </span><span class="kw">pub</span>(<span class="kw">super</span>) <span class="kw">type </span>OldestReceiptNumber&lt;T: Config&gt; = StorageValue&lt;<span class="kw">_</span>, T::BlockNumber, ValueQuery&gt;;
-
     <span class="attr">#[pallet::hooks]
     </span><span class="kw">impl</span>&lt;T: Config&gt; Hooks&lt;T::BlockNumber&gt; <span class="kw">for </span>Pallet&lt;T&gt; {
         <span class="kw">fn </span>on_initialize(block_number: T::BlockNumber) -&gt; Weight {
             <span class="kw">let </span>parent_number = block_number - One::one();
             <span class="kw">let </span>parent_hash = frame_system::Pallet::&lt;T&gt;::block_hash(parent_number);
 
-            &lt;BlockHash&lt;T&gt;&gt;::insert(parent_number, parent_hash);
+            pallet_receipts::PrimaryBlockHash::&lt;T&gt;::insert(
+                DomainId::SYSTEM,
+                parent_number,
+                parent_hash,
+            );
 
             <span class="comment">// The genesis block hash is not finalized until the genesis block building is done,
             // hence the genesis receipt is initialized after the genesis building.
             </span><span class="kw">if </span>parent_number.is_zero() {
-                <span class="self">Self</span>::initialize_genesis_receipt(parent_hash);
+                pallet_receipts::Pallet::&lt;T&gt;::initialize_genesis_receipt(
+                    DomainId::SYSTEM,
+                    parent_hash,
+                );
             }
 
             T::DbWeight::get().writes(<span class="number">1</span>)
@@ -1294,9 +1050,9 @@
                     signed_opaque_bundle,
                 } =&gt; {
                     <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = <span class="self">Self</span>::validate_bundle(signed_opaque_bundle) {
-                        <span class="macro">log::error!</span>(
+                        <span class="macro">log::debug!</span>(
                             target: <span class="string">&quot;runtime::domains&quot;</span>,
-                            <span class="string">&quot;Bad bundle: {signed_opaque_bundle:?}, error: {e:?}&quot;</span>,
+                            <span class="string">&quot;Bad bundle {:?}, error: {e:?}&quot;</span>, signed_opaque_bundle.domain_id(),
                         );
                         <span class="kw">if let </span>BundleError::Receipt(<span class="kw">_</span>) = e {
                             <span class="kw">return </span>InvalidTransactionCode::ExecutionReceipt.into();
@@ -1315,8 +1071,9 @@
                         .build()
                 }
                 Call::submit_fraud_proof { fraud_proof } =&gt; {
-                    <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = <span class="self">Self</span>::validate_fraud_proof(fraud_proof) {
-                        <span class="macro">log::error!</span>(
+                    <span class="kw">if let </span><span class="prelude-val">Err</span>(e) = pallet_receipts::Pallet::&lt;T&gt;::validate_fraud_proof(fraud_proof)
+                    {
+                        <span class="macro">log::debug!</span>(
                             target: <span class="string">&quot;runtime::domains&quot;</span>,
                             <span class="string">&quot;Bad fraud proof: {fraud_proof:?}, error: {e:?}&quot;</span>,
                         );
@@ -1332,7 +1089,7 @@
                     <span class="kw">if let </span><span class="prelude-val">Err</span>(e) =
                         <span class="self">Self</span>::validate_bundle_equivocation_proof(bundle_equivocation_proof)
                     {
-                        <span class="macro">log::error!</span>(
+                        <span class="macro">log::debug!</span>(
                             target: <span class="string">&quot;runtime::domains&quot;</span>,
                             <span class="string">&quot;Bad bundle equivocation proof: {bundle_equivocation_proof:?}, error: {e:?}&quot;</span>,
                         );
@@ -1350,7 +1107,7 @@
                     <span class="kw">if let </span><span class="prelude-val">Err</span>(e) =
                         <span class="self">Self</span>::validate_invalid_transaction_proof(invalid_transaction_proof)
                     {
-                        <span class="macro">log::error!</span>(
+                        <span class="macro">log::debug!</span>(
                             target: <span class="string">&quot;runtime::domains&quot;</span>,
                             <span class="string">&quot;Bad invalid transaction proof: {invalid_transaction_proof:?}, error: {e:?}&quot;</span>,
                         );
@@ -1372,32 +1129,20 @@
 <span class="kw">impl</span>&lt;T: Config&gt; Pallet&lt;T&gt; {
     <span class="doccomment">/// Returns the block number of the latest receipt.
     </span><span class="kw">pub fn </span>head_receipt_number() -&gt; T::BlockNumber {
-        <span class="kw">let </span>(<span class="kw">_</span>, best_number) = &lt;ReceiptHead&lt;T&gt;&gt;::get();
-        best_number
+        pallet_receipts::Pallet::&lt;T&gt;::head_receipt_number(DomainId::SYSTEM)
     }
 
     <span class="doccomment">/// Returns the block number of the oldest receipt still being tracked in the state.
     </span><span class="kw">pub fn </span>oldest_receipt_number() -&gt; T::BlockNumber {
-        <span class="self">Self</span>::finalized_receipt_number() + One::one()
+        pallet_receipts::Pallet::&lt;T&gt;::oldest_receipt_number(DomainId::SYSTEM)
     }
 
-    <span class="doccomment">/// Returns the block number of latest _finalized_ receipt.
-    </span><span class="kw">pub fn </span>finalized_receipt_number() -&gt; T::BlockNumber {
-        <span class="kw">let </span>(<span class="kw">_</span>, best_number) = &lt;ReceiptHead&lt;T&gt;&gt;::get();
-        best_number.saturating_sub(T::ReceiptsPruningDepth::get())
-    }
-
-    <span class="kw">fn </span>initialize_genesis_receipt(genesis_hash: T::Hash) {
-        <span class="kw">let </span>genesis_receipt = ExecutionReceipt {
-            primary_number: Zero::zero(),
-            primary_hash: genesis_hash,
-            domain_hash: T::DomainHash::default(),
-            trace: Vec::new(),
-            trace_root: Default::default(),
-        };
-        <span class="self">Self</span>::apply_new_best_receipt(DomainId::SYSTEM, <span class="kw-2">&amp;</span>genesis_receipt);
-        <span class="comment">// Explicitly initialize the oldest receipt number even not necessary as ValueQuery is used.
-        </span>OldestReceiptNumber::&lt;T&gt;::put::&lt;T::BlockNumber&gt;(Zero::zero());
+    <span class="kw">fn </span>receipts_are_consecutive(
+        receipts: <span class="kw-2">&amp;</span>[ExecutionReceipt&lt;T::BlockNumber, T::Hash, T::DomainHash&gt;],
+    ) -&gt; bool {
+        receipts
+            .array_windows()
+            .all(|[<span class="kw-2">ref </span>head, <span class="kw-2">ref </span>tail]| head.primary_number + One::one() == tail.primary_number)
     }
 
     <span class="kw">fn </span>pre_dispatch_submit_bundle(
@@ -1405,46 +1150,61 @@
     ) -&gt; <span class="prelude-ty">Result</span>&lt;(), TransactionValidityError&gt; {
         <span class="kw">let </span>execution_receipts = <span class="kw-2">&amp;</span>signed_opaque_bundle.bundle.receipts;
 
-        <span class="kw">if </span>!execution_receipts
-            .iter()
-            .map(|r| r.primary_number)
-            .is_sorted()
-        {
+        <span class="kw">if </span>!<span class="self">Self</span>::receipts_are_consecutive(execution_receipts) {
             <span class="kw">return </span><span class="prelude-val">Err</span>(TransactionValidityError::Invalid(
                 InvalidTransactionCode::ExecutionReceipt.into(),
             ));
         }
 
         <span class="kw">if </span>signed_opaque_bundle.domain_id().is_system() {
-            <span class="kw">let </span>(<span class="kw">_</span>, <span class="kw-2">mut </span>best_number) = &lt;ReceiptHead&lt;T&gt;&gt;::get();
+            <span class="kw">let </span>oldest_receipt_number = <span class="self">Self</span>::oldest_receipt_number();
+            <span class="kw">let </span><span class="kw-2">mut </span>best_number = <span class="self">Self</span>::head_receipt_number();
 
             <span class="kw">for </span>receipt <span class="kw">in </span>execution_receipts {
+                <span class="kw">let </span>primary_number = receipt.primary_number;
+
+                <span class="comment">// Ignore the receipt if it has already been pruned.
+                </span><span class="kw">if </span>primary_number &lt; oldest_receipt_number {
+                    <span class="kw">continue</span>;
+                }
+
                 <span class="comment">// Non-best receipt
-                </span><span class="kw">if </span>receipt.primary_number &lt;= best_number {
-                    <span class="kw">if </span>BlockHash::&lt;T&gt;::get(receipt.primary_number) != receipt.primary_hash {
+                </span><span class="kw">if </span>primary_number &lt;= best_number {
+                    <span class="kw">if </span>!pallet_receipts::Pallet::&lt;T&gt;::point_to_valid_primary_block(
+                        DomainId::SYSTEM,
+                        receipt,
+                    ) {
+                        <span class="macro">log::debug!</span>(
+                            target: <span class="string">&quot;runtime::domains&quot;</span>,
+                            <span class="string">&quot;Invalid primary hash for #{primary_number:?} in receipt, \
+                            expected: {:?}, got: {:?}&quot;</span>,
+                            pallet_receipts::PrimaryBlockHash::&lt;T&gt;::get(DomainId::SYSTEM, primary_number),
+                            receipt.primary_hash,
+                        );
                         <span class="kw">return </span><span class="prelude-val">Err</span>(TransactionValidityError::Invalid(
                             InvalidTransactionCode::ExecutionReceipt.into(),
                         ));
                     }
-                    <span class="kw">continue</span>;
-                <span class="comment">// New nest receipt.
-                </span>} <span class="kw">else if </span>receipt.primary_number == best_number + One::one() {
-                    <span class="kw">if </span>BlockHash::&lt;T&gt;::get(receipt.primary_number) != receipt.primary_hash {
+                    <span class="comment">// New best receipt.
+                </span>} <span class="kw">else if </span>primary_number == best_number + One::one() {
+                    <span class="kw">if </span>!pallet_receipts::Pallet::&lt;T&gt;::point_to_valid_primary_block(
+                        DomainId::SYSTEM,
+                        receipt,
+                    ) {
+                        <span class="macro">log::debug!</span>(
+                            target: <span class="string">&quot;runtime::domains&quot;</span>,
+                            <span class="string">&quot;Invalid primary hash for #{primary_number:?} in receipt, \
+                            expected: {:?}, got: {:?}&quot;</span>,
+                            pallet_receipts::PrimaryBlockHash::&lt;T&gt;::get(DomainId::SYSTEM, primary_number),
+                            receipt.primary_hash,
+                        );
                         <span class="kw">return </span><span class="prelude-val">Err</span>(TransactionValidityError::Invalid(
                             InvalidTransactionCode::ExecutionReceipt.into(),
                         ));
                     }
                     best_number += One::one();
-                <span class="comment">// Missing receipt.
+                    <span class="comment">// Missing receipt.
                 </span>} <span class="kw">else </span>{
-                    <span class="kw">return </span><span class="prelude-val">Err</span>(TransactionValidityError::Invalid(
-                        InvalidTransactionCode::ExecutionReceipt.into(),
-                    ));
-                }
-            }
-        } <span class="kw">else </span>{
-            <span class="kw">for </span>receipt <span class="kw">in </span>execution_receipts {
-                <span class="kw">if </span>BlockHash::&lt;T&gt;::get(receipt.primary_number) != receipt.primary_hash {
                     <span class="kw">return </span><span class="prelude-val">Err</span>(TransactionValidityError::Invalid(
                         InvalidTransactionCode::ExecutionReceipt.into(),
                     ));
@@ -1457,6 +1217,8 @@
 
     <span class="kw">fn </span>validate_system_bundle_solution(
         receipts: <span class="kw-2">&amp;</span>[ExecutionReceipt&lt;T::BlockNumber, T::Hash, T::DomainHash&gt;],
+        authority_stake_weight: sp_domains::StakeWeight,
+        authority_witness: <span class="kw-2">&amp;</span>Witness,
         proof_of_election: <span class="kw-2">&amp;</span>ProofOfElection&lt;T::DomainHash&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;(), BundleError&gt; {
         <span class="kw">let </span>ProofOfElection {
@@ -1466,9 +1228,18 @@
             ..
         } = proof_of_election;
 
-        <span class="kw">if </span>!block_number.is_zero() {
-            <span class="kw">let </span>block_number = T::BlockNumber::from(<span class="kw-2">*</span>block_number);
+        <span class="kw">let </span>block_number = T::BlockNumber::from(<span class="kw-2">*</span>block_number);
 
+        <span class="kw">let </span>new_best_receipt_number = receipts
+            .iter()
+            .map(|receipt| receipt.primary_number)
+            .max()
+            .unwrap_or_default()
+            .max(<span class="self">Self</span>::head_receipt_number());
+
+        <span class="kw">let </span>state_root_verifiable = block_number &lt;= new_best_receipt_number;
+
+        <span class="kw">if </span>!block_number.is_zero() &amp;&amp; state_root_verifiable {
             <span class="kw">let </span>maybe_state_root = receipts.iter().find_map(|receipt| {
                 receipt.trace.last().and_then(|state_root| {
                     <span class="kw">if </span>(receipt.primary_number, receipt.domain_hash) == (block_number, <span class="kw-2">*</span>block_hash)
@@ -1482,11 +1253,29 @@
 
             <span class="kw">let </span>expected_state_root = <span class="kw">match </span>maybe_state_root {
                 <span class="prelude-val">Some</span>(v) =&gt; v,
-                <span class="prelude-val">None </span>=&gt; StateRoots::&lt;T&gt;::get(block_number, block_hash)
-                    .ok_or(BundleError::StateRootUnverifiable)<span class="question-mark">?</span>,
+                <span class="prelude-val">None </span>=&gt; pallet_receipts::Pallet::&lt;T&gt;::state_root((
+                    DomainId::SYSTEM,
+                    block_number,
+                    block_hash,
+                ))
+                .ok_or(BundleError::StateRootNotFound)
+                .map_err(|err| {
+                    <span class="macro">log::debug!</span>(
+                        target: <span class="string">&quot;runtime::domains&quot;</span>,
+                        <span class="string">&quot;State root for #{block_number:?},{block_hash:?} not found, \
+                        current head receipt: {:?}&quot;</span>,
+                        pallet_receipts::Pallet::&lt;T&gt;::receipt_head(DomainId::SYSTEM),
+                    );
+                    err
+                })<span class="question-mark">?</span>,
             };
 
             <span class="kw">if </span>expected_state_root != <span class="kw-2">*</span>state_root {
+                <span class="macro">log::debug!</span>(
+                    target: <span class="string">&quot;runtime::domains&quot;</span>,
+                    <span class="string">&quot;Bad state root for #{block_number:?},{block_hash:?}, \
+                    expected: {expected_state_root:?}, got: {state_root:?}&quot;</span>,
+                );
                 <span class="kw">return </span><span class="prelude-val">Err</span>(BundleError::BadStateRoot);
             }
         }
@@ -1494,13 +1283,19 @@
         <span class="kw">let </span>state_root = H256::decode(<span class="kw-2">&amp;mut </span>state_root.encode().as_slice())
             .map_err(|<span class="kw">_</span>| BundleError::StateRootNotH256)<span class="question-mark">?</span>;
 
-        verify_system_bundle_solution(proof_of_election, state_root)
-            .map_err(|<span class="kw">_</span>| BundleError::BadElectionSolution)<span class="question-mark">?</span>;
+        verify_system_bundle_solution(
+            proof_of_election,
+            state_root,
+            authority_stake_weight,
+            authority_witness,
+        )
+        .map_err(|<span class="kw">_</span>| BundleError::BadElectionSolution)<span class="question-mark">?</span>;
 
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">fn </span>validate_execution_receipts(
+    <span class="doccomment">/// Common validation of receipts in all kinds of domain bundle.
+    </span><span class="kw">fn </span>validate_execution_receipts(
         execution_receipts: <span class="kw-2">&amp;</span>[ExecutionReceipt&lt;T::BlockNumber, T::Hash, T::DomainHash&gt;],
     ) -&gt; <span class="prelude-ty">Result</span>&lt;(), ExecutionReceiptError&gt; {
         <span class="kw">let </span>current_block_number = frame_system::Pallet::&lt;T&gt;::current_block_number();
@@ -1511,41 +1306,8 @@
             <span class="kw">return </span><span class="prelude-val">Err</span>(ExecutionReceiptError::Empty);
         }
 
-        <span class="kw">if </span>!execution_receipts
-            .iter()
-            .map(|r| r.primary_number)
-            .is_sorted()
-        {
-            <span class="kw">return </span><span class="prelude-val">Err</span>(ExecutionReceiptError::Unsorted);
-        }
-
-        <span class="kw">let </span>(<span class="kw">_</span>, <span class="kw-2">mut </span>best_number) = &lt;ReceiptHead&lt;T&gt;&gt;::get();
-
-        <span class="kw">for </span>execution_receipt <span class="kw">in </span>execution_receipts {
-            <span class="comment">// Due to `initialize_block` is skipped while calling the runtime api, the block
-            // hash mapping for last block is unknown to the transaction pool, but this info
-            // is already available in System.
-            </span><span class="kw">let </span>point_to_parent_block = execution_receipt.primary_number
-                == current_block_number - One::one()
-                &amp;&amp; execution_receipt.primary_hash == frame_system::Pallet::&lt;T&gt;::parent_hash();
-
-            <span class="kw">if </span>!point_to_parent_block
-                &amp;&amp; BlockHash::&lt;T&gt;::get(execution_receipt.primary_number)
-                    != execution_receipt.primary_hash
-            {
-                <span class="kw">return </span><span class="prelude-val">Err</span>(ExecutionReceiptError::UnknownBlock);
-            }
-
-            <span class="comment">// Ensure the receipt is not too new.
-            </span><span class="kw">let </span>primary_number = execution_receipt.primary_number;
-
-            <span class="kw">if </span>primary_number == current_block_number
-                || primary_number &gt; best_number + T::MaximumReceiptDrift::get()
-            {
-                <span class="kw">return </span><span class="prelude-val">Err</span>(ExecutionReceiptError::TooFarInFuture);
-            }
-
-            best_number += One::one();
+        <span class="kw">if </span>!<span class="self">Self</span>::receipts_are_consecutive(execution_receipts) {
+            <span class="kw">return </span><span class="prelude-val">Err</span>(ExecutionReceiptError::Inconsecutive);
         }
 
         <span class="prelude-val">Ok</span>(())
@@ -1558,6 +1320,36 @@
             signature,
         }: <span class="kw-2">&amp;</span>SignedOpaqueBundle&lt;T::BlockNumber, T::Hash, T::DomainHash&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;(), BundleError&gt; {
+        <span class="kw">let </span>current_block_number = frame_system::Pallet::&lt;T&gt;::current_block_number();
+
+        <span class="comment">// Reject the stale bundles so that they can&#39;t be used by attacker to occupy the block space without cost.
+        </span><span class="kw">let </span>confirmation_depth_k = T::ConfirmationDepthK::get();
+        <span class="kw">if let </span><span class="prelude-val">Some</span>(finalized) = current_block_number.checked_sub(<span class="kw-2">&amp;</span>confirmation_depth_k) {
+            {
+                <span class="comment">// Ideally, `bundle.header.primary_number` is `current_block_number - 1`, we need
+                // to handle the edge case that `T::ConfirmationDepthK` happens to be 1.
+                </span><span class="kw">let </span>is_stale_bundle = <span class="kw">if </span>confirmation_depth_k.is_zero() {
+                    <span class="macro">unreachable!</span>(
+                        <span class="string">&quot;ConfirmationDepthK is guaranteed to be non-zero at genesis config&quot;
+                    </span>)
+                } <span class="kw">else if </span>confirmation_depth_k == One::one() {
+                    bundle.header.primary_number &lt; finalized
+                } <span class="kw">else </span>{
+                    bundle.header.primary_number &lt;= finalized
+                };
+
+                <span class="kw">if </span>is_stale_bundle {
+                    <span class="macro">log::debug!</span>(
+                        target: <span class="string">&quot;runtime::domains&quot;</span>,
+                        <span class="string">&quot;Bundle created on an ancient consensus block, current_block_number: {current_block_number:?}, \
+                        ConfirmationDepthK: {confirmation_depth_k:?}, `bundle.header.primary_number`: {:?}, `finalized`: {finalized:?}&quot;</span>,
+                        bundle.header.primary_number,
+                    );
+                    <span class="kw">return </span><span class="prelude-val">Err</span>(BundleError::StaleBundle);
+                }
+            }
+        }
+
         <span class="kw">let </span>proof_of_election = bundle_solution.proof_of_election();
 
         <span class="kw">if </span>!proof_of_election
@@ -1575,45 +1367,107 @@
         )
         .map_err(|<span class="kw">_</span>| BundleError::BadVrfProof)<span class="question-mark">?</span>;
 
-        <span class="kw">if </span>proof_of_election.domain_id.is_system() {
-            <span class="self">Self</span>::validate_system_bundle_solution(<span class="kw-2">&amp;</span>bundle.receipts, proof_of_election)<span class="question-mark">?</span>;
-        }
-
         <span class="self">Self</span>::validate_execution_receipts(<span class="kw-2">&amp;</span>bundle.receipts).map_err(BundleError::Receipt)<span class="question-mark">?</span>;
+
+        <span class="kw">if </span>proof_of_election.domain_id.is_system() {
+            <span class="kw">let </span>BundleSolution::System {
+                authority_stake_weight,
+                authority_witness,
+                proof_of_election
+            } = bundle_solution <span class="kw">else </span>{
+                <span class="macro">unreachable!</span>(<span class="string">&quot;Must be system domain bundle solution as we just checked; qed &quot;</span>)
+            };
+
+            <span class="comment">// TODO: currently, only the system bundles created on the primary fork can be
+            // prevented beforehand, the core bundles will be rejected by the system domain but
+            // they are still included on the primary chain as it&#39;s not feasible to check core bundles
+            // within this pallet, which may be solved if the `submit_bundle` extrinsic is no longer
+            // free in the future.
+            </span><span class="kw">let </span>bundle_created_on_valid_primary_block =
+                <span class="kw">match </span>pallet_receipts::PrimaryBlockHash::&lt;T&gt;::get(
+                    DomainId::SYSTEM,
+                    bundle.header.primary_number,
+                ) {
+                    <span class="prelude-val">Some</span>(block_hash) =&gt; block_hash == bundle.header.primary_hash,
+                    <span class="comment">// The `initialize_block` of non-system pallets is skipped in the `validate_transaction`,
+                    // thus the hash of best block, which is recorded in the this pallet&#39;s `on_initialize` hook,
+                    // is unavailable in pallet-receipts at this point.
+                    </span><span class="prelude-val">None </span>=&gt; frame_system::Pallet::&lt;T&gt;::parent_hash() == bundle.header.primary_hash,
+                };
+
+            <span class="kw">if </span>!bundle_created_on_valid_primary_block {
+                <span class="macro">log::debug!</span>(
+                    target: <span class="string">&quot;runtime::domains&quot;</span>,
+                    <span class="string">&quot;Bundle is probably created on a primary fork #{:?}, expected: {:?}, got: {:?}&quot;</span>,
+                    bundle.header.primary_number,
+                    pallet_receipts::PrimaryBlockHash::&lt;T&gt;::get(DomainId::SYSTEM, bundle.header.primary_number),
+                    bundle.header.primary_hash,
+                );
+                <span class="kw">return </span><span class="prelude-val">Err</span>(BundleError::UnknownBlock);
+            }
+
+            <span class="self">Self</span>::validate_system_bundle_solution(
+                <span class="kw-2">&amp;</span>bundle.receipts,
+                <span class="kw-2">*</span>authority_stake_weight,
+                authority_witness,
+                proof_of_election,
+            )<span class="question-mark">?</span>;
+
+            <span class="kw">let </span>best_number = <span class="self">Self</span>::head_receipt_number();
+            <span class="kw">let </span>max_allowed = best_number + T::MaximumReceiptDrift::get();
+
+            <span class="kw">let </span>oldest_receipt_number = <span class="self">Self</span>::oldest_receipt_number();
+
+            <span class="kw">for </span>execution_receipt <span class="kw">in </span><span class="kw-2">&amp;</span>bundle.receipts {
+                <span class="kw">let </span>primary_number = execution_receipt.primary_number;
+
+                <span class="comment">// The corresponding block info has been pruned, such expired receipts
+                // will be skipped too while applying the bundle.
+                </span><span class="kw">if </span>primary_number &lt; oldest_receipt_number {
+                    <span class="kw">continue</span>;
+                }
+
+                <span class="comment">// Due to `initialize_block` is skipped while calling the runtime api, the block
+                // hash mapping for last block is unknown to the transaction pool, but this info
+                // is already available in System.
+                </span><span class="kw">let </span>point_to_parent_block = primary_number == current_block_number - One::one()
+                    &amp;&amp; execution_receipt.primary_hash == frame_system::Pallet::&lt;T&gt;::parent_hash();
+
+                <span class="kw">let </span>point_to_valid_primary_block =
+                    pallet_receipts::Pallet::&lt;T&gt;::point_to_valid_primary_block(
+                        DomainId::SYSTEM,
+                        execution_receipt,
+                    );
+
+                <span class="kw">if </span>!point_to_parent_block &amp;&amp; !point_to_valid_primary_block {
+                    <span class="macro">log::debug!</span>(
+                        target: <span class="string">&quot;runtime::domains&quot;</span>,
+                        <span class="string">&quot;Receipt of #{primary_number:?},{:?} points to an unknown primary block, \
+                        expected: #{primary_number:?},{:?}&quot;</span>,
+                        execution_receipt.primary_hash,
+                        pallet_receipts::PrimaryBlockHash::&lt;T&gt;::get(DomainId::SYSTEM, primary_number),
+                    );
+                    <span class="kw">return </span><span class="prelude-val">Err</span>(BundleError::Receipt(ExecutionReceiptError::UnknownBlock));
+                }
+
+                <span class="comment">// Ensure the receipt is not too new.
+                </span><span class="kw">if </span>primary_number == current_block_number || primary_number &gt; max_allowed {
+                    <span class="macro">log::debug!</span>(
+                        target: <span class="string">&quot;runtime::domains&quot;</span>,
+                        <span class="string">&quot;Receipt for #{primary_number:?} is too far in future, \
+                        current_block_number: {current_block_number:?}, max_allowed: {max_allowed:?}&quot;</span>,
+                    );
+                    <span class="kw">return </span><span class="prelude-val">Err</span>(BundleError::Receipt(ExecutionReceiptError::TooFarInFuture));
+                }
+            }
+        }
 
         <span class="prelude-val">Ok</span>(())
     }
 
-    <span class="kw">fn </span>validate_fraud_proof(fraud_proof: <span class="kw-2">&amp;</span>FraudProof) -&gt; <span class="prelude-ty">Result</span>&lt;(), FraudProofError&gt; {
-        <span class="kw">let </span>(<span class="kw">_</span>, best_number) = &lt;ReceiptHead&lt;T&gt;&gt;::get();
-
-        <span class="kw">let </span>to_prove: T::BlockNumber = (fraud_proof.parent_number + <span class="number">1u32</span>).into();
-        <span class="macro">ensure!</span>(
-            to_prove &gt; best_number.saturating_sub(T::ReceiptsPruningDepth::get()),
-            FraudProofError::ExecutionReceiptPruned
-        );
-
-        <span class="macro">ensure!</span>(
-            to_prove &lt;= best_number,
-            FraudProofError::ExecutionReceiptInFuture
-        );
-
-        <span class="kw">let </span>parent_hash = T::Hash::decode(<span class="kw-2">&amp;mut </span>fraud_proof.parent_hash.encode().as_slice())
-            .map_err(|<span class="kw">_</span>| FraudProofError::WrongHashType)<span class="question-mark">?</span>;
-        <span class="kw">let </span>parent_number: T::BlockNumber = fraud_proof.parent_number.into();
-        <span class="macro">ensure!</span>(
-            BlockHash::&lt;T&gt;::get(parent_number) == parent_hash,
-            FraudProofError::UnknownBlock
-        );
-
-        <span class="comment">// TODO: prevent the spamming of fraud proof transaction.
-
-        </span><span class="prelude-val">Ok</span>(())
-    }
-
     <span class="comment">// TODO: Checks if the bundle equivocation proof is valid.
     </span><span class="kw">fn </span>validate_bundle_equivocation_proof(
-        _bundle_equivocation_proof: <span class="kw-2">&amp;</span>BundleEquivocationProof&lt;T::Hash&gt;,
+        _bundle_equivocation_proof: <span class="kw-2">&amp;</span>BundleEquivocationProof&lt;T::BlockNumber, T::Hash&gt;,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&lt;T&gt;&gt; {
         <span class="prelude-val">Ok</span>(())
     }
@@ -1623,80 +1477,6 @@
         _invalid_transaction_proof: <span class="kw-2">&amp;</span>InvalidTransactionProof,
     ) -&gt; <span class="prelude-ty">Result</span>&lt;(), Error&lt;T&gt;&gt; {
         <span class="prelude-val">Ok</span>(())
-    }
-
-    <span class="kw">fn </span>apply_new_best_receipt(
-        domain_id: DomainId,
-        execution_receipt: <span class="kw-2">&amp;</span>ExecutionReceipt&lt;T::BlockNumber, T::Hash, T::DomainHash&gt;,
-    ) {
-        <span class="kw">let </span>primary_hash = execution_receipt.primary_hash;
-        <span class="kw">let </span>primary_number = execution_receipt.primary_number;
-        <span class="kw">let </span>receipt_hash = execution_receipt.hash();
-
-        <span class="comment">// Apply the new best receipt.
-        </span>&lt;Receipts&lt;T&gt;&gt;::insert(receipt_hash, execution_receipt);
-        &lt;ReceiptHead&lt;T&gt;&gt;::put((primary_hash, primary_number));
-        &lt;ReceiptVotes&lt;T&gt;&gt;::mutate(primary_hash, receipt_hash, |count| {
-            <span class="kw-2">*</span>count += <span class="number">1</span>;
-        });
-
-        <span class="kw">if </span>!primary_number.is_zero() {
-            <span class="kw">let </span>state_root = execution_receipt
-                .trace
-                .last()
-                .expect(<span class="string">&quot;There are at least 2 elements in trace after the genesis block; qed&quot;</span>);
-
-            &lt;StateRoots&lt;T&gt;&gt;::insert(primary_number, execution_receipt.domain_hash, state_root);
-        }
-
-        <span class="comment">// Remove the expired receipts once the receipts cache is full.
-        </span><span class="kw">if let </span><span class="prelude-val">Some</span>(to_prune) = primary_number.checked_sub(<span class="kw-2">&amp;</span>T::ReceiptsPruningDepth::get()) {
-            BlockHash::&lt;T&gt;::mutate_exists(to_prune, |maybe_block_hash| {
-                <span class="kw">if let </span><span class="prelude-val">Some</span>(block_hash) = maybe_block_hash.take() {
-                    <span class="kw">for </span>(receipt_hash, <span class="kw">_</span>) <span class="kw">in </span>&lt;ReceiptVotes&lt;T&gt;&gt;::drain_prefix(block_hash) {
-                        Receipts::&lt;T&gt;::remove(receipt_hash);
-                    }
-                }
-            });
-            OldestReceiptNumber::&lt;T&gt;::put(to_prune + One::one());
-            <span class="kw">let _ </span>= &lt;StateRoots&lt;T&gt;&gt;::clear_prefix(to_prune, u32::MAX, <span class="prelude-val">None</span>);
-        }
-
-        <span class="self">Self</span>::deposit_event(Event::NewSystemDomainReceipt {
-            domain_id,
-            primary_number,
-            primary_hash,
-        });
-    }
-
-    <span class="kw">fn </span>apply_non_new_best_receipt(
-        domain_id: DomainId,
-        execution_receipt: <span class="kw-2">&amp;</span>ExecutionReceipt&lt;T::BlockNumber, T::Hash, T::DomainHash&gt;,
-    ) {
-        <span class="kw">let </span>primary_hash = execution_receipt.primary_hash;
-        <span class="kw">let </span>primary_number = execution_receipt.primary_number;
-        <span class="kw">let </span>receipt_hash = execution_receipt.hash();
-
-        <span class="comment">// Track the fork receipt if it&#39;s not seen before.
-        </span><span class="kw">if </span>!&lt;Receipts&lt;T&gt;&gt;::contains_key(receipt_hash) {
-            &lt;Receipts&lt;T&gt;&gt;::insert(receipt_hash, execution_receipt);
-            <span class="kw">if </span>!primary_number.is_zero() {
-                <span class="kw">let </span>state_root = execution_receipt
-                    .trace
-                    .last()
-                    .expect(<span class="string">&quot;There are at least 2 elements in trace after the genesis block; qed&quot;</span>);
-
-                &lt;StateRoots&lt;T&gt;&gt;::insert(primary_number, execution_receipt.domain_hash, state_root);
-            }
-            <span class="self">Self</span>::deposit_event(Event::NewSystemDomainReceipt {
-                domain_id,
-                primary_number,
-                primary_hash,
-            });
-        }
-        &lt;ReceiptVotes&lt;T&gt;&gt;::mutate(primary_hash, receipt_hash, |count| {
-            <span class="kw-2">*</span>count += <span class="number">1</span>;
-        });
     }
 }
 
@@ -1723,7 +1503,7 @@
     }
 
     <span class="doccomment">/// Submits an unsigned extrinsic [`Call::submit_fraud_proof`].
-    </span><span class="kw">pub fn </span>submit_fraud_proof_unsigned(fraud_proof: FraudProof) {
+    </span><span class="kw">pub fn </span>submit_fraud_proof_unsigned(fraud_proof: FraudProof&lt;T::BlockNumber, T::Hash&gt;) {
         <span class="kw">let </span>call = Call::submit_fraud_proof { fraud_proof };
 
         <span class="kw">match </span>SubmitTransaction::&lt;T, Call&lt;T&gt;&gt;::submit_unsigned_transaction(call.into()) {
@@ -1735,42 +1515,5 @@
             }
         }
     }
-
-    <span class="doccomment">/// Submits an unsigned extrinsic [`Call::submit_bundle_equivocation_proof`].
-    </span><span class="kw">pub fn </span>submit_bundle_equivocation_proof_unsigned(
-        bundle_equivocation_proof: BundleEquivocationProof&lt;T::Hash&gt;,
-    ) {
-        <span class="kw">let </span>call = Call::submit_bundle_equivocation_proof {
-            bundle_equivocation_proof,
-        };
-
-        <span class="kw">match </span>SubmitTransaction::&lt;T, Call&lt;T&gt;&gt;::submit_unsigned_transaction(call.into()) {
-            <span class="prelude-val">Ok</span>(()) =&gt; {
-                <span class="macro">log::info!</span>(target: <span class="string">&quot;runtime::domains&quot;</span>, <span class="string">&quot;Submitted bundle equivocation proof&quot;</span>);
-            }
-            <span class="prelude-val">Err</span>(()) =&gt; {
-                <span class="macro">log::error!</span>(target: <span class="string">&quot;runtime::domains&quot;</span>, <span class="string">&quot;Error submitting bundle equivocation proof&quot;</span>);
-            }
-        }
-    }
-
-    <span class="doccomment">/// Submits an unsigned extrinsic [`Call::submit_invalid_transaction_proof`].
-    </span><span class="kw">pub fn </span>submit_invalid_transaction_proof_unsigned(
-        invalid_transaction_proof: InvalidTransactionProof,
-    ) {
-        <span class="kw">let </span>call = Call::submit_invalid_transaction_proof {
-            invalid_transaction_proof,
-        };
-
-        <span class="kw">match </span>SubmitTransaction::&lt;T, Call&lt;T&gt;&gt;::submit_unsigned_transaction(call.into()) {
-            <span class="prelude-val">Ok</span>(()) =&gt; {
-                <span class="macro">log::info!</span>(target: <span class="string">&quot;runtime::domains&quot;</span>, <span class="string">&quot;Submitted invalid transaction proof&quot;</span>)
-            }
-            <span class="prelude-val">Err</span>(()) =&gt; {
-                <span class="macro">log::error!</span>(target: <span class="string">&quot;runtime::domains&quot;</span>, <span class="string">&quot;Error submitting invalid transaction proof&quot;</span>);
-            }
-        }
-    }
 }
-</code></pre></div>
-</section></div></main><div id="rustdoc-vars" data-root-path="../../" data-static-root-path="../../static.files/" data-current-crate="pallet_domains" data-themes="" data-resource-suffix="" data-rustdoc-version="1.67.0-nightly (a00f8ba7f 2022-11-15)" data-search-js="search-df80cc3cb87b6482.js" data-settings-js="settings-7873449fa8c00e11.js" data-settings-css="settings-af96d9e2fc13e081.css" ></div></body></html>
+</code></pre></div></section></main></body></html>
