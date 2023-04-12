@@ -75,6 +75,7 @@ use sp_session::SessionKeys;
 use sp_transaction_pool::runtime_api::TaggedTransactionQueue;
 use std::num::NonZeroUsize;
 use std::sync::{Arc, Mutex};
+use subspace_block_relay::build_consensus_relay;
 use subspace_core_primitives::crypto::kzg::{embedded_kzg_settings, Kzg};
 use subspace_fraud_proof::invalid_state_transition_proof::{
     PrePostStateRootVerifier, SystemDomainExtrinsicsBuilder,
@@ -189,6 +190,9 @@ pub struct SubspaceConfiguration {
     pub segment_publish_concurrency: NonZeroUsize,
     /// Enables DSN-sync on startup.
     pub sync_from_dsn: bool,
+    /// Use the block request handler implementation from subspace instead of
+    /// the default substrate handler.
+    pub enable_subspace_block_relay: bool,
 }
 
 struct SubspaceExtensionsFactory {
@@ -705,6 +709,11 @@ where
             import_queue,
             block_announce_validator_builder: None,
             warp_sync_params: None,
+            block_relay: Some(build_consensus_relay(
+                client.clone(),
+                transaction_pool.clone(),
+                100,
+            )),
         })?;
 
     let sync_oracle = sync_service.clone();

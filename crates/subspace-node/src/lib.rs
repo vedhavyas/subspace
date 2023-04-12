@@ -250,6 +250,11 @@ pub struct Cli {
     /// Parameters used to create the storage monitor.
     #[clap(flatten)]
     pub storage_monitor: StorageMonitorParams,
+
+    /// Use the block request handler implementation from subspace instead of
+    /// the default substrate handler.
+    #[arg(long)]
+    pub enable_subspace_block_relay: bool,
 }
 
 impl SubstrateCli for Cli {
@@ -293,6 +298,7 @@ impl SubstrateCli for Cli {
             "" | "local" => chain_spec::local_config()?,
             path => ConsensusChainSpec::from_json_file(std::path::PathBuf::from(path))?,
         };
+        println!("xxx: load_spec(): {}", id);
 
         // In case there are bootstrap nodes specified explicitly, ignore those that are in the
         // chain spec
