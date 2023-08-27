@@ -252,9 +252,9 @@ where
     Client: AuxStore,
     CClient: HeaderBackend<CBlock>,
 {
-    let not_found_error = || {
+    let not_found_error = |reason: String| {
         sp_blockchain::Error::Backend(format!(
-            "Receipt for domain block {domain_hash}#{domain_number} not found"
+            "Receipt for domain block {domain_hash}#{domain_number} not found: {reason:?}"
         ))
     };
 
@@ -266,23 +266,38 @@ where
 
     // Get the consensus block that is in the current canonical consensus chain
     let consensus_block_hash = match consensus_block_hashes.len() {
-        0 => return Err(not_found_error()),
+        0 => {
+            return Err(not_found_error(
+                "no consensus block hashes mapped to domain block".to_string(),
+            ));
+        }
         1 => consensus_block_hashes[0],
         _ => {
             let mut canonical_consensus_hash = None;
             for hash in consensus_block_hashes {
                 // Check if `hash` is in the canonical chain
-                let block_number = consensus_client.number(hash)?.ok_or_else(not_found_error)?;
-                let canonical_block_hash = consensus_client
-                    .hash(block_number)?
-                    .ok_or_else(not_found_error)?;
+                let block_number =
+                    consensus_client
+                        .number(hash)?
+                        .ok_or(not_found_error(format!(
+                            "consensus block number not found for hash[{hash:?}]"
+                        )))?;
+                let canonical_block_hash =
+                    consensus_client
+                        .hash(block_number)?
+                        .ok_or(not_found_error(format!(
+                            "canonical consensus block hash not found for number[{block_number:?}]"
+                        )))?;
 
                 if canonical_block_hash == hash {
                     canonical_consensus_hash.replace(hash);
                     break;
                 }
             }
-            canonical_consensus_hash.ok_or_else(not_found_error)?
+
+            canonical_consensus_hash.ok_or(not_found_error(
+                "canonical consensus hash not found and may not be processed yet".to_string(),
+            ))?
         }
     };
 
@@ -291,5 +306,7 @@ where
         domain_client,
         consensus_block_hash,
     )?
-    .ok_or_else(not_found_error)
+    .ok_or(not_found_error(format!(
+        "failed to load execution receipt for canonical consensus hash: {consensus_block_hash:?}"
+    )))
 }
