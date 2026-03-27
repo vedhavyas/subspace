@@ -51,6 +51,7 @@ std = [
     "domain-runtime-primitives/std",
     "frame-support/std",
     "hash-db/std",
+    "memory-db/std",
     "parity-scale-codec/std",
     "rand/std",
     "rand_chacha/std",
@@ -73,3 +74,7 @@ std = [
     "trie-db/std",
 ]
 runtime-benchmarks = []
+
+# @claude same here
+[lints]
+workspace = true

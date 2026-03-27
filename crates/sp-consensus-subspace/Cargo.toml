@@ -65,3 +65,7 @@ std = [
 ]
 
 runtime-benchmarks = []
+
+# @claude why is this required?
+[lints]
+workspace = true

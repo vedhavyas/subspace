@@ -43,8 +43,8 @@ use frame_support::storage::with_storage_layer;
 use frame_support::traits::fungible::{Inspect, Mutate};
 use frame_support::traits::tokens::{Fortitude, Precision, Preservation};
 use frame_support::traits::{
-    BeforeAllRuntimeMigrations, EnsureInherentsAreFirst, ExecuteBlock, Get, OffchainWorker,
-    OnFinalize, OnIdle, OnInitialize, OnPoll, OnRuntimeUpgrade, PostTransactions,
+    BeforeAllRuntimeMigrations, ExecuteBlock, Get, IsInherent, OffchainWorker, OnFinalize, OnIdle,
+    OnInitialize, OnPoll, OnRuntimeUpgrade, PostTransactions,
 };
 use frame_support::weights::{Weight, WeightToFee};
 use frame_system::pallet_prelude::*;
@@ -97,8 +97,7 @@ mod pallet {
     use sp_executive::{INHERENT_IDENTIFIER, InherentError, InherentType};
 
     #[pallet::config]
-    pub trait Config: frame_system::Config {
-        type RuntimeEvent: From<Event<Self>> + IsType<<Self as frame_system::Config>::RuntimeEvent>;
+    pub trait Config: frame_system::Config<RuntimeEvent: From<Event<Self>>> {
         type WeightInfo: WeightInfo;
         type Currency: Mutate<Self::AccountId>;
         type LengthToFee: WeightToFee<Balance = BalanceOf<Self>>;
@@ -209,7 +208,7 @@ pub struct Executive<
 );
 
 impl<
-    ExecutiveConfig: Config + frame_system::Config + EnsureInherentsAreFirst<BlockOf<ExecutiveConfig>>,
+    ExecutiveConfig: Config + frame_system::Config + IsInherent<ExtrinsicOf<ExecutiveConfig>>,
     Context: Default,
     UnsignedValidator,
     AllPalletsWithSystem: OnRuntimeUpgrade
@@ -248,7 +247,7 @@ where
 }
 
 impl<
-    ExecutiveConfig: Config + frame_system::Config + EnsureInherentsAreFirst<BlockOf<ExecutiveConfig>>,
+    ExecutiveConfig: Config + frame_system::Config + IsInherent<ExtrinsicOf<ExecutiveConfig>>,
     Context: Default,
     UnsignedValidator,
     AllPalletsWithSystem: OnRuntimeUpgrade
@@ -315,10 +314,17 @@ where
             "Parent hash should be valid.",
         );
 
-        match ExecutiveConfig::ensure_inherents_are_first(block) {
-            Ok(num) => num,
-            Err(i) => panic!("Invalid inherent position for extrinsic at index {i}"),
+        // Count inherents and verify they come first
+        let mut num_inherents = 0u32;
+        for (i, xt) in block.extrinsics().iter().enumerate() {
+            if ExecutiveConfig::is_inherent(xt) {
+                if i as u32 != num_inherents {
+                    panic!("Invalid inherent position for extrinsic at index {i}");
+                }
+                num_inherents += 1;
+            }
         }
+        num_inherents
     }
 
     /// Wrapped `frame_executive::Executive::execute_block`.
