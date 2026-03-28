@@ -3,3 +3,4 @@
 /target
 /test/subspace-test-fuzzer/target
 /test/subspace-test-fuzzer/output
+.envrc
