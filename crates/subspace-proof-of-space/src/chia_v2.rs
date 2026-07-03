@@ -5,7 +5,10 @@
 
 use crate::chia::ChiaTable;
 use crate::{PosTableType, Table, TableGenerator};
-use ab_proof_of_space::chiapos::{Tables, TablesCache};
+use ab_core_primitives::sectors::SBucket;
+use ab_proof_of_space::chiapos::{Proofs, Tables, TablesCache};
+use alloc::boxed::Box;
+use core::fmt;
 use subspace_core_primitives::pos::{PosProof, PosSeed};
 use subspace_core_primitives::solutions::SolutionPotVerifier;
 
@@ -22,14 +25,14 @@ pub struct ChiaV2TableGenerator {
 impl TableGenerator<ChiaV2Table> for ChiaV2TableGenerator {
     fn generate(&self, seed: &PosSeed) -> ChiaV2Table {
         ChiaV2Table {
-            tables: Tables::<K>::create((*seed).into(), &self.tables_cache),
+            proofs: Tables::<K>::create_proofs::<true>((*seed).into(), &self.tables_cache),
         }
     }
 
     #[cfg(feature = "parallel")]
     fn generate_parallel(&self, seed: &PosSeed) -> ChiaV2Table {
         ChiaV2Table {
-            tables: Tables::<K>::create_parallel((*seed).into(), &self.tables_cache),
+            proofs: Tables::<K>::create_proofs_parallel::<true>((*seed).into(), &self.tables_cache),
         }
     }
 }
@@ -37,9 +40,14 @@ impl TableGenerator<ChiaV2Table> for ChiaV2TableGenerator {
 /// Proof of space table.
 ///
 /// Chia implementation.
-#[derive(Debug)]
 pub struct ChiaV2Table {
-    tables: Tables<K>,
+    proofs: Box<Proofs<K>>,
+}
+
+impl fmt::Debug for ChiaV2Table {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        f.debug_struct("ChiaV2Table").finish_non_exhaustive()
+    }
 }
 
 impl SolutionPotVerifier for ChiaV2Table {
@@ -53,9 +61,8 @@ impl Table for ChiaV2Table {
     type Generator = ChiaV2TableGenerator;
 
     fn find_proof(&self, challenge_index: u32) -> Option<PosProof> {
-        self.tables
-            .find_proof(challenge_index.to_le_bytes())
-            .next()
+        self.proofs
+            .for_s_bucket(SBucket::from(challenge_index as u16))
             .map(PosProof::from)
     }
 

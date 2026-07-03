@@ -19,6 +19,7 @@ bench = false
 
 [dependencies]
 ab-chacha8.workspace = true
+ab-core-primitives = { workspace = true, optional = true }
 ab-proof-of-space = { workspace = true, optional = true }
 blake3 = { workspace = true, default-features = false }
 chacha20 = { workspace = true, features = ["cipher"], optional = true }
@@ -45,6 +46,7 @@ default = []
 alloc = [
     "dep:chacha20",
     "dep:seq-macro",
+    "dep:ab-core-primitives",
     "dep:ab-proof-of-space",
     "ab-proof-of-space/alloc",
     "ab-proof-of-space/full-chiapos",
