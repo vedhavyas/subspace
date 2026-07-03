@@ -15,7 +15,7 @@ dependencies = [
 [[package]]
 name = "ab-blake3"
 version = "0.1.0"
-source = "git+https://github.com/vedhavyas/abundance?rev=834512648755f40a2aa0dc7d4fc44c66e2c3fa47#834512648755f40a2aa0dc7d4fc44c66e2c3fa47"
+source = "git+https://github.com/vedhavyas/abundance?rev=6d5c97150b639a8fae80683b180b84c11453545e#6d5c97150b639a8fae80683b180b84c11453545e"
 dependencies = [
  "blake3",
 ]
@@ -29,12 +29,12 @@ checksum = "78928d0e8969c1b539a98de5cf3a678d136f160415c765f3f4c464b5eee39976"
 [[package]]
 name = "ab-chacha8"
 version = "0.1.0"
-source = "git+https://github.com/vedhavyas/abundance?rev=834512648755f40a2aa0dc7d4fc44c66e2c3fa47#834512648755f40a2aa0dc7d4fc44c66e2c3fa47"
+source = "git+https://github.com/vedhavyas/abundance?rev=6d5c97150b639a8fae80683b180b84c11453545e#6d5c97150b639a8fae80683b180b84c11453545e"
 
 [[package]]
 name = "ab-core-primitives"
 version = "0.1.0"
-source = "git+https://github.com/vedhavyas/abundance?rev=834512648755f40a2aa0dc7d4fc44c66e2c3fa47#834512648755f40a2aa0dc7d4fc44c66e2c3fa47"
+source = "git+https://github.com/vedhavyas/abundance?rev=6d5c97150b639a8fae80683b180b84c11453545e#6d5c97150b639a8fae80683b180b84c11453545e"
 dependencies = [
  "ab-blake3",
  "ab-io-type",
@@ -54,7 +54,7 @@ dependencies = [
 [[package]]
 name = "ab-io-type"
 version = "0.1.0"
-source = "git+https://github.com/vedhavyas/abundance?rev=834512648755f40a2aa0dc7d4fc44c66e2c3fa47#834512648755f40a2aa0dc7d4fc44c66e2c3fa47"
+source = "git+https://github.com/vedhavyas/abundance?rev=6d5c97150b639a8fae80683b180b84c11453545e#6d5c97150b639a8fae80683b180b84c11453545e"
 dependencies = [
  "ab-io-type-derive",
 ]
@@ -62,7 +62,7 @@ dependencies = [
 [[package]]
 name = "ab-io-type-derive"
 version = "0.1.0"
-source = "git+https://github.com/vedhavyas/abundance?rev=834512648755f40a2aa0dc7d4fc44c66e2c3fa47#834512648755f40a2aa0dc7d4fc44c66e2c3fa47"
+source = "git+https://github.com/vedhavyas/abundance?rev=6d5c97150b639a8fae80683b180b84c11453545e#6d5c97150b639a8fae80683b180b84c11453545e"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -72,7 +72,7 @@ dependencies = [
 [[package]]
 name = "ab-merkle-tree"
 version = "0.1.0"
-source = "git+https://github.com/vedhavyas/abundance?rev=834512648755f40a2aa0dc7d4fc44c66e2c3fa47#834512648755f40a2aa0dc7d4fc44c66e2c3fa47"
+source = "git+https://github.com/vedhavyas/abundance?rev=6d5c97150b639a8fae80683b180b84c11453545e#6d5c97150b639a8fae80683b180b84c11453545e"
 dependencies = [
  "ab-blake3",
 ]
@@ -80,10 +80,10 @@ dependencies = [
 [[package]]
 name = "ab-proof-of-space"
 version = "0.1.0"
-source = "git+https://github.com/vedhavyas/abundance?rev=834512648755f40a2aa0dc7d4fc44c66e2c3fa47#834512648755f40a2aa0dc7d4fc44c66e2c3fa47"
+source = "git+https://github.com/vedhavyas/abundance?rev=6d5c97150b639a8fae80683b180b84c11453545e#6d5c97150b639a8fae80683b180b84c11453545e"
 dependencies = [
  "ab-blake3",
- "ab-chacha8 0.1.0 (git+https://github.com/vedhavyas/abundance?rev=834512648755f40a2aa0dc7d4fc44c66e2c3fa47)",
+ "ab-chacha8 0.1.0 (git+https://github.com/vedhavyas/abundance?rev=6d5c97150b639a8fae80683b180b84c11453545e)",
  "ab-core-primitives",
  "chacha20 0.10.1",
  "derive_more 2.1.1",
@@ -96,10 +96,10 @@ dependencies = [
 [[package]]
 name = "ab-proof-of-space-gpu"
 version = "0.1.0"
-source = "git+https://github.com/vedhavyas/abundance?rev=834512648755f40a2aa0dc7d4fc44c66e2c3fa47#834512648755f40a2aa0dc7d4fc44c66e2c3fa47"
+source = "git+https://github.com/vedhavyas/abundance?rev=6d5c97150b639a8fae80683b180b84c11453545e#6d5c97150b639a8fae80683b180b84c11453545e"
 dependencies = [
  "ab-blake3",
- "ab-chacha8 0.1.0 (git+https://github.com/vedhavyas/abundance?rev=834512648755f40a2aa0dc7d4fc44c66e2c3fa47)",
+ "ab-chacha8 0.1.0 (git+https://github.com/vedhavyas/abundance?rev=6d5c97150b639a8fae80683b180b84c11453545e)",
  "ab-core-primitives",
  "ab-proof-of-space",
  "anyhow",
@@ -14849,6 +14849,7 @@ dependencies = [
  "subspace-erasure-coding",
  "subspace-kzg",
  "subspace-proof-of-space",
+ "subspace-proof-of-space-wgpu",
  "subspace-verification",
  "thiserror 2.0.18",
  "tokio",

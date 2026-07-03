@@ -453,6 +453,6 @@ libp2p-identity = { git = "https://github.com/autonomys/rust-libp2p", rev = "676
 # Point the abundance dependencies at my fork for review; revert to an upstream nazar-pc rev once
 # these abundance changes are merged.
 [patch."https://github.com/nazar-pc/abundance"]
-ab-core-primitives = { git = "https://github.com/vedhavyas/abundance", rev = "834512648755f40a2aa0dc7d4fc44c66e2c3fa47" }
-ab-proof-of-space = { git = "https://github.com/vedhavyas/abundance", rev = "834512648755f40a2aa0dc7d4fc44c66e2c3fa47" }
-ab-proof-of-space-gpu = { git = "https://github.com/vedhavyas/abundance", rev = "834512648755f40a2aa0dc7d4fc44c66e2c3fa47" }
+ab-core-primitives = { git = "https://github.com/vedhavyas/abundance", rev = "6d5c97150b639a8fae80683b180b84c11453545e" }
+ab-proof-of-space = { git = "https://github.com/vedhavyas/abundance", rev = "6d5c97150b639a8fae80683b180b84c11453545e" }
+ab-proof-of-space-gpu = { git = "https://github.com/vedhavyas/abundance", rev = "6d5c97150b639a8fae80683b180b84c11453545e" }
