@@ -1,0 +1,28 @@
+[package]
+name = "subspace-proof-of-space-wgpu"
+description = "Subspace proof of space plotting for GPU via wgpu (Vulkan/Metal)"
+license = "0BSD"
+version = "0.1.0"
+edition.workspace = true
+include = [
+    "/src",
+    "/build.rs",
+    "/Cargo.toml",
+]
+
+[lints.rust]
+# `spirv` is the rust-gpu target this crate compiles to, unknown to rustc's built-in cfg checking
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(target_arch, values("spirv"))'] }
+
+[dependencies]
+ab-proof-of-space-gpu = { workspace = true }
+spirv-std = { version = "=0.10.0-alpha.1", git = "https://github.com/Rust-GPU/rust-gpu", rev = "bd49568baf08301107c9f698494735724980dee0" }
+
+[target.'cfg(not(target_arch = "spirv"))'.dependencies]
+subspace-core-primitives = { workspace = true }
+subspace-erasure-coding = { workspace = true }
+subspace-kzg = { workspace = true }
+wgpu = { version = "29.0.3", default-features = false, features = ["metal", "parking_lot", "spirv", "std", "vulkan"] }
+
+[build-dependencies]
+cargo-gpu-install = { version = "=0.10.0-alpha.1", git = "https://github.com/Rust-GPU/rust-gpu", rev = "bd49568baf08301107c9f698494735724980dee0" }

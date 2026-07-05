@@ -32,6 +32,7 @@ members = [
 ab-chacha8 = "0.1.0"
 ab-core-primitives = { git = "https://github.com/nazar-pc/abundance", rev = "fc8da9992575a3b33ea9c5c764ea71f926f4592e", default-features = false }
 ab-proof-of-space = { git = "https://github.com/nazar-pc/abundance", rev = "fc8da9992575a3b33ea9c5c764ea71f926f4592e", default-features = false }
+ab-proof-of-space-gpu = { git = "https://github.com/nazar-pc/abundance", rev = "fc8da9992575a3b33ea9c5c764ea71f926f4592e", default-features = false }
 actix-web = { version = "4.9.0", default-features = false }
 aes = "0.9.0"
 anyhow = "1.0.89"
@@ -278,6 +279,7 @@ subspace-networking = { version = "0.1.0", path = "crates/subspace-networking" }
 subspace-process = { version = "0.0.1", path = "shared/subspace-process" }
 subspace-proof-of-space = { version = "0.1.0", path = "crates/subspace-proof-of-space", default-features = false }
 subspace-proof-of-space-gpu = { version = "0.1.0", path = "shared/subspace-proof-of-space-gpu" }
+subspace-proof-of-space-wgpu = { version = "0.1.0", path = "shared/subspace-proof-of-space-wgpu" }
 subspace-proof-of-time = { version = "0.1.0", path = "crates/subspace-proof-of-time" }
 subspace-rpc-primitives = { version = "0.1.0", path = "crates/subspace-rpc-primitives" }
 subspace-runtime = { version = "0.1.0", path = "crates/subspace-runtime" }
@@ -451,3 +453,4 @@ libp2p-identity = { git = "https://github.com/autonomys/rust-libp2p", rev = "676
 [patch."https://github.com/nazar-pc/abundance"]
 ab-core-primitives = { git = "https://github.com/vedhavyas/abundance", rev = "b8e01b4f822347d91215aee65490ea66414274e2" }
 ab-proof-of-space = { git = "https://github.com/vedhavyas/abundance", rev = "b8e01b4f822347d91215aee65490ea66414274e2" }
+ab-proof-of-space-gpu = { git = "https://github.com/vedhavyas/abundance", rev = "b8e01b4f822347d91215aee65490ea66414274e2" }
