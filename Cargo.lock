@@ -5782,15 +5782,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "home"
-version = "0.5.12"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cc627f471c528ff0c4a49e1d5e60450c8f6461dd6d10ba9dcd3a61d3dff7728d"
-dependencies = [
- "windows-sys 0.61.2",
-]
-
-[[package]]
 name = "http"
 version = "0.2.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -14451,15 +14442,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "sppark"
-version = "0.1.8"
-source = "git+https://github.com/autonomys/sppark?rev=b2a181eb99c8200f1a604f04122551ea39fbf63f#b2a181eb99c8200f1a604f04122551ea39fbf63f"
-dependencies = [
- "cc",
- "which",
-]
-
-[[package]]
 name = "ss58-registry"
 version = "1.51.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -14808,7 +14790,6 @@ dependencies = [
  "subspace-networking",
  "subspace-process",
  "subspace-proof-of-space",
- "subspace-proof-of-space-gpu",
  "subspace-proof-of-space-wgpu",
  "subspace-rpc-primitives",
  "subspace-verification",
@@ -14849,6 +14830,7 @@ dependencies = [
  "subspace-erasure-coding",
  "subspace-kzg",
  "subspace-proof-of-space",
+ "subspace-proof-of-space-wgpu",
  "subspace-verification",
  "thiserror 2.0.18",
  "tokio",
@@ -15142,21 +15124,6 @@ dependencies = [
  "seq-macro",
  "sha2 0.11.0",
  "subspace-core-primitives",
-]
-
-[[package]]
-name = "subspace-proof-of-space-gpu"
-version = "0.1.0"
-dependencies = [
- "blst",
- "cc",
- "rust-kzg-blst",
- "sppark",
- "subspace-core-primitives",
- "subspace-erasure-coding",
- "subspace-farmer-components",
- "subspace-kzg",
- "subspace-proof-of-space",
 ]
 
 [[package]]
@@ -17674,18 +17641,6 @@ dependencies = [
  "log",
  "raw-window-handle",
  "web-sys",
-]
-
-[[package]]
-name = "which"
-version = "4.4.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "87ba24419a2078cd2b0f2ede2691b6c66d8e47836da3b6db8265ebad47afbfc7"
-dependencies = [
- "either",
- "home",
- "once_cell",
- "rustix 0.38.44",
 ]
 
 [[package]]
